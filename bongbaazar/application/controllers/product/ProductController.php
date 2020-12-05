@@ -192,6 +192,7 @@ class ProductController extends CI_Controller
           }
           $color3=rtrim($color2, ",");
           $this->data['color']=$text1;
+          $this->data1['color']=$color;
           $where .= "color IN (".$color3.") AND ";
         }
 
@@ -204,6 +205,8 @@ class ProductController extends CI_Controller
           }
           $size3=rtrim($size2, ",");
           $this->data['size']=$text2;
+          $this->data1['size']=$size;
+
           $where .= "size IN (".$size3.") AND ";
         }
 
@@ -216,6 +219,7 @@ class ProductController extends CI_Controller
           }
           $brand3=rtrim($brand2, ",");
           $this->data['brand']=$text3;
+          $this->data1['brand']=$brand;
           $where .= "brand_name IN (".$brand3.") AND ";
         }
 
@@ -270,7 +274,7 @@ class ProductController extends CI_Controller
         $this->load->library('pagination');
 
     	$config=[
-        'base_url'=>base_url('category-all-product/') .$child_category_id."?".http_build_query($this->data),
+        'base_url'=>base_url('category-all-product/') .$child_category_id."?".http_build_query($this->data1),
         'per_page'=>$limit,
         'total_rows'=>$total_rows,
        
