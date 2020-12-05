@@ -354,41 +354,7 @@ class ProductController extends CI_Controller
                     <input class="aks-input comon_selector color" type="checkbox" id="checkbox" name="checkbox" value="'.$find_by_color_row->uniqcode.'">
                     <label class="aks-input-label" for="checkbox">'.$find_by_color_row->color_name.'</label>
                   </div>
-                </li>
-                <script>
-                    $(".comon_selector").click(function()
-                      {
-                        var color=get_filter("color");
-                        var size=get_filter("size");
-                        var brand=get_filter("brand");
-                        console.log(color);
-                        console.log(size);
-                        console.log(brand);
-                        //  $.ajax({
-                        //     url     : "<?php echo base_url(); ?>Filter/getAll",
-                        //     method  : "POST",
-                        //     //dataType:"json",
-                        //     data: { action:action,Edu:Education,Ind:Industry},
-                        //     success: function(data) 
-                        //     {
-                        //       console.log(data);
-                        //        $(".filter_data").html(data);
-                        //     }
-                        // });
-                      });
-
-
-                      function get_filter(class_name)
-                      {
-                          var filter=[];
-                          $("."+class_name+":checked").each(function(){
-                              filter.push($(this).val());
-                          });
-                          //console.log(filter);
-                          return filter;
-                      }
-                </script>
-                ';
+                </li>';
         }   
     }
 
@@ -406,40 +372,7 @@ class ProductController extends CI_Controller
                     <input class="aks-input comon_selector size" type="checkbox" id="checkbox" name="checkbox" value="'.$find_by_size_row->uniqcode.'">
                     <label class="aks-input-label" for="checkbox">'.$find_by_size_row->size_name.'</label>
                   </div>
-                </li>
-                <script>
-                    $(".comon_selector").click(function()
-                      {
-                        var color=get_filter("color");
-                        var size=get_filter("size");
-                        var brand=get_filter("brand");
-                        console.log(color);
-                        console.log(size);
-                        console.log(brand);
-                        //  $.ajax({
-                        //     url     : "<?php echo base_url(); ?>Filter/getAll",
-                        //     method  : "POST",
-                        //     //dataType:"json",
-                        //     data: { action:action,Edu:Education,Ind:Industry},
-                        //     success: function(data) 
-                        //     {
-                        //       console.log(data);
-                        //        $(".filter_data").html(data);
-                        //     }
-                        // });
-                      });
-
-
-                      function get_filter(class_name)
-                      {
-                          var filter=[];
-                          $("."+class_name+":checked").each(function(){
-                              filter.push($(this).val());
-                          });
-                          //console.log(filter);
-                          return filter;
-                      }
-                </script>';
+                </li>';
         }
     }
     public function productBrand()
@@ -456,40 +389,7 @@ class ProductController extends CI_Controller
                     <input class="aks-input comon_selector brand" type="checkbox" id="checkbox" name="checkbox" value="'.$find_by_brand_row->brand_name.'">
                     <label class="aks-input-label" for="checkbox">'.$find_by_brand_row->brand_name.'</label>
                   </div>
-                </li>
-                <script>
-                    $(".comon_selector").click(function()
-                      {
-                        var color=get_filter("color");
-                        var size=get_filter("size");
-                        var brand=get_filter("brand");
-                        console.log(color);
-                        console.log(size);
-                        console.log(brand);
-                        //  $.ajax({
-                        //     url     : "<?php echo base_url(); ?>Filter/getAll",
-                        //     method  : "POST",
-                        //     //dataType:"json",
-                        //     data: { action:action,Edu:Education,Ind:Industry},
-                        //     success: function(data) 
-                        //     {
-                        //       console.log(data);
-                        //        $(".filter_data").html(data);
-                        //     }
-                        // });
-                      });
-
-
-                      function get_filter(class_name)
-                      {
-                          var filter=[];
-                          $("."+class_name+":checked").each(function(){
-                              filter.push($(this).val());
-                          });
-                          //console.log(filter);
-                          return filter;
-                      }
-                </script>';
+                </li>';
         }
     }
 

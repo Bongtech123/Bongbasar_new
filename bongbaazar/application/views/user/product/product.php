@@ -1,4 +1,4 @@
-<!-- <input type="hidden" name="child_category_id" id="child_category_id" value="<?=$child_category_id?>"> -->
+<input type="hidden" name="child_category_id" id="child_category_id" value="<?=$child_category_id?>">
 <!----------Side filter bar start---------- -->
       <div id="wrapper">
     

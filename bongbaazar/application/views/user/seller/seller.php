@@ -1,5 +1,6 @@
-
+<input type="hidden" name="admin_id" id="admin_id" value="<?=$admin_id?>">
     <!-- --------------Seller head view start-------------- -->
+    <input type="hidden" />
         <section id="seller-view">
             <div class="seller-view">
                 <div class="seller-header">
@@ -54,192 +55,92 @@
           <ul class="sidebar-nav">
             <div class="narrowchart">
               <div id="accordion">
-                <div class="accordianheader">
+              <div class="accordianheader" >
                   <p>
-                    Clothing and Accessories 
-                    <i class="fa fa-angle-down"></i>
-                  </p>
+                    Color <i class="fa fa-angle-down"></i></p>
                 </div>
-                <div class="accordianbody">
-                  <ul>
-                    <li>
-                      <a href="#">Winter wear</a>
-                    </li>
-                    <li>
-                      <a href="#"> Topwear</a>
-                    </li>
-                    <li>
-                      <a href="#"> Bottomwear</a>
-                    </li>
-                    <li>
-                      <a href="#"> Raincots</a>
-                    </li>
-                    <li>
-                      <a href="#"> Dresses and Gowns</a>
-                    </li>
-                    <li class="more-options">
-                      <span class="more-btn openClose">+ 1887 MORE</span>
-                      <div class="more-files-directory">
-                        <div class="directory-head">
-                          <div class="search-field">
-                            <input type="text" placeholder="Search...." name="">
-                            <button type="submit" class="searchButton">
-                              <i class="fa fa-search"></i>
-                           </button>
-                          </div>
-                          <div class="close-option openClose">
-                            X
-                          </div>
-                        </div>
-                        <div class="directory-body">
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          
-                        </div>
-                        <div class="directory-footer">
-                          
-                        </div>
+                <div class="accordianbody" >
+                  <ul> 
+                    <li class="search-in-box">
+                      <div class="search-bar">
+                        <input id="admin_search_text_color" class="searchbar" type="text" placeholder="Search...">
+                        <a id="btnSearch" class="btn-search"><i class="fa fa-search"></i></a>
                       </div>
                     </li>
-                  </ul>
-                </div>
-                <div class="accordianheader">
-                  <p>
-                    Handbag
-                    <i class="fa fa-angle-down"></i>
-                  </p>
-                </div>
-                <div class="accordianbody">
-                  <ul>
                     <li>
-                      <a href="#">Winter wear</a>
-                    </li>
-                    <li>
-                      <a href="#"> Topwear</a>
-                    </li>
-                    <li>
-                      <a href="#"> Bottomwear</a>
-                    </li>
-                    <li>
-                      <a href="#"> Raincots</a>
-                    </li>
-                    <li>
-                      <a href="#"> Dresses and Gowns</a>
+                      <ul class="navSearchItem" id="filterColor">
+                        <?php foreach($find_by_color as $find_by_color_row){?>
+                        <li>
+                          <div class="aks-input-wrap">
+                            <input class="aks-input comon_selector color" type="checkbox" id="checkbox" name="checkbox" value="<?=$find_by_color_row->uniqcode ;?>" onclick="shortByColor()" <?php if(in_array($find_by_color_row->uniqcode,@$color)){
+                              echo 'checked';
+                            } ?>>
+                            <label class="aks-input-label" for="checkbox"><?=$find_by_color_row->color_name ;?></label>
+                          </div>
+                        </li>
+                        <?php }?>
+                      </ul>
                     </li>
                   </ul>
                 </div>
+
                 <div class="accordianheader">
                   <p>
-                    Shoes
-                    <i class="fa fa-angle-down"></i>
-                  </p>
+                    Size <i class="fa fa-angle-down"></i></p>
                 </div>
                 <div class="accordianbody">
-                  <ul>
-                    <li>
-                      <a href="#">Winter wear</a>
+                  <ul> 
+                    <li class="search-in-box">
+                      <div class="search-bar">
+                        <input id="admin_search_text_size" class="searchbar" type="text" placeholder="Search...">
+                        <a id="btnSearch" class="btn-search"><i class="fa fa-search"></i></a>
+                      </div>
                     </li>
                     <li>
-                      <a href="#"> Topwear</a>
-                    </li>
-                    <li>
-                      <a href="#"> Bottomwear</a>
-                    </li>
-                    <li>
-                      <a href="#"> Raincots</a>
-                    </li>
-                    <li>
-                      <a href="#"> Dresses and Gowns</a>
+                      <ul class="navSearchItem" id="filterSize">
+                        <?php foreach($find_by_size as $find_by_size_row){?>
+                        <li>
+                          <div class="aks-input-wrap">
+                            <input class="aks-input comon_selector size" type="checkbox" id="checkbox" name="checkbox" value="<?=$find_by_size_row->uniqcode ;?>" onclick="shortBySize()" <?php if(in_array($find_by_size_row->uniqcode,@$size)){
+                              echo 'checked';
+                            } ?>>
+                            <label class="aks-input-label" for="checkbox"><?=$find_by_size_row->size_name ;?></label>
+                          </div>
+                        </li>
+                        <?php }?>
+                      </ul>
                     </li>
                   </ul>
                 </div>
+
                 <div class="accordianheader">
                   <p>
-                    Mobile 
-                    <i class="fa fa-angle-down"></i>
-                  </p>
+                    Brand <i class="fa fa-angle-down"></i></p>
                 </div>
                 <div class="accordianbody">
-                  <ul>
-                    <li>
-                      <a href="#">Winter wear</a>
+                  <ul> 
+                    <li class="search-in-box">
+                      <div class="search-bar">
+                        <input id="admin_search_text_brand" class="searchbar" type="text" placeholder="Search...">
+                        <a id="btnSearch" class="btn-search"><i class="fa fa-search"></i></a>
+                      </div>
                     </li>
                     <li>
-                      <a href="#"> Topwear</a>
+                      <ul class="navSearchItem" id="filterBrand">
+                        <?php foreach($find_by_brand as $find_by_brand_row){?>
+                        <li>
+                          <div class="aks-input-wrap">
+                            <input class="aks-input comon_selector brand" type="checkbox" id="checkbox" name="checkbox" value="<?=$find_by_brand_row->brand_name ;?>" onclick="shortByBrand()" <?php if(in_array($find_by_brand_row->brand_name,@$brand)){
+                              echo 'checked';
+                            } ?>>
+                            <label class="aks-input-label" for="checkbox"><?=$find_by_brand_row->brand_name ;?></label>
+                          </div>
+                        </li>
+                        <?php }?>
+                      </ul>
                     </li>
-                    <li>
-                      <a href="#"> Bottomwear</a>
-                    </li>
-                    <li>
-                      <a href="#"> Raincots</a>
-                    </li>
-                    <li>
-                      <a href="#"> Dresses and Gowns</a>
-                    </li>
+                   
+               
                   </ul>
                 </div>
               </div>

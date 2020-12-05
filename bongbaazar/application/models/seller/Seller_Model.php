@@ -166,4 +166,112 @@ class Seller_Model extends CI_Model
         //die;
     }
 
+    public function find_by_color($admin_id)
+    {
+        $this->db->select('tbl_color.color_name,tbl_color.uniqcode');
+        $this->db->from('view_products');
+        $this->db->join('tbl_color','tbl_color.uniqcode=view_products.color', 'left');
+        $this->db->where('tbl_color.status', 'Active');
+        $this->db->where('view_products.status', 'Active');
+        $this->db->where('view_products.super_admin_status', 'Active');
+        $this->db->where('view_products.admin_status', 'Active');
+        $this->db->where('view_products.super_admin_product_status','Active');
+        $this->db->where('view_products.admin_product_status','Active');
+        $this->db->where('view_products.admin_id', $admin_id);
+        $this->db->group_by('view_products.color');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function find_by_size($admin_id)
+    {
+        $this->db->select('tbl_size.size_name,tbl_size.uniqcode');
+        $this->db->from('view_products');
+        $this->db->join('tbl_size','tbl_size.uniqcode=view_products.size', 'inner');
+        $this->db->where('tbl_size.status', 'Active');
+        $this->db->where('view_products.status', 'Active');
+        $this->db->where('view_products.super_admin_status', 'Active');
+        $this->db->where('view_products.admin_status', 'Active');
+        $this->db->where('view_products.super_admin_product_status','Active');
+        $this->db->where('view_products.admin_product_status','Active');
+        $this->db->where('view_products.admin_id', $admin_id);
+        $this->db->group_by('view_products.size');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function find_by_brand($admin_id)
+    {
+        $this->db->select('brand_name');
+        $this->db->from('view_products');
+        $this->db->where('status', 'Active');
+        $this->db->where('super_admin_status', 'Active');
+        $this->db->where('admin_status', 'Active');
+        $this->db->where('super_admin_product_status','Active');
+        $this->db->where('admin_product_status','Active');
+        $this->db->where('admin_id', $admin_id);
+        $this->db->group_by('brand_name');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+   
+
+    public function find_by_admin_id_color($admin_id,$color)
+    {
+        $this->db->select('tbl_color.color_name,tbl_color.uniqcode');
+        $this->db->from('view_products');
+        $this->db->join('tbl_color','tbl_color.uniqcode=view_products.color', 'left');
+        $this->db->where('tbl_color.status', 'Active');
+        $this->db->where('view_products.status', 'Active');
+        $this->db->where('view_products.super_admin_status', 'Active');
+        $this->db->where('view_products.admin_status', 'Active');
+        $this->db->where('view_products.super_admin_product_status','Active');
+        $this->db->where('view_products.admin_product_status','Active');
+        $this->db->where('view_products.admin_id', $admin_id);
+        $this->db->group_start();
+        $this->db->like('tbl_color.color_name',$color, 'both');
+        $this->db->group_end();
+        $this->db->group_by('view_products.color');
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function find_by_admin_id_size($admin_id,$size)
+    {
+        $this->db->select('tbl_size.size_name,tbl_size.uniqcode');
+        $this->db->from('view_products');
+        $this->db->join('tbl_size','tbl_size.uniqcode=view_products.size', 'inner');
+        $this->db->where('tbl_size.status', 'Active');
+        $this->db->where('view_products.status', 'Active');
+        $this->db->where('view_products.super_admin_status', 'Active');
+        $this->db->where('view_products.admin_status', 'Active');
+        $this->db->where('view_products.super_admin_product_status','Active');
+        $this->db->where('view_products.admin_product_status','Active');
+        $this->db->where('view_products.admin_id', $admin_id);
+        $this->db->group_start();
+        $this->db->like('tbl_size.size_name',$size, 'both');
+        $this->db->group_end();
+        $this->db->group_by('view_products.size');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function find_by_admin_id_brand($admin_id,$brand)
+    {
+        $this->db->select('brand_name');
+        $this->db->from('view_products');
+        $this->db->where('status', 'Active');
+        $this->db->where('super_admin_status', 'Active');
+        $this->db->where('admin_status', 'Active');
+        $this->db->where('super_admin_product_status','Active');
+        $this->db->where('admin_product_status','Active');
+        $this->db->where('admin_id', $admin_id);
+        $this->db->group_start();
+        $this->db->like('brand_name',$brand, 'both');
+        $this->db->group_end();
+        $this->db->group_by('brand_name');
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

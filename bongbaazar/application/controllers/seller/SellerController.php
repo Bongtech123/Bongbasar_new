@@ -33,14 +33,18 @@ class SellerController extends CI_Controller
 	{
 		// echo $admin_id;
 		// die;
-	
+		
 		$this->data['page_title']='Bongbazaar | seller';
 		//$this->data['menu_lebel'] = $this->Home_Model->get_categories();
 		$this->data['seller_all_product'] = $this->Seller_Model->admin_all_product($admin_id);
 		$this->data['shop_details']=$this->Seller_Model->shop_image($admin_id);
 		//$this->data['shop_filter_data']=$this->Seller_Model->seller_filter_data($id);
+		$this->data['find_by_color']=$this->Seller_Model->find_by_color($admin_id);
+		$this->data['find_by_size']=$this->Seller_Model->find_by_size($admin_id);
+		$this->data['find_by_brand']=$this->Seller_Model->find_by_brand($admin_id);
+		 $this->data['admin_id']=$admin_id;
 		$this->data['subview']='seller/seller';
-		//pr($this->data);
+		
 		$this->load->view('user/layout/default', $this->data);
 	}
 
@@ -215,6 +219,58 @@ class SellerController extends CI_Controller
 	    {
 	    	echo 'empty';
 	    }
+	}
+	public function productColor()
+    {
+        $admin_id=$this->input->post('admin_id');
+        $color=$this->input->post('color');
+        $find_by_color=$this->Seller_Model->find_by_admin_id_color($admin_id,$color);
+        //pr($find_by_color);
+
+        foreach ($find_by_color as $key => $find_by_color_row) 
+        {
+            echo '<li>
+                  <div class="aks-input-wrap">
+                    <input class="aks-input comon_selector color" type="checkbox" id="checkbox" name="checkbox" value="'.$find_by_color_row->uniqcode.'">
+                    <label class="aks-input-label" for="checkbox">'.$find_by_color_row->color_name.'</label>
+                  </div>
+                </li>';
+        }   
+    }
+
+    public function productSize()
+    {
+        $admin_id=$this->input->post('admin_id');
+        $size=$this->input->post('size');
+        $find_by_size=$this->Seller_Model->find_by_admin_id_size($admin_id,$size);
+        //pr($find_by_size);
+
+        foreach ($find_by_size as $key => $find_by_size_row) 
+        {
+            echo '<li>
+                  <div class="aks-input-wrap">
+                    <input class="aks-input comon_selector size" type="checkbox" id="checkbox" name="checkbox" value="'.$find_by_size_row->uniqcode.'">
+                    <label class="aks-input-label" for="checkbox">'.$find_by_size_row->size_name.'</label>
+                  </div>
+                </li>';
+        }
+    }
+    public function productBrand()
+    {
+        $admin_id=$this->input->post('admin_id');
+        $brand=$this->input->post('brand');
+        $find_by_brand=$this->Seller_Model->find_by_admin_id_brand($admin_id,$brand);
+        // pr($find_by_brand);
+
+        foreach ($find_by_brand as $key => $find_by_brand_row) 
+        {
+            echo '<li>
+                  <div class="aks-input-wrap">
+                    <input class="aks-input comon_selector brand" type="checkbox" id="checkbox" name="checkbox" value="'.$find_by_brand_row->brand_name.'">
+                    <label class="aks-input-label" for="checkbox">'.$find_by_brand_row->brand_name.'</label>
+                  </div>
+                </li>';
+        }
     }
 	
 }

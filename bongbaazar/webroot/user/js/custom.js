@@ -1291,8 +1291,70 @@ $(document).ready(function()
     }
     
   });
+  
+  $('#admin_search_text_color').keyup(function()
+  {
+    var base_url=$('#base_url').val();
+    var admin_id=$('#admin_id').val();
+    var search = $(this).val(); 
+    if(search != '')
+    {
+      $.ajax({
+          url     : base_url+'admin-color',
+          method  : "POST",
+          //dataType:'json',
+          data: { admin_id:admin_id,color:search},
+          success: function(data) 
+          {
+            $('#filterColor').html(data);
+          }
+      });
+    }
+    
+  });
 
+  $('#admin_search_text_size').keyup(function()
+  {
+    var base_url=$('#base_url').val();
+    var admin_id=$('#admin_id').val();
+    var search = $(this).val(); 
+    if(search != '')
+    {
+      $.ajax({
+          url     : base_url+'admin-size',
+          method  : "POST",
+          //dataType:'json',
+          data: { admin_id:admin_id,size:search},
+          success: function(data) 
+          {
+            $('#filterSize').html(data);
+          }
+      });
+    }
+    
+  });
 
+  $('#admin_search_text_brand').keyup(function()
+  {
+    var base_url=$('#base_url').val();
+    var admin_id=$('#admin_id').val();
+    var search = $(this).val(); 
+    if(search != '')
+    {
+      $.ajax({
+          url     : base_url+'admin-brand',
+          method  : "POST",
+          //dataType:'json',
+          data: { admin_id:admin_id,brand:search},
+          success: function(data) 
+          {
+            $('#filterBrand').html(data);
+          }
+      });
+    }
+    
+  });
+  
 
   
 
