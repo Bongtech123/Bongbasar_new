@@ -31,12 +31,116 @@ class SellerController extends CI_Controller
 
 	public function Seller($admin_id)
 	{
-		// echo $admin_id;
-		// die;
+		$where           = '';
+        $where_clause    = '';
+        //$data            = array();
+        $shortBy = $this->input->get("shortBy");
+        $color = $this->input->get("color");
+        $size = $this->input->get("size");
+        $brand = $this->input->get("brand");
+        $text1= explode(',', $color);
+        $text2= explode(',', $size);
+        $text3= explode(',', $brand);
+        
+
+        if($color != '')
+        {
+          $color2="";
+          foreach ($text1 as $col) 
+          {
+            $color2.="'".$col."',";
+          }
+          $color3=rtrim($color2, ",");
+          $this->data['color']=$text1;
+          $where .= "color IN (".$color3.") AND ";
+        }
+
+        if($size != '')
+        {
+          $size2="";
+          foreach ($text2 as $col) 
+          {
+            $size2.="'".$col."',";
+          }
+          $size3=rtrim($size2, ",");
+          $this->data['size']=$text2;
+          $where .= "size IN (".$size3.") AND ";
+        }
+
+        if($brand != '')
+        {
+          $brand2="";
+          foreach ($text3 as $col) 
+          {
+            $brand2.="'".$col."',";
+          }
+          $brand3=rtrim($brand2, ",");
+          $this->data['brand']=$text3;
+          $where .= "brand_name IN (".$brand3.") AND ";
+        }
+
+
+       $where.= "status= 'Active' AND ";
+       $where.= "super_admin_status= 'Active' AND ";
+       $where.= "admin_status= 'Active' AND ";
+       $where.= "super_admin_product_status= 'Active' AND ";
+       $where.= "admin_product_status= 'Active' AND ";
+       $where.= "admin_id= '".$admin_id."' ";
+     
+       $where.= "GROUP BY product_uniqcode ";
+
+    
+        $where_clause = $where;
+        
+
+        $offset = $this->input->get("per_page");
+
+        $limit  = 2;
+
+        $query= $this->db->select('*')->where($where_clause)->get('view_products'); 
+
+        $total_rows = $query->num_rows();
+
+        //echo $total_rows;
+
+        $this->load->library('pagination');
+
+    	$config=[
+        'base_url'=>base_url('shop/') .$admin_id."?".http_build_query($this->data),
+        'per_page'=>$limit,
+        'total_rows'=>$total_rows,
+       
+        'last_link'=>'>>',
+        'first_link'=>'<<',
+        'full_tag_open'=>"<ul class='pagination'>",
+        'full_tag_close'=>"</ul>",
+        'first_tag_open'=>'<li>',
+        'first_tag_close'=>'</li>',
+        'last_tag_open'=>'<li>',
+        'last_tag_close'=>'</li>',
+        'next_tag_open'=>"<li>",
+        'next_tag_close'=>"</li>",
+        'prev_tag_open'=>"<li>",
+        'prev_tag_close'=>"</li>",
+        'num_tag_open'=>"<li>",
+        'num_tag_close'=>"</li>",
+        'cur_tag_open'=>"<li class='active'><a>",
+        'cur_tag_close'=>"</a></li>"
+      ];
+
+      $config['page_query_string'] = TRUE;
+
+    	$this->pagination->initialize($config);
+
+    	$page = $offset;
+ 
+    	$this->data["links"] = $this->pagination->create_links();
+      
+    	
 		
 		$this->data['page_title']='Bongbazaar | seller';
 		//$this->data['menu_lebel'] = $this->Home_Model->get_categories();
-		$this->data['seller_all_product'] = $this->Seller_Model->admin_all_product($admin_id);
+		$this->data['seller_all_product'] = $this->Seller_Model->admin_all_product($where_clause,$limit,$offset);
 		$this->data['shop_details']=$this->Seller_Model->shop_image($admin_id);
 		//$this->data['shop_filter_data']=$this->Seller_Model->seller_filter_data($id);
 		$this->data['find_by_color']=$this->Seller_Model->find_by_color($admin_id);
@@ -44,9 +148,200 @@ class SellerController extends CI_Controller
 		$this->data['find_by_brand']=$this->Seller_Model->find_by_brand($admin_id);
 		 $this->data['admin_id']=$admin_id;
 		$this->data['subview']='seller/seller';
+		if(empty($page))
+		{
+		$this->data['page']=1;
+		}
+		else
+		{
+		$this->data['page']=$page+1;
+
+		}
+		
+		$totalpage=intval($config['total_rows'])/intval($config['per_page']);
+		$pageDataType=gettype($totalpage);
+		if($pageDataType=='double')
+		{
+		$totalpage=intval($totalpage)+1;
+		}
+		$this->data['totalpage']=$totalpage;
 		
 		$this->load->view('user/layout/default', $this->data);
 	}
+	public function categoryAll($admin_id)
+  	{
+      
+
+        $where           = '';
+        $where_clause    = '';
+        //$data            = array();
+        $shortBy = $this->input->get("shortBy");
+        $color = $this->input->get("color");
+        $size = $this->input->get("size");
+        $brand = $this->input->get("brand");
+        $text1= explode(',', $color);
+        $text2= explode(',', $size);
+        $text3= explode(',', $brand);
+        
+
+        if($color != '')
+        {
+          $color2="";
+          foreach ($text1 as $col) 
+          {
+            $color2.="'".$col."',";
+          }
+          $color3=rtrim($color2, ",");
+          $this->data['color']=$text1;
+          $where .= "color IN (".$color3.") AND ";
+        }
+
+        if($size != '')
+        {
+          $size2="";
+          foreach ($text2 as $col) 
+          {
+            $size2.="'".$col."',";
+          }
+          $size3=rtrim($size2, ",");
+          $this->data['size']=$text2;
+          $where .= "size IN (".$size3.") AND ";
+        }
+
+        if($brand != '')
+        {
+          $brand2="";
+          foreach ($text3 as $col) 
+          {
+            $brand2.="'".$col."',";
+          }
+          $brand3=rtrim($brand2, ",");
+          $this->data['brand']=$text3;
+          $where .= "brand_name IN (".$brand3.") AND ";
+        }
+
+
+       $where.= "status= 'Active' AND ";
+       $where.= "super_admin_status= 'Active' AND ";
+       $where.= "admin_status= 'Active' AND ";
+       $where.= "super_admin_product_status= 'Active' AND ";
+       $where.= "admin_product_status= 'Active' AND ";
+       $where.= "child_category_id= '".$child_category_id."' ";
+     
+       $where.= "GROUP BY product_uniqcode ";
+
+       if($shortBy != '')
+       {
+            $this->data['shortBy']=$shortBy;
+            if ($shortBy == 'LH') 
+            {
+              $where .= "ORDER BY sell_price ASC ";
+            }else if($shortBy == 'HL')
+            {
+              $where .= "ORDER BY sell_price DESC ";
+            }else if($shortBy == 'AZ')
+            {
+              $where .= "ORDER BY product_name ASC ";
+            }else if($shortBy == 'ZA')
+            {
+              $where .= "ORDER BY product_name DESC ";
+            }
+            
+        }
+
+
+        /*if($where != ''){
+            $where_clause = substr($where, 0, -4);
+        }*/
+
+    
+        $where_clause = $where;
+        
+
+        $offset = $this->input->get("per_page");
+
+        $limit  = 1;
+
+        $query= $this->db->select('*')->where($where_clause)->get('view_products'); 
+
+        $total_rows = $query->num_rows();
+
+        //echo $total_rows;
+
+        $this->load->library('pagination');
+
+    	$config=[
+        'base_url'=>base_url('category-all-product/') .$child_category_id."?".http_build_query($this->data),
+        'per_page'=>$limit,
+        'total_rows'=>$total_rows,
+       
+        'last_link'=>'>>',
+        'first_link'=>'<<',
+        'full_tag_open'=>"<ul class='pagination'>",
+        'full_tag_close'=>"</ul>",
+        'first_tag_open'=>'<li>',
+        'first_tag_close'=>'</li>',
+        'last_tag_open'=>'<li>',
+        'last_tag_close'=>'</li>',
+        'next_tag_open'=>"<li>",
+        'next_tag_close'=>"</li>",
+        'prev_tag_open'=>"<li>",
+        'prev_tag_close'=>"</li>",
+        'num_tag_open'=>"<li>",
+        'num_tag_close'=>"</li>",
+        'cur_tag_open'=>"<li class='active'><a>",
+        'cur_tag_close'=>"</a></li>"
+      ];
+
+      $config['page_query_string'] = TRUE;
+
+    	$this->pagination->initialize($config);
+
+    	$page = $offset;
+ 
+    	$this->data["links"] = $this->pagination->create_links();
+      //pr($this->data);
+
+      	
+              //$this->data['menu_lebel'] = $this->Home_Model->get_categories();
+              $this->data['prodct_all']=$this->Home_Model->ChildAllProduct_getRows($where_clause,$limit,$offset);
+               //$query=$this->CommonModel->RetriveRecordByWhereOrderbyLimit('view_products',$where_clause,$limit,$offset,'product_id','DESC');
+               // $this->data['prodct_all']=
+
+              //pr($this->data['prodct_all']);
+
+
+              $this->data['find_by_color']=$this->Home_Model->find_by_color($child_category_id);
+              $this->data['find_by_size']=$this->Home_Model->find_by_size($child_category_id);
+              $this->data['find_by_brand']=$this->Home_Model->find_by_brand($child_category_id);
+              $this->data['child_category_id']=$child_category_id;
+
+          		//$this->data['filter_id']=$filter;
+          		$this->data['page_title']='product all';       
+              $this->data['subview']='product/product'; 
+              if(empty($page))
+              {
+                $this->data['page']=1;
+              }
+              else
+              {
+                $this->data['page']=$page+1;
+
+              }
+              
+              $totalpage=intval($config['total_rows'])/intval($config['per_page']);
+              $pageDataType=gettype($totalpage);
+              if($pageDataType=='double')
+              {
+                $totalpage=intval($totalpage)+1;
+              }
+              $this->data['totalpage']=$totalpage;
+
+          //pr($this->data);
+      		$this->load->view('user/layout/default', $this->data);
+  	}
+
+
 
 	public function shopSelectCity()
 	{

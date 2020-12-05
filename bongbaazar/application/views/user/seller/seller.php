@@ -253,6 +253,12 @@
           </div>
 
         <!-- Product section end -->
+         <!-- ------------Pagination start------------ -->
+         <div class="pagination-wrappar" id="pagination_data"> 
+          <span>Page <?=$page?> of <?=($totalpage)?></span>
+          <?php echo $links; ?>
+        </div> 
+      <!-- Pagination end -->
         </section>
 
       </div>
