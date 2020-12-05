@@ -175,7 +175,7 @@
                                   <ul class="sub-menu-lists">
                                     <?php foreach($sub_category_row->child as $child_category_row){?>
 
-                                      <li><a href="<?=base_url('category-all-product/'.$sub_category_row->uniqcode.'_'.$child_category_row->uniqcode);?>"><?=$child_category_row->child_category_name?></a></li>
+                                      <li><a href="<?=base_url('category-all-product/'.$child_category_row->uniqcode);?>"><?=$child_category_row->child_category_name?></a></li>
                                     <?php }?>
 
                                   </ul>
@@ -200,7 +200,7 @@
             </div>
           </div>
         </nav>
-        <!-- <nav role="navigation">
+        <!--<nav role="navigation">
           <a href="javascript:void(0);" class="ic menu" tabindex="1">
             <span class="line"></span>
             <span class="line"></span>
@@ -208,7 +208,7 @@
           </a>
           <a href="javascript:void(0);" class="ic close"></a>
           
-        </nav> -->
+        </nav>-->
       </header>
     <!-- Header Section end -->
 
