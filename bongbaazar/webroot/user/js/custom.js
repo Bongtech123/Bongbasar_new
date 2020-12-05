@@ -1314,4 +1314,122 @@ $(document).ready(function()
       });
   }
 
+  function shortBy(order)
+  {
+    var current_url=window.location.href;
+    var url = new URL(current_url);
+    if(window.location.search)
+    {
+      var shortBy=url.searchParams.get("shortBy");
+      if(shortBy!=null)
+      {
+        res=current_url.replace(shortBy,order);
+        window.location=res;
+      }
+      else
+      {
+        res=current_url+"&shortBy="+order;
+        window.location=res;
+      }
+    }
+    else
+    {
+      res=current_url+"?shortBy="+order;
+      window.location=res;
+    }
+  }
+
+  function shortByColor()
+  {
+    var current_url=window.location.href;
+    var url = new URL(current_url);
+    var filter='';
+    $('.color:checked').each(function(){
+        filter=filter+$(this).val()+",";
+    });
+    filter = filter.slice(0, -1)
+
+    if(window.location.search)
+    {
+      var color=url.searchParams.get("color");
+      if(color!=null)
+      {
+        res=current_url.replace(color,filter);
+        window.location=res;
+      }
+      else
+      {
+        res=current_url+"&color="+filter;
+        window.location=res;
+      }
+    }
+    else
+    {
+      res=current_url+"?color="+filter;
+      window.location=res;
+    }
+  }
+
+  function shortBySize()
+  {
+    var current_url=window.location.href;
+    var url = new URL(current_url);
+    var filter='';
+    $('.size:checked').each(function(){
+        filter=filter+$(this).val()+",";
+    });
+    filter = filter.slice(0, -1)
+
+    if(window.location.search)
+    {
+      var size=url.searchParams.get("size");
+      if(size!=null)
+      {
+        res=current_url.replace(size,filter);
+        window.location=res;
+      }
+      else
+      {
+        res=current_url+"&size="+filter;
+        window.location=res;
+      }
+    }
+    else
+    {
+      res=current_url+"?size="+filter;
+      window.location=res;
+    }
+  }
+
+  function shortByBrand()
+  {
+    var current_url=window.location.href;
+    var url = new URL(current_url);
+    var filter='';
+    $('.brand:checked').each(function(){
+        filter=filter+$(this).val()+",";
+    });
+    filter = filter.slice(0, -1)
+
+    if(window.location.search)
+    {
+      var brand=url.searchParams.get("brand");
+      if(brand!=null)
+      {
+        res=current_url.replace(brand,filter);
+        window.location=res;
+      }
+      else
+      {
+        res=current_url+"&brand="+filter;
+        window.location=res;
+      }
+    }
+    else
+    {
+      res=current_url+"?brand="+filter;
+      window.location=res;
+    }
+  }
+
 

@@ -142,175 +142,11 @@
                
                   </ul>
                 </div>
-                <!-- <div class="accordianheader">
-                  <p>
-                    Clothing and Accessories 
-                    <i class="fa fa-angle-down"></i>
-                  </p>
-                </div>
-                <div class="accordianbody">
-                  <ul>
-                    <li>
-                      <a href="#">Winter wear</a>
-                    </li>
-                    <li>
-                      <a href="#"> Topwear</a>
-                    </li>
-                    <li>
-                      <a href="#"> Bottomwear</a>
-                    </li>
-                    <li>
-                      <a href="#"> Raincots</a>
-                    </li>
-                    <li>
-                      <a href="#"> Dresses and Gowns</a>
-                    </li>
-                    <li class="more-options">
-                      <span class="more-btn openClose">+ 1887 MORE</span>
-                      <div class="more-files-directory">
-                        <div class="directory-head">
-                          <div class="search-field">
-                            <input type="text" placeholder="Search...." name="">
-                            <button type="submit" class="searchButton">
-                              <i class="fa fa-search"></i>
-                           </button>
-                          </div>
-                          <div class="close-option openClose">
-                            X
-                          </div>
-                        </div>
-                        <div class="directory-body">
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          <div class="directory-item">
-                            <a href="#">Winter Wear</a>
-                          </div>
-                          
-                        </div>
-                        <div class="directory-footer">
-                          
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div class="accordianheader">
-                  <p>
-                    Moving To Opportunity<i class="fa fa-angle-down"></i></p>
-                </div>
-                <div class="accordianbody">
-                  <ul>
-                    <li>
-                      Provides vouchers that allow residents to enter private rental market.</li>
-                    <li>
-                      Requires residents to live in areas less than 10% poor</li>
-                    <li>
-                      Provides housing search counseling</li>
-                    <li>
-                      Requires residents to remain in new unit for at least one year</li>
-                    <li>
-                      Voucher can be used across entire metropolitan regions</li>
-                    <li>
-                      Conducts premove visits to new homes</li>
-                  </ul>
-                </div>
-                <div class="accordianheader">
-                  <p>
-                    BHMP<i class="fa fa-angle-down"></i></p>
-                </div>
-                <div class="accordianbody">
-                  <ul>
-                    <li>
-                      Provides vouchers that allow residents to enter private rental market.</li>
-                    <li>
-                      Requires residents to live in areas less than 10% poor</li>
-                    <li>
-                      Requires residents to live in areas less than 30% black</li>
-                    <li>
-                      Requires residents to live in areas with no more than 5% of residents in subsidized housing</li>
-                    <li>
-                      Provides housing search counseling</li>
-                    <li>
-                      Provides post-move counseling</li>
-                    <li>
-                      Requires residents to remain in new unit for at least one year</li>
-                    <li>
-                      Voucher can be used across entire metropolitan regions</li>
-                    <li>
-                      Provides financial literacy counseling</li>
-                    <li>
-                      Provides second-move counseling</li>
-                    <li>
-                      Conducts premove visits to new homes</li>
-                    <li>
-                      At least 80% low poverty neighborhood retention program</li>
-                  </ul>
-                </div> -->
+               
               </div>
             </div>
 
-            <div class="price-filter">
+            <!-- <div class="price-filter">
               <div class="range-slider">
                   <input type="text" class="js-range-slider" value=""/>
               </div>
@@ -321,7 +157,7 @@
                   <input type="text" class="js-input-to form-control " value="0" id="rangeend"/>
                 </div>
               </div>
-            </div>
+            </div> -->
           </ul>
         </aside>
 <!-- Side bar end -->
