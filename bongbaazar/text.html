@@ -1,0 +1,595 @@
+echo'<input type="hidden" value="0" id="success1_payment">';
+
+ foreach($class_field as $key=>$data){
+                 $this->db->where('is_delete', 'N'); 
+                    $this->db->where('is_active', 'Active'); 
+                    $this->db->where('transid', $data);
+                    $class_data=$this->db->get('tbl_class')->row(); 
+
+                    
+                    //pr($total_pax_ccc);
+                    if($class_data->class_icon==1)
+                        {
+                           $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                        }
+                        if($class_data->class_icon==2)
+                        {
+                           $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                        }
+                        if($class_data->class_icon==3)
+                        {
+                           $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                        }
+                        if($class_data->class_icon==4)
+                        {
+                           $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                        }
+                        if($class_data->class_icon==5)
+                        {
+                           $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                        }
+                        
+                   $final_class_amount = $cxount_arrr[$data] * $class_data->amount;   
+
+            echo '<tr>
+                <td><strong>Travel Class</strong>: '.$icon.'   '.$class_data->class.' </td>
+                <td>Pax '.$cxount_arrr[$data].' &times RM '.number_format($class_data->amount, 2).' = RM '.number_format($final_class_amount, 2).'</td>
+            </tr>';
+            }
+
+
+
+
+
+             										echo '<tr>
+                                                    <td>Travel Class</td>
+                                                    </tr>';
+
+
+
+                                                    discount_amount1
+
+
+
+
+                                                $class_transid = $class_tid[$key];
+                                                $this->db->where('is_delete', 'N');
+                                                $this->db->where('is_active', 'Active');
+                                                $this->db->where('transid', $class_transid);
+                                                $classicon_data=$this->db->get('tbl_class')->row();
+
+                                                echo $classicon_data->icon;
+                                            }
+
+
+                                            $per_class[]=$final_class_amount;
+                                            array_sum($per_class)
+
+                                            echo '<input type="hidden" name="class_amount" value="'.array_sum($per_class).'" id="class_amount" />';
+
+
+                                            $class_transid1=$this->input->post('class_tid')[$sl];
+
+                                                $this->db->where('is_delete', 'N');
+                                                $this->db->where('is_active', 'Active');
+                                                $this->db->where('transid', $class_transid1);
+                                                $classicon1_data=$this->db->get('tbl_class')->row();
+
+                                                if($classicon1_data->class_icon==1)
+                                                {
+                                                   $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                                                }
+                                                if($classicon1_data->class_icon==2)
+                                                {
+                                                   $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                                                }
+                                                if($classicon1_data->class_icon==3)
+                                                {
+                                                   $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; </i> <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                                                }
+                                                if($classicon1_data->class_icon==4)
+                                                {
+                                                   $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; </i> <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; </i> <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                                                }
+                                                if($classicon1_data->class_icon==5)
+                                                {
+                                                   $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; </i> <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; </i> <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; </i> <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                                                }
+
+                                                echo '<tr>
+                                                    <td class="bold">Travel Class</td>
+                                                    <td>'.$icon.'</td>
+                                                </tr>';
+
+
+                                                $class_transid=$this->input->post('class_tid')[0];
+
+                                                $this->db->where('is_delete', 'N');
+                                                $this->db->where('is_active', 'Active');
+                                                $this->db->where('transid', $class_transid);
+                                                $classicon_data=$this->db->get('tbl_class')->row();
+                                                if($z == 1){
+
+                                                if($classicon_data->class_icon==1)
+                                                {
+                                                   $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                                                }
+                                                if($classicon_data->class_icon==2)
+                                                {
+                                                   $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                                                }
+                                                if($classicon_data->class_icon==3)
+                                                {
+                                                   $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; </i> <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                                                }
+                                                if($classicon_data->class_icon==4)
+                                                {
+                                                   $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; </i> <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; </i> <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                                                }
+                                                if($classicon_data->class_icon==5)
+                                                {
+                                                   $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; </i> <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; </i> <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; </i> <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                                                }
+                                                   echo '<span>Travel Class:</span> '.$icon.'';
+
+                                                }
+
+
+                                                }else{
+                    $("success_payment_dis").val(0);
+                
+                }
+
+
+
+                function discount_amount(payee_amount) {
+        if(payee_amount){
+
+
+         var current_url=$('#current_url').val();
+         var total = parseInt(document.getElementById("totalval").value);
+         // alert(total);
+           if(payee_amount>total){
+
+            $('#final_dis_ammount').hide();
+            $('#equalshow').hide();
+            $('#final_cost').val(total);
+            $('#dis_error').show();
+           }else{
+            $('#dis_error').hide();
+         $.ajax({
+            type:'POST',
+            url:current_url+'/discount',
+            data: {
+                total: total,
+                payee_amount: payee_amount,
+                
+            },
+            
+            success:function(data){            
+                if(data==''){ 
+                    $("#success_payment_dis").val(0);
+                    
+                }else{                    
+                                           
+                    
+
+                $('#final_dis_ammount').html('Total Cost: RM '+data);
+                $('#final_dis_ammount').show();
+                $('#final_cost').val(data);
+                $('#equalshow').show();
+
+                                       
+                    $("#success_payment_dis").val(1);
+                }
+
+                
+
+            }
+         });
+     }
+     }else{
+        $('#final_dis_ammount').hide();
+        $('#equalshow').hide();
+     }
+
+    }
+
+
+
+    'discount_amount'           =>$customer_data->discount_amount,
+
+    $total_final_cost
+
+
+
+    // for ($i=1; $i <= $no_of_pax ; $i++) {
+                                            echo '<tr>
+                                                <td style="border:1px solid">Travel Class Cost: </td>
+                                                <td style="border:1px solid">RM '.$this->input->post('travel_class').'</td>
+                                            </tr>';
+                                            // }
+
+
+
+foreach($class_field as $key=>$data){
+                 $this->db->where('is_delete', 'N'); 
+                    $this->db->where('is_active', 'Active'); 
+                    $this->db->where('transid', $data);
+                    $class_data=$this->db->get('tbl_class')->row(); 
+
+                    
+                    //pr($total_pax_ccc);
+                    if($class_data->class_icon==1)
+                        {
+                           $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                        }
+                        if($class_data->class_icon==2)
+                        {
+                           $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                        }
+                        if($class_data->class_icon==3)
+                        {
+                           $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                        }
+                        if($class_data->class_icon==4)
+                        {
+                           $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                        }
+                        if($class_data->class_icon==5)
+                        {
+                           $icon='<i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i> &nbsp; <i class="fa fa-thumbs-up" aria-hidden="true"></i>';
+                        }
+                        
+                   $final_class_amount = $cxount_arrr[$data] * $class_data->amount;   
+                   $per_class[] = $final_class_amount;   
+
+            echo '<tr>
+                <td><strong>Travel Class</strong>: '.$icon.'   '.$class_data->class.' </td>
+                <td>Pax '.$cxount_arrr[$data].' &times RM '.number_format($class_data->amount, 2).' = RM '.number_format($final_class_amount, 2).'</td>
+            </tr>';
+            }
+
+            if(data==0)
+            {
+                $('#error_quentity').show();
+            }else{
+                $('#error_quentity').hide();
+            }
+
+
+            									$check_room=$this->input->post('get_room_details_')[$key];  
+                                                $this->db->where('is_delete', 'N');
+                                                $this->db->where('transid', $check_room);
+                                                $add_check=$this->db->get('tbl_room_settings')->row();  
+                                                if($add_check->room_type=='Double'){
+                                                    $checked='checked';
+                                                }
+                                                if($add_check->room_type=='Triple'){
+                                                    $checked='checked';
+                                                } 
+
+
+bookingcontroller 2257
+//echo $check_room;
+                $this->db->where('is_delete', 'N');
+                $this->db->where('transid', $check_room);
+                $add_check=$this->db->get('tbl_room_settings')->row(); 
+                // pr($add_check); 
+                // if($add_check->room_type=='Double'){
+                //     $checked='checked';
+                // }
+                // if($add_check->room_type=='Triple'){
+                //     $checked='checked';
+                // }
+
+
+
+         old       changes common js
+
+
+          $(document).ready(function(){
+            $("#wizard").steps();
+            $("#form1").steps({
+                bodyTag: "fieldset",
+                onStepChanging: function (event, currentIndex, newIndex)
+                {
+                    var form = $(this);
+                    // Always allow going backward even if the current step contains invalid fields!
+
+                    if (currentIndex > newIndex)
+                    {
+                        return true;
+                    }
+                    
+
+                    // Forbid suppressing "Warning" step if the user is to young
+                    if (newIndex === 3 && Number($("#age").val()) < 18)
+                    {
+                        return false;
+                    }
+
+                 if (currentIndex === 3){
+
+
+                         
+                        if($("#invoice_details").val()==1){
+                            
+                            $(".current").addClass("error");
+                            form.validate().settings.ignore = ":disabled";
+                            return form.valid();
+                        }
+                        if($("#success_payment").val()==1){
+                            
+                            $(".current").addClass("error");
+                            form.validate().settings.ignore = ":disabled";
+                            return form.valid();
+                        }
+
+                       var dis_amount=$('#dis_amount').val(); 
+                         
+                        
+                       
+                    }
+
+                    
+                     if (currentIndex === 2){
+                        
+                        if($('#vehicle_name').val()!=''){
+                        $('#vehicle_quantity').addClass('required');
+                         
+                         $('#vehicle_quantity').attr('data-msg-required','Please select quantity'); 
+                       
+                      
+                        }else{
+                            $('#vehicle_quantity').removeClass('required');
+                            
+                         $('#vehicle_quantity').removeAttr('data-msg-required');
+                            
+
+
+                        
+                        }
+                    }
+
+
+                    
+
+                    // Clean up if user went backward before
+                    if (currentIndex < newIndex)
+                    {
+                        // To remove error styles
+                        $(".body:eq(" + newIndex + ") label.error", form).remove();
+                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                    }
+
+                    // Disable validation on fields that are disabled or hidden.
+                    form.validate().settings.ignore = ":disabled,:hidden";
+
+                    // Start validation; Prevent going forward if false
+                    return form.valid();
+                },
+                onStepChanged: function (event, currentIndex, priorIndex)
+                {
+                    // Suppress (skip) "Warning" step if the user is old enough.
+
+                    if (currentIndex === 2 && Number($("#age").val()) >= 18)
+                    {
+                        $(this).steps("Save & Continue");
+                    }
+
+                    
+                    
+                    // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                    if (currentIndex === 2 && priorIndex === 3)
+                    {
+                        $(this).steps("Back");
+                    }
+
+                    if (currentIndex === 4){
+                        confirm_details(); 
+                        $(".excelbtn").css("display", "block");
+                    }else{
+                        $(".excelbtn").css("display", "none");
+                    }
+                    
+                     if(currentIndex===1){
+                        var get_total_pass_count = []
+                        $("input[name='get_total_pass_count[]']").each(function (){
+                            get_total_pass_count.push(String($(this).val()));
+                        });
+                        
+
+                    }
+
+                   
+                     if(currentIndex==1){
+                        if(get_total_pass_count.length>1){
+                            //alert("grater");
+                            //$('a[href="#next"]').hide();
+                        }
+
+                    }else{
+                    
+                    }
+
+
+                    if(currentIndex==4){
+                        $('a[href="#finish"]').text('Confirm');
+                    }
+                    if(currentIndex===3){
+
+                        
+                        discount_amount(dis_amount);
+
+                        $('.decimal').keypress(function(event) {    
+
+                            var $this = $(this);
+                            if ($this.val().length == 0 && event.which == 48 ){
+                              return false;
+                           }else{
+                            if ((event.which != 46 || $this.val().indexOf('.') != -1) &&
+                               ((event.which < 48 || event.which > 57) &&
+                               (event.which != 0 && event.which != 8))) {
+                                   event.preventDefault();
+                            }
+
+                            var text = $(this).val();
+                            if ((event.which == 46) && (text.indexOf('.') == -1)) {
+                                setTimeout(function() {
+                                    if ($this.val().substring($this.val().indexOf('.')).length > 3) {
+                                        $this.val($this.val().substring(0, $this.val().indexOf('.') + 3));
+                                    }
+                                }, 1);
+                            }
+
+                            if ((text.indexOf('.') != -1) &&
+                                (text.substring(text.indexOf('.')).length > 2) &&
+                                (event.which != 0 && event.which != 8) &&
+                                ($(this)[0].selectionStart >= text.length - 2)) {
+                                    event.preventDefault();
+                            }   
+                           }   
+                        });
+
+                        $('.decimal').bind("paste", function(e) {
+                        var text = e.originalEvent.clipboardData.getData('Text');
+                        if ($.isNumeric(text)) {
+                            if ((text.substring(text.indexOf('.')).length > 3) && (text.indexOf('.') > -1)) {
+                                e.preventDefault();
+                                $(this).val(text.substring(0, text.indexOf('.') + 3));
+                           }
+                        }
+                        else {
+                                e.preventDefault();
+                             }
+                        });
+                        var add_on_transid=null;
+                        if($("#add_on_0").is(":checked")){
+                            var add_on_transid=$("#add_on_0").val();
+                        }
+                        if($("#add_on_1").is(":checked")){
+                            var add_on_transid=$("#add_on_1").val();
+                        }
+                       fare_details(add_on_transid);                       
+
+                    }                    
+                    if(currentIndex==2){
+                        get_bed();
+                    }
+              
+                },
+                onFinishing: function (event, currentIndex)
+                {
+                    var form = $(this);
+
+                    // Disable validation on fields that are disabled.
+                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                    form.validate().settings.ignore = ":disabled";
+
+                    // Start validation; Prevent form submission if false
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex)
+                {
+                    var form = $(this);
+
+                    // Submit form input
+                    form.submit();
+                }
+            }).validate({
+                        errorPlacement: function (error, element)
+                        {
+                            element.before(error);
+                        },                        
+
+                    });
+       });
+
+
+                <td>Pax. '.$total_number_pax.' &times; RM '.number_format($package_data->amount, 2).' = RM '..'</td>
+
+
+                dis_amount
+
+                dis_amount
+
+
+                    if(!empty($this->input->post('room_settings_tid_'.$i.''))){
+
+                                                    $this->db->where('is_delete', 'N'); 
+                                                    $this->db->where('is_active', 'Active'); 
+                                                    $this->db->where('transid', $this->input->post('room_settings_tid_'.$i.''));
+                                                    $room_data1=$this->db->get('tbl_room_settings')->row();
+                                                    if($room_data1->room_type=='Double'){
+                                                        $room_type_double[]=$room_data1->room_type.' Bed';  
+                                                        $rrom_aamt_double=$room_data1->amount;  
+                                                    }
+                                                    if($room_data1->room_type=='Triple'){
+                                                        $room_type_Triple[]=$room_data1->room_type.' Bed';    
+                                                        $rrom_aamt_triple=$room_data1->amount;  
+                                                    }
+                                                    
+                                                    
+                                                }else{
+                                                    $room_type_double=array();
+                                                    $room_type_Triple=array();
+                                                    $rrom_aamt_double=0;
+                                                    $rrom_aamt_triple=0;
+                                                }
+
+                if(!empty($room_type_double)){
+                                            $message.='<tr>
+                                                <td style="border:1px solid">Add on Room: </td>
+                                                <td style="border:1px solid"> '.count($room_type_double).' Double, Pax '.count($room_type_double).' *  RM '.number_format($rrom_aamt_double,2).' = RM '.number_format($rrom_aamt_double*count($room_type_double),2).'</td>
+                                            </tr>';
+                                            }
+                                            if(!empty($room_type_Triple)){
+                                            $message.='<tr>
+                                                <td style="border:1px solid">Add on Room: </td>
+                                                <td style="border:1px solid"> '.count($room_type_Triple).' Triple, Pax '.count($room_type_Triple).' *  RM '.number_format($rrom_aamt_triple,2).' = RM '.number_format($rrom_aamt_triple*count($room_type_Triple),2).'</td>
+                                            </tr>';
+                                            }
+
+
+            if($this->input->post('room_settings_tid_'.$m.'')!=''){
+
+                    
+
+                    $this->db->where('is_delete', 'N'); 
+                    $this->db->where('is_active', 'Active'); 
+                    $this->db->where('transid', $this->input->post('room_settings_tid_'.$m.''));
+                    $room_data=$this->db->get('tbl_room_settings')->row(); 
+
+                    if($room_data->room_type=='Double'){
+                        $double_bed_rent[]=$room_data->amount;
+                    }
+
+                    if($room_data->room_type=='Triple'){
+                        $triple_bed_rent[]=$room_data->amount;
+                    }
+                    
+                }
+            }
+
+                if(!empty($double_bed_rent)){
+                echo '<tr>
+                    <td><strong>Add on</strong>: ';                        
+                           
+                                echo '<i class="fa fa-bed" aria-hidden="true"></i> &nbsp; <i class="fa fa-bed" aria-hidden="true"></i>';                    
+
+                        echo '</td>
+                        <td>Pax '.count($double_bed_rent).' &times; RM '.number_format($double_bed_rent[0], 2).' = RM '.number_format(array_sum($double_bed_rent), 2).'</td>
+                    
+                </tr>
+                <tr>';
+                }
+                if(!empty($triple_bed_rent)){                                
+                    echo '<tr>
+                                <td><strong>Add on</strong>: ';                        
+                           
+                                    echo '<i class="fa fa-bed" aria-hidden="true"></i> &nbsp; <i class="fa fa-bed" aria-hidden="true"></i> &nbsp;<i class="fa fa-bed" aria-hidden="true"></i>';    
+                echo '</td>
+                        <td>Pax '.count($triple_bed_rent).' &times; RM '.number_format($triple_bed_rent[0], 2).' = RM '.number_format(array_sum($triple_bed_rent), 2).'</td>
+                    
+                </tr>
