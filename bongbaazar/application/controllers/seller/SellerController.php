@@ -110,7 +110,7 @@ class SellerController extends CI_Controller
         $this->load->library('pagination');
 		
     	$config=[
-        'base_url'=>base_url('shop/') .$admin_id."?".http_build_query($this->data1),
+		'base_url'=>base_url('shop/') .$admin_id."?".http_build_query($this->data1),
         'per_page'=>$limit,
         'total_rows'=>$total_rows,
        
