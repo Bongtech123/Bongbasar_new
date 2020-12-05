@@ -1492,6 +1492,7 @@ $(document).ready(function()
       res=current_url+"?brand="+filter;
       window.location=res;
     }
+    
   }
 
 
