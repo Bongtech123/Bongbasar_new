@@ -236,6 +236,7 @@ class ProductController extends CI_Controller
        if($shortBy != '')
        {
             $this->data['shortBy']=$shortBy;
+            $this->data1['shortBy']=$shortBy;
             if ($shortBy == 'LH') 
             {
               $where .= "ORDER BY sell_price ASC ";
@@ -328,8 +329,7 @@ class ProductController extends CI_Controller
               }
               else
               {
-                $this->data['page']=$page+1;
-
+                $this->data['page']=$page;
               }
               
               $totalpage=intval($config['total_rows'])/intval($config['per_page']);

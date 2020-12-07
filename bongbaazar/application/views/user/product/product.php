@@ -6,10 +6,10 @@
           <div class="sidebar-brand">
             <p>
               <span class="tittle">Filters</span>
-              <span class="clear-all">
+              <!-- <span class="clear-all">
                 Clear all
                 <i class="fa fa-times" aria-hidden="true"></i>
-              </span>
+              </span> -->
             </p>
           </div>
           <!-- Side bar start -->
@@ -222,7 +222,10 @@
           </ul>
         </div> -->
       <!-- Filter item print end -->
-
+      <?php
+        if(!empty($prodct_all))
+        {
+      ?>
       <!-- ---------Products section start--------- -->
         <div class="product" id="filter_data" style="display: -webkit-box;">
           <?php foreach($prodct_all as $prodct_all_row){
@@ -285,14 +288,34 @@
         </div>
 
       <!-- Product section end -->
-     
-
       <!-- ------------Pagination start------------ -->
         <div class="pagination-wrappar" id="pagination_data"> 
           <span>Page <?=$page?> of <?=($totalpage)?></span>
           <?php echo $links; ?>
         </div> 
       <!-- Pagination end -->
+    <?php
+        }
+        else
+        {
+    ?>
+      <!-- product not found section start -->
+      <section id="error">
+        <div class="product_not_found">
+          
+          <img src="<?=base_url('webroot/user/images/no_product.png')?>">
+          <div class="contant_box">
+            <h3 class="h2">Sorry, no results found!</h3>
+            
+            <p>Please check the spelling or try searching for something else.</p>
+            
+            <a href="<?=base_url()?>" class="link_404">Go to Home</a>
+          </div>
+        </div>
+      </section>
+      <!-- Page not found section end -->
+      <?php }?>
+
     </section>
   </div>
 <!-- Side filter end
