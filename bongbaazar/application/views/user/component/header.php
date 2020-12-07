@@ -92,8 +92,17 @@
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <?php $userdata=$this->session->userdata('loginDetail');?>
-                        <?php if(!empty($userdata)){?>
-                        <li><a href="<?=base_url('bag')?>" class="wow bounceInDown"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Bag<span class="badge">1</span></a></li>
+                        <?php if(!empty($userdata)){
+                          
+                              $data=array(
+                                'user_id'=>$userdata->uniqcode,
+                                'status'=>'Cart'
+                              );
+                              $this->db->where($data);
+                              $query = $this->db->get('tbl_cart');		
+                              $cart_count = $query->num_rows();    
+                          ?>
+                        <li><a href="<?=base_url('bag')?>" class="wow bounceInDown"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Bag<span class="badge"><?=$cart_count?></span></a></li>
                         <?php }else {?>
                           <li><a href="javascript-void(0)" class="wow bounceInDown" data-toggle="modal" data-target="#signIn"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Bag<span class="badge"></span></a></li>
                         <?php }?>
