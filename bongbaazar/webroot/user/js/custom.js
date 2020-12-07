@@ -928,10 +928,10 @@ function payOnDelivery(address_id)
         data:{address_id:address_id},
           success: function (data) 
           {
-         
+            
             if(data.result==1)
             {
-              var url=base_url+'order-success';
+              var url=base_url+'order-success/'+data.order_code;
               location.assign(url);
             }
             else

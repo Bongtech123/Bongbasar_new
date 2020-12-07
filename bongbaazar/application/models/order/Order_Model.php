@@ -95,7 +95,7 @@ class Order_Model extends CI_Model
         $this->db->join('view_products', 'view_products.uniqcode = tbl_order.product_features_id', 'inner');
         $this->db->join('tbl_users', 'tbl_users.uniqcode = tbl_order.user_id', 'inner');
 
-        $this->db->where('tbl_order.order_status','Pending');
+
         $this->db->where('tbl_order.user_id',$user_id);
         $this->db->group_by('tbl_order.order_code');
         $this->db->order_by('tbl_order.order_date','DESC');
@@ -109,12 +109,12 @@ class Order_Model extends CI_Model
         $this->db->from('tbl_order');
         $this->db->join('view_products', 'view_products.uniqcode = tbl_order.product_features_id', 'inner');
         $this->db->join('tbl_users', 'tbl_users.uniqcode = tbl_order.user_id', 'inner');
-        $this->db->where('tbl_order.order_status','Pending');
+       
         $this->db->where('tbl_order.user_id',$user_id);
         $this->db->where('tbl_order.order_code',$order_code);
         $this->db->order_by('tbl_order.order_date','DESC');
         $query = $this->db->get();
-        return $query->result();
+        return $query->row();
 	}
 
 	public function user_bag_total($user_id,$order_code)
@@ -140,7 +140,6 @@ class Order_Model extends CI_Model
 			$this->db->join('view_products', 'view_products.uniqcode = tbl_order.product_features_id', 'inner');
 			$this->db->join('tbl_color', 'tbl_color.uniqcode = tbl_order.color', 'inner');
 			$this->db->join('tbl_size', 'tbl_size.uniqcode = tbl_order.size', 'inner');
-			
             $this->db->where('tbl_order.order_code',$order_code);
             $data = $this->db->get()->result();                 
         return $data;

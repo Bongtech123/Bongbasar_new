@@ -175,7 +175,7 @@ class OrderController extends CI_Controller
                 $this->db->insert('tbl_order',$data);
                 $this->Order_Model->update('tbl_cart',$where1,$data1);
 		  	}
-		  	echo json_encode(['result'=>1]);
+		  	echo json_encode(['result'=>1,'order_code'=>$order_code]);
 		  	return false;
 			
 		}
@@ -555,14 +555,17 @@ class OrderController extends CI_Controller
 
 
 
-	public function success()
+	public function success($order_code)
 	{
 		if(($this->session->userdata('loginDetail')!=NULL))
 		{	
-			$this->data['menu_lebel'] = $this->Home_Model->get_categories();
+            $user_id=$this->session->userdata('loginDetail')->uniqcode;
+            // $this->data['menu_lebel'] = $this->Home_Model->get_categories();
+            $this->data['user_order_details'] = $this->Order_Model->user_orders_details($user_id,$order_code);
+			$this->data['user_order_item'] = $this->Order_Model->user_delivery_item($user_id,$order_code);
 			$this->data['page_title']='Bongbazaar | OrderSuccess';
 			$this->data['subview']='order/success';
-			//pr($this->data);
+			// pr($this->data);
 			$this->load->view('user/layout/default', $this->data);
 		}
 		else

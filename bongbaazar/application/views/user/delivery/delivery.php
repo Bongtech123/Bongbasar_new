@@ -1,26 +1,30 @@
     <!-- --------Delivery details section start-------- -->
     <?php
-     // pr($user_order_item);
+   //pr($user_order_item);
+      $user_order_details1=unserialize($user_order_details->address);
     ?>
+
       <section id="delivery-details">
         <div class="delivery-details">
           <div class="delivery-detailse-innerpart">
             <div class="container">
               <div class="row">
                 <div class="col-md-4">
-                  <p><span>Ship To:</span> Swapan Kanrar</p>
-                  <p class="delivery-person-ph"><span>Phone Number: </span> 9093256070</p>
-                  <p class="delivery-person-ph"><span>Alternate Number: </span>8965789124</p>
+
+                  <p><span>Ship To:</span><?=$user_order_details1->name?></p>
+                  <p class="delivery-person-ph"><span>Phone Number: </span><?=$user_order_details1->mobile_no?></p>
+                  <p class="delivery-person-ph"><span>Alternate Number: </span><?=$user_order_details1->alternative_mob_no?></p>
                   <p class="delivery-person-address"><span>Shipping Address: </span>
-                    Vill: Dakshin Chandchak, P.O: Uttar Manosri P.S : Udaynarayanpur, Dist: Howrah, Dakshin Chandchak Primary School Haora District - 711412, West Bengal
+                  <?=$user_order_details1->address_details?> <?=$user_order_details1->city_dist_town?> -<?=$user_order_details1->pin_code?>
                   </p>
                 </div>
                 <div class="col-md-5">
                   <ul class="tracking-upparpart">
-                    <li><p><span>Order No: </span>OD11948000</p></li>
-                    <li><p><span>Order Date: </span>Tue,June 25</p></li>
-                    <li><p><span>Order From: </span>Subhajit Manna</p></li>
-                    <li><p><span>Expected Date: </span>Tue,June 25</p></li>
+                    <li><p><span>Order No: </span><?=$user_order_details->order_code?></p></li>
+                    <li><p><span>Order Date: </span><?php echo date("D M d", strtotime($user_order_details->order_date));  ?></p></li>
+                    <li><p><span>Order From: </span>
+                    <?=$this->session->userdata('loginDetail')->name?></p></li>
+                    <li><p><span>Expected Date: </span><?php echo date("D M d", strtotime($user_order_details->delivery_date));  ?></p></li>
                   </ul>
                   
                 </div>
@@ -34,7 +38,18 @@
                           <svg width="8" height="10" viewBox="0 0 8 10" class="priceDetail-base-icon">
                             <path fill-rule="nonzero" d="M1.951 5.845l3.91 3.602-.902.376L.7 5.845l.452-.711c.186-.005.392-.02.615-.048a5.2 5.2 0 0 0 1.347-.356c.218-.09.42-.201.604-.331.185-.13.345-.281.479-.455.134-.173.231-.371.29-.594H.865v-.841h3.644a1.759 1.759 0 0 0-.284-.667 1.826 1.826 0 0 0-.567-.512 2.964 2.964 0 0 0-.865-.332A5.22 5.22 0 0 0 1.63.882H.864V0h6.2v.882H4.18c.173.077.33.174.468.29a2.09 2.09 0 0 1 .612.848c.064.162.11.325.137.489h1.668v.84H5.383a2.38 2.38 0 0 1-.43 1.03 3.095 3.095 0 0 1-.8.748 4.076 4.076 0 0 1-1.043.482 6.15 6.15 0 0 1-1.159.236z"></path>
                           </svg>
-                          <span>7,238</span>
+                          <span><?=$user_order_details->sell_price?></span>
+                        </span>
+                      </div>
+                      
+                      
+                      <div class="priceDetail-base-row">
+                        <span class="price-title">Delivery Charge</span>
+                        <span class="base-value">
+                          <svg width="8" height="10" viewBox="0 0 8 10" class="priceDetail-base-icon">
+                            <path fill-rule="nonzero" d="M1.951 5.845l3.91 3.602-.902.376L.7 5.845l.452-.711c.186-.005.392-.02.615-.048a5.2 5.2 0 0 0 1.347-.356c.218-.09.42-.201.604-.331.185-.13.345-.281.479-.455.134-.173.231-.371.29-.594H.865v-.841h3.644a1.759 1.759 0 0 0-.284-.667 1.826 1.826 0 0 0-.567-.512 2.964 2.964 0 0 0-.865-.332A5.22 5.22 0 0 0 1.63.882H.864V0h6.2v.882H4.18c.173.077.33.174.468.29a2.09 2.09 0 0 1 .612.848c.064.162.11.325.137.489h1.668v.84H5.383a2.38 2.38 0 0 1-.43 1.03 3.095 3.095 0 0 1-.8.748 4.076 4.076 0 0 1-1.043.482 6.15 6.15 0 0 1-1.159.236z"></path>
+                          </svg>
+                          <span><?=Intval($user_order_details->shipping_price)?></span>
                         </span>
                       </div>
                       <div class="priceDetail-base-row">
@@ -44,35 +59,18 @@
                           <svg width="8" height="10" viewBox="0 0 8 10" class="priceDetail-base-icon">
                             <path fill-rule="nonzero" d="M1.951 5.845l3.91 3.602-.902.376L.7 5.845l.452-.711c.186-.005.392-.02.615-.048a5.2 5.2 0 0 0 1.347-.356c.218-.09.42-.201.604-.331.185-.13.345-.281.479-.455.134-.173.231-.371.29-.594H.865v-.841h3.644a1.759 1.759 0 0 0-.284-.667 1.826 1.826 0 0 0-.567-.512 2.964 2.964 0 0 0-.865-.332A5.22 5.22 0 0 0 1.63.882H.864V0h6.2v.882H4.18c.173.077.33.174.468.29a2.09 2.09 0 0 1 .612.848c.064.162.11.325.137.489h1.668v.84H5.383a2.38 2.38 0 0 1-.43 1.03 3.095 3.095 0 0 1-.8.748 4.076 4.076 0 0 1-1.043.482 6.15 6.15 0 0 1-1.159.236z"></path>
                           </svg>
-                          <span>7,238</span>
-                        </span>
-                      </div>
-                      <div class="priceDetail-base-row">
-                        <span class="price-title">Order Total</span>
-                        <span class="base-value">
-                          <svg width="8" height="10" viewBox="0 0 8 10" class="priceDetail-base-icon">
-                            <path fill-rule="nonzero" d="M1.951 5.845l3.91 3.602-.902.376L.7 5.845l.452-.711c.186-.005.392-.02.615-.048a5.2 5.2 0 0 0 1.347-.356c.218-.09.42-.201.604-.331.185-.13.345-.281.479-.455.134-.173.231-.371.29-.594H.865v-.841h3.644a1.759 1.759 0 0 0-.284-.667 1.826 1.826 0 0 0-.567-.512 2.964 2.964 0 0 0-.865-.332A5.22 5.22 0 0 0 1.63.882H.864V0h6.2v.882H4.18c.173.077.33.174.468.29a2.09 2.09 0 0 1 .612.848c.064.162.11.325.137.489h1.668v.84H5.383a2.38 2.38 0 0 1-.43 1.03 3.095 3.095 0 0 1-.8.748 4.076 4.076 0 0 1-1.043.482 6.15 6.15 0 0 1-1.159.236z"></path>
-                          </svg>
-                          <span>7,238</span>
-                        </span>
-                      </div>
-                      <div class="priceDetail-base-row">
-                        <span class="price-title">Delivery Charge</span>
-                        <span class="base-value">
-                          <svg width="8" height="10" viewBox="0 0 8 10" class="priceDetail-base-icon">
-                            <path fill-rule="nonzero" d="M1.951 5.845l3.91 3.602-.902.376L.7 5.845l.452-.711c.186-.005.392-.02.615-.048a5.2 5.2 0 0 0 1.347-.356c.218-.09.42-.201.604-.331.185-.13.345-.281.479-.455.134-.173.231-.371.29-.594H.865v-.841h3.644a1.759 1.759 0 0 0-.284-.667 1.826 1.826 0 0 0-.567-.512 2.964 2.964 0 0 0-.865-.332A5.22 5.22 0 0 0 1.63.882H.864V0h6.2v.882H4.18c.173.077.33.174.468.29a2.09 2.09 0 0 1 .612.848c.064.162.11.325.137.489h1.668v.84H5.383a2.38 2.38 0 0 1-.43 1.03 3.095 3.095 0 0 1-.8.748 4.076 4.076 0 0 1-1.043.482 6.15 6.15 0 0 1-1.159.236z"></path>
-                          </svg>
-                          <span>7,238</span>
+                          <span><?=Intval($user_order_details->mrp_price-$user_order_details->sell_price)?></span>
                         </span>
                       </div>
                     </div>
+                    
                     <div class="priceDetail-base-row order-total">
                       <span class="price-title">Total</span>
                       <span class="base-value">
                         <svg width="8" height="10" viewBox="0 0 8 10" class="priceDetail-base-icon">
                           <path fill-rule="nonzero" d="M1.951 5.845l3.91 3.602-.902.376L.7 5.845l.452-.711c.186-.005.392-.02.615-.048a5.2 5.2 0 0 0 1.347-.356c.218-.09.42-.201.604-.331.185-.13.345-.281.479-.455.134-.173.231-.371.29-.594H.865v-.841h3.644a1.759 1.759 0 0 0-.284-.667 1.826 1.826 0 0 0-.567-.512 2.964 2.964 0 0 0-.865-.332A5.22 5.22 0 0 0 1.63.882H.864V0h6.2v.882H4.18c.173.077.33.174.468.29a2.09 2.09 0 0 1 .612.848c.064.162.11.325.137.489h1.668v.84H5.383a2.38 2.38 0 0 1-.43 1.03 3.095 3.095 0 0 1-.8.748 4.076 4.076 0 0 1-1.043.482 6.15 6.15 0 0 1-1.159.236z"></path>
                         </svg>
-                        <span>7,238</span>
+                        <span><?=Intval($user_order_details->sell_price+$user_order_details->shipping_price)?></span>
                       </span>
                     </div>
                   </div>
@@ -121,6 +119,10 @@
                             
                           </div>
                           <div class="col-md-5">
+                          <?php
+                                  if($status!='Cancel')
+                                  {
+                              ?>
                             <div class="delivery-status">
                               <div class="delivery-tracking 
                                 <?php
@@ -137,10 +139,7 @@
                                   <span>Mon, June 24</span>
                                 </div>
                               </div>
-                              <?php
-                                  if($status!='Cancel')
-                                  {
-                              ?>
+                              
                               <div class="delivery-tracking 
                                   <?php
                                     if($status=='Packed'||$status=='Shipped'||$status=='Delivered')
@@ -183,43 +182,48 @@
                                   <span>Fri, June 28</span>
                                 </div>
                               </div>
-                              <?php
+                            </div>
+                            <?php
                                   }
                                   else
                                   {
-                              ?>
-                              <div class="delivery-tracking 
-                                  <?php
-                                    if($status=='Cancel')
-                                    {
-                                      echo 'completed';
-                                    }
-                                  ?>
-                                ">
-                                <p>Cancel</p>
-                                <div class="order-tracking">
-                                  <span class="is-complete"></span>
-                                  <span>Fri, June 28</span>
+                            ?>
+                            <div class="delivery-status cancel">
+                                <div class="delivery-tracking completed">
+                                    <p>Ordered</p>
+                                    <div class="order-tracking">
+                                        <span class="is-complete"></span>
+                                        <span>Mon, June 24</span>
+                                    </div>
                                 </div>
-                              </div>
-                              <?php
-                                  }
-                              ?>
+                                <span class="cancel-bar"></span>
+                                <span class="cancel-bar"></span>
+                                <div class="delivery-tracking canceled">
+                                    <p>Cancel</p>
+                                    <div class="order-tracking">
+                                        <span class="is-complete"></span>
+                                        <span>Fri, June 28</span>
+                                    </div>
+                                </div>
                             </div>
+
+                            <?php
+                                  }
+                            ?>
                           </div>
                           <div class="col-md-4 product-details-right">
                             <p class="base-value product-title">
                               <svg width="8" height="10" viewBox="0 0 8 10" class="priceDetail-base-icon">
                                 <path fill-rule="nonzero" d="M1.951 5.845l3.91 3.602-.902.376L.7 5.845l.452-.711c.186-.005.392-.02.615-.048a5.2 5.2 0 0 0 1.347-.356c.218-.09.42-.201.604-.331.185-.13.345-.281.479-.455.134-.173.231-.371.29-.594H.865v-.841h3.644a1.759 1.759 0 0 0-.284-.667 1.826 1.826 0 0 0-.567-.512 2.964 2.964 0 0 0-.865-.332A5.22 5.22 0 0 0 1.63.882H.864V0h6.2v.882H4.18c.173.077.33.174.468.29a2.09 2.09 0 0 1 .612.848c.064.162.11.325.137.489h1.668v.84H5.383a2.38 2.38 0 0 1-.43 1.03 3.095 3.095 0 0 1-.8.748 4.076 4.076 0 0 1-1.043.482 6.15 6.15 0 0 1-1.159.236z"></path>
                               </svg>
-                              <span>7,238</span>
+                              <span><?=$user_order_item_row->sell_price?></span>
                             </p>
                             <p class="base-value">
                               <svg width="8" height="10" viewBox="0 0 8 10" class="priceDetail-base-icon">
                                 <path fill-rule="nonzero" d="M1.951 5.845l3.91 3.602-.902.376L.7 5.845l.452-.711c.186-.005.392-.02.615-.048a5.2 5.2 0 0 0 1.347-.356c.218-.09.42-.201.604-.331.185-.13.345-.281.479-.455.134-.173.231-.371.29-.594H.865v-.841h3.644a1.759 1.759 0 0 0-.284-.667 1.826 1.826 0 0 0-.567-.512 2.964 2.964 0 0 0-.865-.332A5.22 5.22 0 0 0 1.63.882H.864V0h6.2v.882H4.18c.173.077.33.174.468.29a2.09 2.09 0 0 1 .612.848c.064.162.11.325.137.489h1.668v.84H5.383a2.38 2.38 0 0 1-.43 1.03 3.095 3.095 0 0 1-.8.748 4.076 4.076 0 0 1-1.043.482 6.15 6.15 0 0 1-1.159.236z"></path>
                               </svg>  
-                              <span class="dress-card-crossed">2099</span>
-                              <span class="dress-card-off">&ensp;(60% OFF)</span>
+                              <span class="dress-card-crossed"><?=$user_order_item_row->mrp_price?></span>
+                              <span class="dress-card-off">&ensp;(<?=Intval($user_order_item_row->discount)?>% OFF)</span>
                             </p>
                             <p>Delivery By:<?php echo date("D M d", strtotime($user_order_item_row->delivery_date));  ?></p>
                            

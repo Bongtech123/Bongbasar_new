@@ -3713,6 +3713,36 @@ section {
 	.delivery-details .delivery-detailse-innerpart .order-money .order-heading {
 		margin-top: 0px;
 	}
+	.delivery-status.cancel .cancel-bar {
+		width: 100%;
+		background: #ff0000;
+		height: 3px;
+		margin: auto;
+	}
+	.delivery-status.cancel .canceled p {
+		color: #ff0000;
+	}
+	.delivery-status.cancel .completed .order-tracking:before {
+		content: "";
+		display: block;
+		height: 3px;
+		width: calc(100% - 40px);
+		background-color: #ff0000;
+		top: 13px;
+		position: absolute;
+		left: calc(-50% + 110px);
+		z-index: 0;
+	}
+	.delivery-status.cancel .canceled span {
+		color: #ff0000;
+	}
+	.delivery-status.cancel .canceled .order-tracking .is-complete {
+		background-color: #ff0000;
+	}
+	.delivery-status.cancel .canceled .order-tracking:before {
+		background-color: #ff0000;
+	}
+	
 	.delivery-status {
 		display: inline-flex;
 		width: 100%;
