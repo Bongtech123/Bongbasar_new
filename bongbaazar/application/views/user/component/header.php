@@ -91,28 +91,39 @@
                       </form>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
-                        <?php $userdata=$this->session->userdata('loginDetail');?>
-                        <?php if(!empty($userdata)){
-                          
-                              $data=array(
-                                'user_id'=>$userdata->uniqcode,
-                                'status'=>'Cart'
-                              );
-                              $this->db->where($data);
-                              $query = $this->db->get('tbl_cart');		
-                              $cart_count = $query->num_rows();    
-                          ?>
-                        <li><a href="<?=base_url('bag')?>" class="wow bounceInDown"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Bag<span class="badge"><?=$cart_count?></span></a></li>
-                        <?php }else {?>
+                        <?php 
+                          $userdata=$this->session->userdata('loginDetail');
+                          if(!empty($userdata))
+                          {
+                    
+                            $data=array(
+                              'user_id'=>$userdata->uniqcode,
+                              'status'=>'Cart'
+                            );
+                            $this->db->where($data);
+                            $query = $this->db->get('tbl_cart');
+                            $cart_count = $query->num_rows();
+                        ?>
+                        <li><a href="<?=base_url('bag')?>" class="wow bounceInDown"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Bag<span class="badge"><?= $cart_count;?></span></a></li>
+                        <?php 
+                          }
+                          else 
+                          {
+                        ?>
                           <li><a href="javascript-void(0)" class="wow bounceInDown" data-toggle="modal" data-target="#signIn"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Bag<span class="badge"></span></a></li>
-                        <?php }?>
+                        <?php 
+                          }
+                        ?>
                         <!-- <li><a href="" class="wow bounceInDown"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a></li> -->
                         <?php
-                            if(empty($userdata)){
+                            if(empty($userdata))
+                            {
                         ?>
                         <li><a href="javascript-void(0)" class="wow bounceInDown" data-toggle="modal" data-target="#signIn"><i class="fa fa-sign-out" aria-hidden="true"></i> Login</a></li>
                         <?php 
-                           }else{
+                           }
+                           else
+                           {
                         ?>
                          <li class="profile">
                           <a href="" class="wow bounceInDown"><i class="fa fa-user" aria-hidden="true"></i>
@@ -146,28 +157,74 @@
                 <a href="javascript:void(0);" class="ic close"></a>
 
                 <ul class="main-nav">
+                <?php 
+                    $userdata=$this->session->userdata('loginDetail');
+                    if(!empty($userdata))
+                    {
+                  ?>
                   <li class="mobile-profile top-level-link">
                     <div class="after-login">
                       <div class="mobile-profile-img">
-                        <img src="https://pbs.twimg.com/media/DhPVk9eWsAAhTqm.jpg">
+
+                      <?php 
+                        if(!empty($userdata->image))
+                        {
+                      ?>
+                      <img src="<?= base_url('webroot/user/profile/web/'.$userdata->image)?>">
+                     <?php 
+                        }
+                        else
+                        {
+                      ?>
+                       <img src="<?= base_url('webroot/user/images/profile_default.jpg')?>">
+                      <?php 
+                        }
+                      ?>
                       </div>
-                      <h3>Subhajit Manna</h3>
+                      <h3><?=($userdata->name=="")?'My Account':$userdata->name?></h3>
                     </div>
                     <div class="before-login container-fluid">
                       <div class="col-xs-6 col-sm-6">
-                        <button type="submit" class="btn submit-btn btn-block hvr-bounce-to-right hvr-icon-pulse-grow">
+                        <a href="<?=base_url('profile');?>" class="btn btn-primary">
+                          My Profile
+                          <i class="fa fa-user-circle" aria-hidden="true"></i>
+                        </a>
+                      </div>
+                      <div class="col-xs-6 col-sm-6">
+                        <a href="<?=base_url('logout');?>" class="btn btn-primary">
+                          Logout
+                          <i class="fa fa-sign-out hvr-icon" aria-hidden="true"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+                  <?php 
+                    }
+                    else
+                    {
+                  ?>
+                   <li class="mobile-profile top-level-link">
+                    <div class="before-login container-fluid">
+                      <div class="col-xs-6 col-sm-6">
+                        
+                        <button  data-toggle="modal" data-target="#signIn" class="btn submit-btn btn-block hvr-bounce-to-right hvr-icon-pulse-grow">
                           Sign In
                           <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
                         </button>
                       </div>
                       <div class="col-xs-6 col-sm-6">
-                        <button type="submit" class="btn submit-btn btn-block hvr-bounce-to-right hvr-icon-pulse-grow">
+                        <button  data-toggle="modal" data-target="#signIn"  class="btn submit-btn btn-block hvr-bounce-to-right hvr-icon-pulse-grow">
                           Sign Up
                           <i class="fa fa-sign-out hvr-icon" aria-hidden="true"></i>
                         </button>
                       </div>
                     </div>
                   </li>
+                  <?php
+                    }
+                  ?>
+
+
                   <li class="top-level-link wow bounceInUp">
                       <a href="<?=base_url('all-shop')?>"><span>Shop</span></a>
                   </li>
