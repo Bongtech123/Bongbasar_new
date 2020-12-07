@@ -105,12 +105,16 @@ class Order_Model extends CI_Model
 
 	public function user_orders_details($user_id,$order_code)
 	{
-		$this->db->select('tbl_order.address');
-            $this->db->from('tbl_order');
-            $this->db->join('view_products', 'view_products.uniqcode = tbl_order.product_features_id', 'inner');
-            $this->db->where('tbl_order.order_code',$order_code);
-            $data = $this->db->get()->row();                 
-        return $data;  
+		$this->db->select('tbl_order.order_code,cast(tbl_order.order_date as Date) as order_date,cast(tbl_order.delivery_date as Date) as delivery_date,sum(tbl_order.sell_price*tbl_order.quantity) as sell_price,sum(tbl_order.mrp_price*tbl_order.quantity) as mrp_price,sum(tbl_order.shipping_price*tbl_order.quantity) as shipping_price,tbl_order.address,tbl_users.name as order_from,count(order_code) as count,view_products.image');
+        $this->db->from('tbl_order');
+        $this->db->join('view_products', 'view_products.uniqcode = tbl_order.product_features_id', 'inner');
+        $this->db->join('tbl_users', 'tbl_users.uniqcode = tbl_order.user_id', 'inner');
+        $this->db->where('tbl_order.order_status','Pending');
+        $this->db->where('tbl_order.user_id',$user_id);
+        $this->db->where('tbl_order.order_code',$order_code);
+        $this->db->order_by('tbl_order.order_date','DESC');
+        $query = $this->db->get();
+        return $query->result();
 	}
 
 	public function user_bag_total($user_id,$order_code)
@@ -129,9 +133,14 @@ class Order_Model extends CI_Model
 
 	public function user_delivery_item($user_id,$order_code)
 	{
-		$this->db->select('view_products.product_name,view_products.product_type,tbl_order.uniqcode,tbl_order.product_id,tbl_order.product_features_id,tbl_order.quantity,view_products.admin_id,view_products.admin_name,view_products.business_type,tbl_order.sell_price,tbl_order.mrp_price,tbl_order.discount,view_products.image,tbl_order.size,tbl_order.color,tbl_order.order_status');
+		$this->db->select('tbl_order.*,view_products.product_name,view_products.product_type,
+		view_products.admin_id,view_products.admin_name,view_products.business_type,view_products.image,view_products.slug,
+		view_products.description,tbl_color.color_name,tbl_size.size_name');
             $this->db->from('tbl_order');
-            $this->db->join('view_products', 'view_products.uniqcode = tbl_order.product_features_id', 'inner');
+			$this->db->join('view_products', 'view_products.uniqcode = tbl_order.product_features_id', 'inner');
+			$this->db->join('tbl_color', 'tbl_color.uniqcode = tbl_order.color', 'inner');
+			$this->db->join('tbl_size', 'tbl_size.uniqcode = tbl_order.size', 'inner');
+			
             $this->db->where('tbl_order.order_code',$order_code);
             $data = $this->db->get()->result();                 
         return $data;

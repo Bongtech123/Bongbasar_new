@@ -1,4 +1,7 @@
     <!-- --------Delivery details section start-------- -->
+    <?php
+     // pr($user_order_item);
+    ?>
       <section id="delivery-details">
         <div class="delivery-details">
           <div class="delivery-detailse-innerpart">
@@ -79,62 +82,129 @@
           </div>
           <div class="delivery-items">
             <div class="container">
+            <?php
+                  foreach($user_order_item as $key => $user_order_item_row)
+                  {
+            ?>
               <div class="product-single-item">
                 <!-- <i class="fa fa-times" aria-hidden="true"></i> -->
                 <div class="container-fluid">
                   <div class="row">
                     <div class="col-md-2">
                       <div  class="product-img">
-                        <img src="https://assets.myntassets.com/w_111,h_148,q_95,c_limit,fl_progressive/h_148,q_95,w_111/v1/assets/images/productimage/2019/9/21/b7a40051-2ea0-44d0-805b-10761f4844dd1569013480119-1.jpg">
+                      <a class="" target="_blank" href="<?=base_url('product/'.$user_order_item_row->slug.'?proid='.$user_order_item_row->product_id.'&feid='.$user_order_item_row->product_features_id.'&cid='.$user_order_item_row->color.'&type='.$user_order_item_row->product_type)?>">
+                          <?php 
+                          $product_img=unserialize($user_order_item_row->image);
+                          if(!empty($product_img))
+                          {?>
+                              <img  src="<?=base_url('webroot/admin/product/web/').$product_img[0]?>" alt="">
+                              <?php
+                          }
+                          else
+                          {
+                              ?><img src="<?=base_url('webroot/user/images/no_image.jpg')?>"><?php
+                          }
+                          ?>
+                        </a>
                       </div>
                     </div>
                     <div class="col-md-10">
                       <div class="product-details">
                         <div class="row">
                           <div class="col-md-3">
-                            <p class="product-title">Formal Saree</p>
-                            <p class="product-description">Mustard Silk Blend Woven Design Banarasi Saree</p>
-                            <p class="sold-by">Sold By: Saree Emporium</p>
-                            <p class="product-color">Color: Green</p>
-                            <p class="product-size"> Size: XL</p>
-                            <div class="star-rating">
-                              <span class="fa fa-star checked"></span>
-                              <span class="fa fa-star checked"></span>
-                              <span class="fa fa-star checked"></span>
-                              <span class="fa fa-star"></span>
-                              <span class="fa fa-star"></span>
-                            </div>
+                            <p class="product-title"><?=$user_order_item_row->product_name?></p>
+                            <a class=""  href="<?=base_url('shop/'.$user_order_item_row->admin_id)?>"> 
+                            <p class="sold-by">Sold By: <?=$user_order_item_row->admin_name?></p>
+                            </a>
+                            <p class="product-color">Color:<?=$user_order_item_row->color_name?></p>
+                            <p class="product-size"> Size: <?=$user_order_item_row->size_name?></p>
+                            
                           </div>
                           <div class="col-md-5">
                             <div class="delivery-status">
-                              <div class="delivery-tracking completed">
+                              <div class="delivery-tracking 
+                                <?php
+                                      $status=$user_order_item_row->order_status;
+                                      if($status=='Pending'||$status=='Packed'||$status=='Shipped'||$status=='Delivered'||$status=='Cancel') 
+                                      {
+                                        echo 'completed';
+                                      }                               
+                                ?>
+                              ">
                                 <p>Ordered</p>
                                 <div class="order-tracking">
                                   <span class="is-complete"></span>
                                   <span>Mon, June 24</span>
                                 </div>
                               </div>
-                              <div class="delivery-tracking completed">
+                              <?php
+                                  if($status!='Cancel')
+                                  {
+                              ?>
+                              <div class="delivery-tracking 
+                                  <?php
+                                    if($status=='Packed'||$status=='Shipped'||$status=='Delivered')
+                                    {
+                                      echo 'completed';
+                                    }
+                                  ?>
+                              ">
                                 <p>Packed</p>
                                 <div class="order-tracking">
                                   <span class="is-complete"></span>
                                   <span>Tue, June 25</span>
                                 </div>
                               </div>
-                              <div class="delivery-tracking completed">
+                              <div class="delivery-tracking 
+                                <?php
+                                    if($status=='Shipped'||$status=='Delivered')
+                                    {
+                                      echo 'completed';
+                                    }
+                                  ?>
+                              ">
                                 <p>Shipped</p>
                                 <div class="order-tracking">
                                   <span class="is-complete"></span>
                                   <span>Tue, June 25</span>
                                 </div>
                               </div>
-                              <div class="delivery-tracking">
+                              <div class="delivery-tracking 
+                                  <?php
+                                    if($status=='Delivered')
+                                    {
+                                      echo 'completed';
+                                    }
+                                  ?>
+                                ">
                                 <p>Delivered</p>
                                 <div class="order-tracking">
                                   <span class="is-complete"></span>
                                   <span>Fri, June 28</span>
                                 </div>
                               </div>
+                              <?php
+                                  }
+                                  else
+                                  {
+                              ?>
+                              <div class="delivery-tracking 
+                                  <?php
+                                    if($status=='Cancel')
+                                    {
+                                      echo 'completed';
+                                    }
+                                  ?>
+                                ">
+                                <p>Cancel</p>
+                                <div class="order-tracking">
+                                  <span class="is-complete"></span>
+                                  <span>Fri, June 28</span>
+                                </div>
+                              </div>
+                              <?php
+                                  }
+                              ?>
                             </div>
                           </div>
                           <div class="col-md-4 product-details-right">
@@ -151,20 +221,28 @@
                               <span class="dress-card-crossed">2099</span>
                               <span class="dress-card-off">&ensp;(60% OFF)</span>
                             </p>
-                            <p>Delivery By: Wed Sep 2</p>
-                            <p>Return policy ended on Jul 16</p>
+                            <p>Delivery By:<?php echo date("D M d", strtotime($user_order_item_row->delivery_date));  ?></p>
+                           
                             <div class="button-part">
-                              <button type="button" class="btn card-button-inner hvr-icon-pop rate-btn" data-toggle="modal" data-target="#rateReview">
+                              <!-- <button type="button" class="btn card-button-inner hvr-icon-pop rate-btn" data-toggle="modal" data-target="#rateReview">
                                 Rate & Review
                                 <i class="fa fa-star hvr-icon" aria-hidden="true"></i>
-                              </button>
+                              </button> -->
+                              <?php
+                                if($status=='Pending')
+                                {
+                              ?>
                               <button type="button" class="btn card-button-inner remove-btn">
                                 <span>Cancel Item</span>
                               </button>
+                                <?php }
+                                if($status=='Delivered')
+                                {?>
                               <button type="button" class="btn card-button-inner btn-block hvr-icon-down download-btn">
                                 Download Invoice
                                 <i class="fa fa-download hvr-icon" aria-hidden="true"></i>
                               </button>
+                              <?php } ?>
                             </div>
                           </div>
                         </div>
@@ -185,6 +263,9 @@
                   </div>
                 </div>
               </div>
+            <?php
+                }
+            ?>
             </div>
           </div>
         </div>

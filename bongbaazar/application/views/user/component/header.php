@@ -56,14 +56,31 @@
                     <!-- Only for mobile -->
                     <ul>
                       <li>
-                        <a href="javascript-void(0);">
-                          <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                      <?php 
+                          $userdata=$this->session->userdata('loginDetail');
+                          if(!empty($userdata))
+                          {
+                    
+                            $data=array(
+                              'user_id'=>$userdata->uniqcode,
+                              'status'=>'Cart'
+                            );
+                            $this->db->where($data);
+                            $query = $this->db->get('tbl_cart');
+                            $cart_count = $query->num_rows();
+                        ?>
+                        <a href="<?=base_url('bag')?>">
+                          <i class="fa fa-shopping-bag" aria-hidden="true"><span class="badge"><?=$cart_count?></span></i>
                         </a>
-                      </li>
-                      <li>
-                        <a href="javascript-void(0);">
-                          <i class="fa fa-heart" aria-hidden="true"></i>
+                        <?php
+                          }
+                          else
+                          {
+                        ?>
+                        <a href="javascript-void(0);" data-toggle="modal" data-target="#signIn">
+                          <i class="fa fa-shopping-bag" aria-hidden="true"><span class="badge"><?=$cart_count?></span></i>
                         </a>
+                          <?php }?>
                       </li>
                       <li id="openSearch">
                         <a>
