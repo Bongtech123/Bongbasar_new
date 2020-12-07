@@ -19,9 +19,7 @@ class AddressController extends CI_Controller
 		// if(($this->session->userdata('loginDetail')==NULL))
 		// {
 		//    redirect('');
-		// }
-		
-		
+		// }	
 	} 
 	public function index()
 	{
@@ -113,6 +111,7 @@ class AddressController extends CI_Controller
 		}
 
 	}
+
 	public function addressDestroy($uniqcode)
 	{
 		$this->db->where('status','Delete');
@@ -292,7 +291,6 @@ class AddressController extends CI_Controller
 			
 			
 		}
-
 	}  
 
 	public function addAddressOrder()
@@ -710,7 +708,6 @@ class AddressController extends CI_Controller
 	 		redirect('address');
 		}	
 	}
-
 
 	public function BuyAddressDestroyOrder($uniqcode)
 	{
