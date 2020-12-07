@@ -95,9 +95,6 @@ $route['buy-order/([a-zA-Z0-9]+)'] = 'order/OrderController/byOrder/$1';
 
 
 $route['random'] = 'order/OrderController/randomNumber';
-
-
-
 $route['pay-on-online'] = 'order/OrderController/payOnOnline';
 $route['pay-on-online-buy'] = 'order/OrderController/payOnOnlineBuy';
 $route['pay-on-delivery']='order/OrderController/cashOnDelivery';
@@ -112,19 +109,10 @@ $route['term-conditions'] = 'policy/PolicyController/termConditions';
 $route['replacement'] = 'policy/PolicyController/replacement';
 $route['security'] = 'policy/PolicyController/security';
 $route['report-infirngement'] = 'policy/PolicyController/reportInfirngement';
-
 /*Filter search start*/
 $route['filter-low-high'] = 'search/SearchController/lowToHigh';
 $route['filter-low-high/([a-zA-Z0-9]+)'] = 'search/SearchController/lowToHigh';
-
-/*Filter search end*/
-
-
-
-
-
-
-	
+/*Filter search end*/	
 /*web router end*/
 //=========CUSTOM ERROR PAGE=======//
 $route['403_override'] = 'ErrorController/error';
