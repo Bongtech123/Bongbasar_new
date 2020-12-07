@@ -609,14 +609,15 @@ class OrderController extends CI_Controller
 		
 	}
 
-	public function deliveryDetails($order_code)
+	public function orderDetails($order_code)
 	{
 		if(($this->session->userdata('loginDetail')!=NULL))
 		{	
+            $user_id=$this->session->userdata('loginDetail')->uniqcode;
 			$this->data['page_title']='Bongbazaar | Delivery';
-			$this->data['user_delivery_details'] = $this->Order_Model->user_orders_details($this->session->userdata('loginDetail')->uniqcode,$order_code);
-			$this->data['user_delivery_item'] = $this->Order_Model->user_delivery_item($this->session->userdata('loginDetail')->uniqcode,$order_code);
-        	//pr($this->data);
+			$this->data['user_order_details'] = $this->Order_Model->user_orders_details($user_id,$order_code);
+			$this->data['user_order_item'] = $this->Order_Model->user_delivery_item($user_id,$order_code);
+        	
 			$this->data['subview']='delivery/delivery';
 			$this->load->view('user/layout/default', $this->data);
 		}

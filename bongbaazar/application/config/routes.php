@@ -89,7 +89,7 @@ $route['buy-address-destroy-order/([a-zA-Z0-9]+)'] = 'address/AddressController/
 
 $route['order/([a-zA-Z0-9]+)'] = 'order/OrderController/index/$1';
 $route['order-destroy/([a-zA-Z0-9]+)'] = 'order/OrderController/destroy/$1';
-$route['delivery-details/([a-zA-Z0-9]+)'] = 'order/OrderController/deliveryDetails/$1';
+$route['order-details/([a-zA-Z0-9]+)'] = 'order/OrderController/orderDetails/$1';
 
 $route['buy-order/([a-zA-Z0-9]+)'] = 'order/OrderController/byOrder/$1';
 
