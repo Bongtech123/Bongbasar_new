@@ -1383,16 +1383,35 @@ $(document).ready(function()
     if(window.location.search)
     {
       var shortBy=url.searchParams.get("shortBy");
+      var per_page=url.searchParams.get("per_page");
       if(shortBy!=null)
       {
-        res=current_url.replace(shortBy,order);
-        window.location=res;
+        if(per_page!=null)
+        {
+          url.searchParams.set("per_page",'0');
+          url.searchParams.set("shortBy",order);
+          
+        }
+        else{
+          url.searchParams.set("shortBy",order);
+        }
+        window.location=url;
+        // res=current_url.replace(shortBy,order);
+        // window.location=res;
       }
       else
       {
-        res=current_url+"&shortBy="+order;
-        window.location=res;
+        if(per_page!=null)
+        {
+          url.searchParams.set("per_page",'0');
+          url=url+"&shortBy="+order;
+        }
+        else{
+          url=current_url+"&shortBy="+order;
+        }
+        window.location=url;
       }
+      
     }
     else
     {
@@ -1414,15 +1433,34 @@ $(document).ready(function()
     if(window.location.search)
     {
       var color=url.searchParams.get("color");
+      var per_page=url.searchParams.get("per_page");
+
       if(color!=null)
       {
-        res=current_url.replace(color,filter);
-        window.location=res;
+        if(per_page!=null)
+        {
+          url.searchParams.set("per_page",'0');
+          url.searchParams.set("color",filter);
+          
+        }
+        else{
+          url.searchParams.set("color",filter);
+        }
+        window.location=url;
+        // res=current_url.replace(color,filter);
+        // window.location=res;
       }
       else
       {
-        res=current_url+"&color="+filter;
-        window.location=res;
+        if(per_page!=null)
+        {
+          url.searchParams.set("per_page",'0');
+          url=url+"&color="+filter;
+        }
+        else{
+          url=current_url+"&color="+filter;
+        }
+        window.location=url;
       }
     }
     else
@@ -1445,15 +1483,35 @@ $(document).ready(function()
     if(window.location.search)
     {
       var size=url.searchParams.get("size");
+      var per_page=url.searchParams.get("per_page");
+
       if(size!=null)
       {
-        res=current_url.replace(size,filter);
-        window.location=res;
+        if(per_page!=null)
+        {
+          url.searchParams.set("per_page",'0');
+          url.searchParams.set("size",filter);
+          
+        }
+        else{
+          url.searchParams.set("size",filter);
+        }
+        window.location=url;
+        
+        // res=current_url.replace(size,filter);
+        // window.location=res;
       }
       else
       {
-        res=current_url+"&size="+filter;
-        window.location=res;
+        if(per_page!=null)
+        {
+          url.searchParams.set("per_page",'0');
+          url=url+"&size="+filter;
+        }
+        else{
+          url=current_url+"&size="+filter;
+        }
+        window.location=url;
       }
     }
     else
@@ -1476,15 +1534,34 @@ $(document).ready(function()
     if(window.location.search)
     {
       var brand=url.searchParams.get("brand");
+      var per_page=url.searchParams.get("per_page");
+
       if(brand!=null)
       {
-        res=current_url.replace(brand,filter);
-        window.location=res;
+        if(per_page!=null)
+        {
+          url.searchParams.set("per_page",'0');
+          url.searchParams.set("brand",filter);
+          
+        }
+        else{
+          url.searchParams.set("brand",filter);
+        }
+        window.location=url;
+        // res=current_url.replace(brand,filter);
+        // window.location=res;
       }
       else
       {
-        res=current_url+"&brand="+filter;
-        window.location=res;
+        if(per_page!=null)
+        {
+          url.searchParams.set("per_page",'0');
+          url=url+"&brand="+filter;
+        }
+        else{
+          url=current_url+"&brand="+filter;
+        }
+        window.location=url;
       }
     }
     else
