@@ -200,6 +200,11 @@
             </section> -->
           <!-- Seller item category end -->
     <!-- ---------Products section start--------- -->
+    <?php 
+      
+        if(!empty($seller_all_product))
+        {
+    ?>
           <div class="product" id="filter_data" style="display: -webkit-box;">
             <?php foreach($seller_all_product as $prodct_all_row){
               //print_r($prodct_all_row);
@@ -259,7 +264,29 @@
           <?php echo $links; ?>
         </div> 
       <!-- Pagination end -->
+      <!-- product not found section start -->
+      <?php 
+        }
+        else
+        {
+      ?>
+        <section id="error">
+          <div class="product_not_found">
+            
+            <img src="<?=base_url('webroot/user/images/no_product.png')?>">
+            <div class="contant_box">
+              <h3 class="h2">Sorry, no results found!</h3>
+              
+              <p>Please check the spelling or try searching for something else.</p>
+              
+              <a href="<?=base_url()?>" class="link_404">Go to Home</a>
+            </div>
+          </div>
         </section>
+    <!-- Page not found section end -->
+        <?php }?>
+        </section>
+                          
 
       </div>
     <!-- Side filter end -->

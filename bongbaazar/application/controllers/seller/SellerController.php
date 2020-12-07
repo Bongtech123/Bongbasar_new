@@ -154,11 +154,11 @@ class SellerController extends CI_Controller
 		$this->data['subview']='seller/seller';
 		if(empty($page))
 		{
-		$this->data['page']=1;
+	  	$this->data['page']=1;
 		}
 		else
 		{
-		$this->data['page']=$page+1;
+		  $this->data['page']=$page;
 
 		}
 		
