@@ -4,12 +4,12 @@
         <div class="container">
           <div class="row">
             <div class="delivery-grap">
-              <div class="grap-step step">
+              <div class="grap-step step">   
                 <div class="grap-step-underpart" style="background: #0069e4;border-color: #0069e4;">
                   <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                 </div>
                 <!-- <p class="grap-tittle">Shopping Bag</p> -->
-              </div>
+              </div>   
               <div class="grap-step step" >
                 <div class="grap-step-underpart" style="background: #0069e4;border-color: #0069e4;">
                   <i class="fa fa-map-marker" aria-hidden="true"></i>
