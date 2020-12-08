@@ -296,7 +296,7 @@ class OrderController extends CI_Controller
                 $this->db->insert('tbl_order',$data);
                 $this->Order_Model->update('tbl_cart',$where1,$data1);
 		  	}
-		  	echo json_encode(['result'=>1]);
+		  	echo json_encode(['result'=>1,'order_code'=>$order_code]);
 		  	return false;
 			
 		}
@@ -419,7 +419,7 @@ class OrderController extends CI_Controller
                 $this->Order_Model->update('tbl_cart',$where1,$data1);
 
 		  	}
-		  	echo json_encode(['result'=>1]);
+		  	echo json_encode(['result'=>1,'order_code'=>$order_code]);
 		  	return false;
 			
 		}
@@ -542,7 +542,7 @@ class OrderController extends CI_Controller
                 $this->Order_Model->update('tbl_cart',$where1,$data1);
 
 		  	}
-		  	echo json_encode(['result'=>1]);
+		  	echo json_encode(['result'=>1,'order_code'=>$order_code]);
 		  	return false;
 			
 		}

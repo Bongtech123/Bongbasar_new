@@ -5507,5 +5507,83 @@ textarea
 	padding: 1px 0px 22px 520px;
 }
 
+/*Custom select dropdown start*/
+.custom-select {
+	position: relative;
+	font-family: Arial;
+	width: 100% !important;
+  }
+
+  .custom-select select {
+	display: none; /*hide original SELECT element:*/
+  }
+
+  .custom-select .select-selected {
+	background: linear-gradient(to right, rgb(0 105 228) 0%, rgb(0 243 255 / 96%) 100%);
+  }
+
+  /*style the arrow inside the select element:*/
+  .custom-select .select-selected:after {
+	position: absolute;
+	content: "";
+	top: 14px;
+	right: 10px;
+	width: 0;
+	height: 0;
+	border: 6px solid transparent;
+	border-color: #fff transparent transparent transparent;
+  }
+
+  /*point the arrow upwards when the select box is open (active):*/
+  .custom-select .select-selected.select-arrow-active:after {
+	border-color: transparent transparent #fff transparent;
+	top: 7px;
+  }
+
+  /*style the items (options), including the selected item:*/
+  .custom-select .select-items div,.select-selected {
+	color: #ffffff;
+	padding: 8px 16px;
+	/*border: 1px solid transparent;
+	border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;*/
+	cursor: pointer;
+	user-select: none;
+	border-radius: 4px;
+  }
+
+  /*style items (options):*/
+  .custom-select .select-items {
+	position: absolute;
+	background: linear-gradient(to right, rgb(0 105 228) 0%, rgb(0 243 255 / 96%) 100%);
+	top: 100%;
+	left: 0;
+	right: 0;
+	z-index: 99;
+	max-height: 190px;
+	  overflow-y: scroll;
+	  border-bottom-right-radius: 4px;
+	  border-bottom-left-radius: 4px;
+  }
+
+  .custom-select .select-items::-webkit-scrollbar {
+	  display: none;
+  }
+
+  / Hide scrollbar for IE, Edge and Firefox /
+  .custom-select .select-items {
+	-ms-overflow-style: none;  / IE and Edge /
+	scrollbar-width: none;  / Firefox /
+  }
+
+  /*hide the items when the select box is closed:*/
+  .custom-select .select-hide {
+	display: none;
+  }
+
+  .custom-select .select-items div:hover, .same-as-selected {
+	background-color: rgba(0, 0, 0, 0.56);
+  }
+/*Custom select dropdown end*/
+
 
 

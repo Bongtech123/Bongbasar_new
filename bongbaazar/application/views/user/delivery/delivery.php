@@ -23,7 +23,10 @@
                     <li><p><span>Order No: </span><?=$user_order_details->order_code?></p></li>
                     <li><p><span>Order Date: </span><?php echo date("D M d", strtotime($user_order_details->order_date));  ?></p></li>
                     <li><p><span>Order From: </span>
-                    <?=$this->session->userdata('loginDetail')->name?></p></li>
+                    <?php
+                      $user_name=explode("##",$this->session->userdata('loginDetail')->name);
+                      echo $user_name[0].' '.$user_name[1];
+                    ?></p></li>
                     <li><p><span>Expected Date: </span><?php echo date("D M d", strtotime($user_order_details->delivery_date));  ?></p></li>
                   </ul>
                   
@@ -228,16 +231,16 @@
                             <p>Delivery By:<?php echo date("D M d", strtotime($user_order_item_row->delivery_date));  ?></p>
                            
                             <div class="button-part">
-                              <!-- <button type="button" class="btn card-button-inner hvr-icon-pop rate-btn" data-toggle="modal" data-target="#rateReview">
+                               <button type="button" class="btn card-button-inner hvr-icon-pop rate-btn" data-toggle="modal" data-target="#rateReview">
                                 Rate & Review
                                 <i class="fa fa-star hvr-icon" aria-hidden="true"></i>
-                              </button> -->
+                              </button>
                               <?php
                                 if($status=='Pending')
                                 {
                               ?>
-                              <button type="button" class="btn card-button-inner remove-btn">
-                                <span>Cancel Item</span>
+                              <button type="button" class="btn card-button-inner remove-btn" data-toggle="modal" data-target="#cancelItem">
+                                  <span>Cancel Item</span>
                               </button>
                                 <?php }
                                 if($status=='Delivered')
