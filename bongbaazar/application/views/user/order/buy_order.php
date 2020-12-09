@@ -60,11 +60,13 @@
                             <p class="payment-heading">PAY ON DELIVERY</p>
                             <p>Pay when your order is deliverd</p>
                              <p>Enter the text as shown in the image *</p>
-                            <div>
+                             <div class="captcha-box">
                               <input type="text" name="capcha" id="capcha">
-                              <input type="hidden" name="hidencapcha" id="hidencapcha" value="<?=$capcha_value?>">                              
-                              <h1 id="showCapcha"><?=$capcha_value;?></h1>
-                              <button onclick="createCapcha()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                              <input type="hidden" name="hidencapcha" id="hidencapcha" value="<?=$capcha_value?>">
+                              <div class="captcha-number">
+                                <h1 id="showCapcha"><?=$capcha_value;?></h1>
+                                <button onclick="createCapcha()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                              </div>
                             </div>
                             <button type="button" class="btn card-button-inner bag-button buy-btn btn-block" onclick="payOnDeliveryBuy('<?=$address_id;?>')">
                               <span>Pay On Delivery</span>

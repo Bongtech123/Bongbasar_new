@@ -143,7 +143,7 @@
                            {
                         ?>
                          <li class="profile">
-                          <a href="" class="wow bounceInDown"><i class="fa fa-user" aria-hidden="true"></i>
+                          <a  class="wow bounceInDown"><i class="fa fa-user" aria-hidden="true"></i>
                             <span class="profile-name"><?=($userdata->name=="")?'My Account':$userdata->name?></span>
                           </a>
                           <div class="sub-options">
