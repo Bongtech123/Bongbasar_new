@@ -123,6 +123,7 @@
                           </div>
                           <div class="col-md-5">
                           <?php
+                           $status=$user_order_item_row->order_status;
                                   if($status!='Cancel')
                                   {
                               ?>
@@ -205,7 +206,7 @@
                                     <p>Cancel</p>
                                     <div class="order-tracking">
                                         <span class="is-complete"></span>
-                                        <span>Fri, June 28</span>
+                                        <span><?php echo date("D M d", strtotime($user_order_item_row->datetime));  ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -231,15 +232,15 @@
                             <p>Delivery By:<?php echo date("D M d", strtotime($user_order_item_row->delivery_date));  ?></p>
                            
                             <div class="button-part">
-                               <button type="button" class="btn card-button-inner hvr-icon-pop rate-btn" data-toggle="modal" data-target="#rateReview">
+                               <!-- <button type="button" class="btn card-button-inner hvr-icon-pop rate-btn" data-toggle="modal" data-target="#rateReview">
                                 Rate & Review
                                 <i class="fa fa-star hvr-icon" aria-hidden="true"></i>
-                              </button>
+                              </button> -->
                               <?php
                                 if($status=='Pending')
                                 {
                               ?>
-                              <button type="button" class="btn card-button-inner remove-btn" data-toggle="modal" data-target="#cancelItem">
+                              <button type="button" class="btn card-button-inner remove-btn" data-toggle="modal" data-target="#cancelItem" onclick="setCancelId('<?=$user_order_item_row->uniqcode?>')">
                                   <span>Cancel Item</span>
                               </button>
                                 <?php }

@@ -101,6 +101,7 @@
           <div class="delivery-items">
             <div class="container">
             <?php
+             // pr($user_order_item);
                   foreach($user_order_item as $key => $user_order_item_row)
                   {
             ?>
@@ -162,9 +163,15 @@
                                 Rate & Review
                                 <i class="fa fa-star hvr-icon" aria-hidden="true"></i>
                               </button> -->
-                              <button type="button" class="btn card-button-inner remove-btn">
-                              <span>Cancel Item</span>
+                              <?php
+                              $status=$user_order_item_row->order_status;
+                                if($status=='Pending')
+                                {
+                              ?>
+                              <button type="button" class="btn card-button-inner remove-btn" data-toggle="modal" data-target="#cancelItem" onclick="setCancelId('<?=$user_order_item_row->uniqcode?>')">
+                                  <span>Cancel Item</span>
                               </button>
+                               <?php }?>
                             </div>
                           </div>
                         </div>

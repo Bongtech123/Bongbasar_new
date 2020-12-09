@@ -591,24 +591,40 @@ class OrderController extends CI_Controller
 		}
 	}
 
-	public function destroy($order_code)
+	public function Cancel()
 	{
-		echo $order_code;
-		$where=array('order_code'=>$order_code);
-		$data=array(
-			'status'=>'cancel',
-			'datetime'=>date('Y-m-d H:i:s')
-		);
-		if($this->Order_Model->update('tbl_order',$where,$data))
-		{
-			$this->session->set_flashdata('success', 'Your order cancel successfully');
-			redirect('profile');
-		}
-		else
-		{
-			$this->session->set_flashdata('error', 'Your order do not cancel!');
-			redirect('profile');
-		}
+        $reason=$this->input->post('reason');
+        $comment=$this->input->post('comment');
+        $orderid=$this->input->post('orderid');
+        $date=date('Y-m-d h:i:s');
+        $data=array(
+            'uniqcode' =>"st".random_string('alnum',28),
+            'order_id'=>$orderid,
+            'reason'=>$reason,
+            'comments'=>$comment,
+            'datetime' =>$date
+        );
+        if($this->Order_Model->insert($data,'tbl_cancel_order_reason'))
+        {
+            $where=array(
+                'uniqcode'=>$orderid
+            );
+            $data=array(
+                'order_status'=>'Cancel',
+                'datetime'=>$date
+            );
+            if($this->Order_Model->update('tbl_order',$where,$data))
+            {
+                $this->session->set_flashdata('success', 'Your order cancel successfully');
+                echo 'success';
+            }
+            else
+            {
+                $this->session->set_flashdata('error', 'Your order do not cancel!');
+                echo 'error';
+            }
+        }
+        
 		
 	}
 

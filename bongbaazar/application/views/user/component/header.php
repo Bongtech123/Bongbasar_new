@@ -448,29 +448,30 @@
                           <div class="container-fluid">
                               <p class="review-heading">Choose Cancellation Reason <sup style="color: red;">*</sup></p>
                               <div class="form-group">
+                                <input type='hidden' id='cancelorderId'>
                                   <div class="custom-select" style="width: 200px;">
-                                      <select>
-                                          <option value="0">Select Reason</option>
-                                          <option value="1">I want to convert my order to Prepaid</option>
-                                          <option value="2">Expected delivery time is very long</option>
-                                          <option value="3">I want to change address for the order</option>
-                                          <option value="4">I have changed my mind</option>
-                                          <option value="5">I want to change my phone number</option>
-                                          <option value="6">I have purchased the product elsewhere</option>
-                                          <option value="7">I want to cancel due to product quality issues</option>
-                                          <option value="8">Price for the product has decreased</option>
+                                      <select id='reason'>
+                                          <option value="">Select Reason</option>
+                                          <option value="I want to convert my order to Prepaid">I want to convert my order to Prepaid</option>
+                                          <option value="Expected delivery time is very long">Expected delivery time is very long</option>
+                                          <option value="I want to change address for the order">I want to change address for the order</option>
+                                          <option value="I have changed my mind">I have changed my mind</option>
+                                          <option value="I want to change my phone number">I want to change my phone number</option>
+                                          <option value="I have purchased the product elsewhere">I have purchased the product elsewhere</option>
+                                          <option value="I want to cancel due to product quality issues">I want to cancel due to product quality issues</option>
+                                          <option value=">Price for the product has decreased">Price for the product has decreased</option>
                                       </select>
                                   </div>
                               </div>
 
                               <p class="review-heading">Comments</p>
                               <div class="form-group">
-                                  <textarea id="product-review" name="product-review" rows="4" placeholder="Please write product review here"></textarea>
+                                  <textarea id="comments" name="product-review" rows="4" placeholder="Please write product review here"></textarea>
                               </div>
                           </div>
                       </div>
                       <div class="modal-footer">
-                          <button type="button" class="btn card-button-inner buy-btn save-btn">
+                          <button type="button" class="btn card-button-inner buy-btn save-btn" onclick="orderCancel()">
                               <span>Submit</span>
                           </button>
                       </div>
