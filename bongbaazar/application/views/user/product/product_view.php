@@ -51,7 +51,9 @@
                   <p class="tax-price">Inclusive of all taxes</p>
                   <div class="select-size-part select-color">
                     <ul class="nav nav-tabs">
-                      <?php foreach($product_view_color as $key => $product_view_color_row){
+                      <?php 
+                       
+                      foreach($product_view_color as $key => $product_view_color_row){
                         $color_img=unserialize($product_view_color_row->image);
                         if(
                           $product_view_color_row->product_id==$product_view_price_image->product_id && 
@@ -63,9 +65,10 @@
                             <img class="dress-card-img-top" src="<?=base_url('webroot/admin/product/web/').$color_img[0]?>" alt="" >
                           </a>
                         </li>
-                        <input type="hidden" name="product_id" id="product_id" value="<?=$product_view_color_row->product_id?>">
+                        <!-- <input type="hidden" name="product_id" id="product_id" value="<?=$product_view_color_row->product_id?>">
                         <input type="hidden" name="product_features_id" id="product_features_id" value="<?=$product_view_color_row->uniqcode?>">
-                        <input type="hidden" name="color_id" id="color_id" value="<?=$product_view_color_row->color?>">
+                        <input type="hidden" name="color_id" id="color_id" value="<?=$product_view_color_row->color?>"> -->
+                        
                       <?php }
                       else
                       {?>
@@ -80,7 +83,9 @@
                   </div>
                   <div class="select-size-part">
                     <ul class="nav nav-tabs">
-                      <?php foreach($product_view_size as $key => $product_view_size_row){
+                      <?php 
+                        
+                      foreach($product_view_size as $key => $product_view_size_row){
                         if(
                           $product_view_size_row->product_id==$product_view_price_image->product_id && 
                           $product_view_size_row->uniqcode==$product_view_price_image->uniqcode&&
@@ -91,6 +96,7 @@
                             <a href="<?=base_url('product/'.$product_view->slug.'?proid='.$product_view_size_row->product_id.'&feid='.$product_view_size_row->uniqcode.'&cid='.$product_view_size_row->color.'&type='.$product_view->product_type)?>">
                               <span><?=$product_view_size_row->size_name;?></span>
                             </a>
+                            <!-- <input type="hidden" name="size_id" id="size_id" value="<?=$product_view_size_row->size;?>"> -->
                           </li>
                       <?php }else{?>
                         <li class="" onclick="li_selected('<?=$product_view_size_row->size?>')">
@@ -98,9 +104,12 @@
                               <span><?=$product_view_size_row->size_name;?></span>
                             </a>
                           </li>
-                      <?php }}?>
+                      <?php }?>
+                     
+                      <?php
+                    }?>
                         
-                        <input type="hidden" name="size_selected" id="size_selected" value="">
+                        
                     </ul>
                   </div>
                 

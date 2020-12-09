@@ -96,6 +96,7 @@ class CartController extends CI_Controller
 			$product_id=$this->input->post('product_id');
 			$product_features_id=$this->input->post('product_features_id');
 			$color=$this->input->post('color_id');
+			
 			$business_type=$this->input->post('business_type');
 
 			$quantity=1;
@@ -110,7 +111,7 @@ class CartController extends CI_Controller
                 'product_id'=>$product_id,
                 'product_features_id'=>$product_features_id,
                 'quantity'=>$quantity,
-                'color'=>$color,
+				'color'=>$color,
                 'status'=>'Cart',
                 'datetime'=>date('Y-m-d h:i:s')
             );
@@ -120,9 +121,11 @@ class CartController extends CI_Controller
 				'user_id'=>$newData['user_id'],
 				'product_id'=>$newData['product_id'],
 				'product_features_id'=>$newData['product_features_id'],
-				'color'=>$newData['color']
+				'color'=>$newData['color'],
+				'status <>'=>'Delete'
 			);
 			$count=$this->Cart_Model->entty_check($chack,'tbl_cart');
+			
 			if($count==0)
             {
 				if($this->Cart_Model->insert($newData,'tbl_cart'))

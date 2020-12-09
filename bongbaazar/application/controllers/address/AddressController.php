@@ -34,7 +34,7 @@ class AddressController extends CI_Controller
 				'user_id'=>$this->session->userdata('loginDetail')->uniqcode
 			);
 			$this->data['allAddress']=$this->Address_Model->select_all($ar1,'tbl_users_delivery_address');
-        	$this->data['all_state'] = $this->User_Model->all_state(['is_active'=>'Active'],'tbl_state_mast');
+        	$this->data['all_state'] = $this->User_Model->all_state(['is_active'=>'Active','country_id'=>'101'],'tbl_state_mast');
 
 			//pr($this->data);
 			$this->load->view('user/layout/default', $this->data);

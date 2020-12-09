@@ -43,7 +43,10 @@
                     <li><p><span>Order No: </span><?=$user_order_details->order_code?></p></li>
                     <li><p><span>Order Date: </span><?php echo date("D M d", strtotime($user_order_details->order_date));  ?></p></li>
                     <li><p><span>Order From: </span>
-                    <?=$this->session->userdata('loginDetail')->name?></p></li>
+                    <?php
+                    $user_name=explode("##",$this->session->userdata('loginDetail')->name);
+                    echo $user_name[0].' '.$user_name[1];
+                    ?></p></li>
                     <li><p><span>Expected Date: </span><?php echo date("D M d", strtotime($user_order_details->delivery_date));  ?></p></li>
                   </ul>
                   

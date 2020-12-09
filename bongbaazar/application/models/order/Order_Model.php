@@ -98,7 +98,7 @@ class Order_Model extends CI_Model
 
         $this->db->where('tbl_order.user_id',$user_id);
         $this->db->group_by('tbl_order.order_code');
-        $this->db->order_by('tbl_order.order_date','DESC');
+        $this->db->order_by('tbl_order.id','DESC');
         $query = $this->db->get();
         return $query->result();
 	}

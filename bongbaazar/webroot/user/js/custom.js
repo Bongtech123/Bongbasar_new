@@ -601,12 +601,15 @@ function li_selected(str)
 
 function addToBag()
 {
+  var current_url=window.location.href;
+  var url = new URL(current_url);
   var business_type=$('#business_type').val(); 
-  var product_id=$('#product_id').val(); 
-  var product_features_id=$('#product_features_id').val(); 
-  var color_id=$('#color_id').val(); 
+  var product_id=url.searchParams.get("proid");
+  var product_features_id=url.searchParams.get("feid");
+  var color_id=url.searchParams.get("cid");
+ // alert(business_type+" "+product_id+" "+product_features_id+" "+color_id);
   var base_url=$('#base_url').val();
-  if(business_type != '' && product_id != '' && product_features_id != '' && color_id != 'Wholesaler')
+  if(business_type != '' && product_id != '' && product_features_id != '' && color_id != '')
   {
     $.ajax({
       type: 'post',
@@ -616,7 +619,7 @@ function addToBag()
         business_type:business_type,
         product_id:product_id,
         product_features_id:product_features_id,
-        color_id:color_id
+        color_id:color_id,
         },
         success: function (data) 
         {
@@ -642,13 +645,17 @@ function goToBag()
 
 function buyNou()
 {
+  
+  var current_url=window.location.href;
+  var url = new URL(current_url);
   var business_type=$('#business_type').val(); 
-  var product_id=$('#product_id').val(); 
-  var product_features_id=$('#product_features_id').val(); 
-  var color_id=$('#color_id').val(); 
+  var product_id=url.searchParams.get("proid");
+  var product_features_id=url.searchParams.get("feid");
+  var color_id=url.searchParams.get("cid");
   var base_url=$('#base_url').val();
 
-  if(business_type != '' && product_id != '' && product_features_id != '' && color_id != 'Wholesaler')
+  //alert(business_type+" "+product_id+" "+product_features_id+" "+color_id);
+  if(business_type != '' && product_id != '' && product_features_id != '' && color_id != '')
   {
     $.ajax({
       type: 'post',
@@ -1031,7 +1038,42 @@ function payOnDelivery(address_id)
     }
   }
 }
-
+function payOnDeliveryBuy(address_id)
+{
+  if(address_id != '')
+  {
+    var capcha=$('#capcha').val();
+    var hidencapcha=$('#hidencapcha').val();
+    if(capcha==hidencapcha)
+    {
+      var base_url=$('#base_url').val();
+      $.ajax({
+        type: 'post',
+        url:base_url+'pay-on-delivery-buy',
+        dataType: 'json',
+        data:{address_id:address_id},
+          success: function (data) 
+          {
+            
+            if(data.result==1)
+            {
+              var url=base_url+'order-success/'+data.order_code;
+              location.assign(url);
+            }
+            else
+            {
+              var url=base_url+'order-error';
+              location.assign(url);   
+            }
+          }
+      });
+    }
+    else
+    {
+      alert('Invalid capcha!');
+    }
+  }
+}
 function lowToHighFilter()
 { 
   var sub_category_id=$('#sub_category_id').val();

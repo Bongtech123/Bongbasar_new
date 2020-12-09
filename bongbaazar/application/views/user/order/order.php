@@ -184,7 +184,7 @@
             success: function (data) 
             {
               console.log(data);
-              window.location.href = SITEURL + 'order-success';
+              window.location.href = SITEURL + 'order-success/'+msg.order_code;
             }
         });
      

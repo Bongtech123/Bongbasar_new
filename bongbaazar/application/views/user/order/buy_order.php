@@ -289,7 +289,7 @@
             }, 
             success: function (msg) {
 
-               window.location.href = SITEURL + 'order-success';
+               window.location.href = SITEURL + 'order-success/'+msg.order_code;
             }
         });
      
