@@ -206,13 +206,15 @@
         {
     ?>
           <div class="product" id="filter_data" style="display: -webkit-box;">
-            <?php foreach($seller_all_product as $prodct_all_row){
-              //print_r($prodct_all_row);
+            <?php 
+             // pr($seller_all_product);
+            foreach($seller_all_product as $prodct_all_row){
+             
               ?> 
               <div class="col-md-3 col-xs-12">
                 <div class="dress-card">
                     <div class="dress-card-head">
-                      <a class="dress-card-img" target="_blank"  href="<?=base_url('product/'.$prodct_all_row->slug.'?proid='.$prodct_all_row->sub_category_id.'_'.$prodct_all_row->uniqcode)?>">
+                      <a class="dress-card-img" target="_blank"  href="<?=base_url('product/'.$prodct_all_row->slug.'?proid='.$prodct_all_row->product_uniqcode.'&feid='.$prodct_all_row->uniqcode.'&cid='.$prodct_all_row->color.'&type='.$prodct_all_row->product_type)?>">
                          <?php $product_img=unserialize($prodct_all_row->image); 
                           if(!empty($product_img))
                           {

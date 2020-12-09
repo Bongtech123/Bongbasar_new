@@ -208,7 +208,9 @@
                       </div>
                     </div>
                     <div class="my-orders">
-                    <?php foreach ($user_order as $user_order_row){?>
+                    <?php 
+                    
+                    foreach ($user_order as $user_order_row){?>
                     <a href="<?=base_url('order-details/'.$user_order_row->order_code)?>">
                         <div class="product-single-item">
                             <div class="container-fluid">

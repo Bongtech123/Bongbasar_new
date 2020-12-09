@@ -191,7 +191,8 @@ class Home_Model extends CI_Model
     {
        
 
-        $this->db->select('view_products.admin_id,view_products.admin_name,view_products.product_uniqcode,view_products.category_id,view_products.sub_category_id,view_products.product_name,view_products.image,view_products.mrp_price,view_products.sell_price,view_products.discount,view_products.uniqcode,view_products.color');
+        $this->db->select('view_products.admin_id,view_products.admin_name,view_products.product_uniqcode,view_products.category_id,view_products.sub_category_id,view_products.product_name,view_products.image,view_products.mrp_price,view_products.sell_price,view_products.discount,view_products.uniqcode,view_products.color,view_products.slug,view_products.product_type');
+
         $this->db->from('view_products');
         $this->db->where($where_clause);
         //$this->db->group_by('view_products.product_uniqcode');

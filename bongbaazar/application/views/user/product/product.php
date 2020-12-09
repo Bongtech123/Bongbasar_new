@@ -234,7 +234,7 @@
             <div class="col-md-3 col-xs-12">
               <div class="dress-card">
                   <div class="dress-card-head">
-                    <a class="dress-card-img" target="_blank" href="<?=base_url('product/'.$prodct_all_row->slug)?>">
+                    <a class="dress-card-img" target="_blank" href="<?=base_url('product/'.$prodct_all_row->slug.'?proid='.$prodct_all_row->product_uniqcode.'&feid='.$prodct_all_row->uniqcode.'&cid='.$prodct_all_row->color.'&type='.$prodct_all_row->product_type)?>">
                        <?php $product_img=unserialize($prodct_all_row->image); 
                         if(!empty($product_img))
                         {
