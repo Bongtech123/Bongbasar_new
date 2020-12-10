@@ -176,6 +176,7 @@ class UserController extends CI_Controller
          //pr($this->data['user_wishlist']);
         $this->data['all_state'] = $this->User_Model->all_state(['is_active'=>'Active','country_id'=>'101'],'tbl_state_mast');
         //pr($this->data);
+        
    
         $this->data['subview']='profile/profile';
         $this->load->view('user/layout/default', $this->data);
