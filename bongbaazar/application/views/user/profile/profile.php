@@ -347,7 +347,8 @@
                                   <div class="col-md-8">
                                     <p class="product-title"><?=$user_wishlist_row->product_name?></p>
                                     <p class="sold-by"><a href="<?=base_url('shop/'.$user_wishlist_row->admin_id)?>">Sold By:<?=$user_wishlist_row->admin_name?></a></p>
-                                    
+                                    <p class="sold-by">Product Type:<?=$user_wishlist_row->product_type?></a></p>
+                                    <p class="sold-by">Color:<?=$user_wishlist_row->color_name?></a></p>
                                   </div>
                                 
                                   <div class="col-md-4 product-details-right">
