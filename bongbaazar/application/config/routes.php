@@ -18,6 +18,11 @@ $route['shoes-all-discount'] = 'product/ProductController/ShoesAllDiscount';
 $route['special-care-all'] = 'product/ProductController/SpecialCareAll';
 $route['special-care-all-discount'] = 'product/ProductController/SpecialCareAllDiscount';
 
+$route['type-color'] = 'product/ProductController/productColorType';
+$route['type-size'] = 'product/ProductController/productSizeType';
+$route['type-brand'] = 'product/ProductController/productBrandType';
+
+
 $route['all-shop'] = 'seller/SellerController/SellerAll';
 $route['shop/([a-zA-Z0-9]+)'] ='seller/SellerController/Seller/$1';
 $route['admin-color'] = 'seller/SellerController/productColor';

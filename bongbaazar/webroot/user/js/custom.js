@@ -1446,9 +1446,70 @@ $(document).ready(function()
     }
     
   });
-  
 
-  
+  $('#search_text_color_discount').keyup(function()
+  {
+    var base_url=$('#base_url').val();
+    var product_type=$('#product_type').val();
+    var search = $(this).val(); 
+    if(search != '')
+    {
+      $.ajax({
+          url     : base_url+'type-color',
+          method  : "POST",
+          //dataType:'json',
+          data: { product_type:product_type,color:search},
+          success: function(data) 
+          {
+            $('#filterColor').html(data);
+          }
+      });
+    }
+    
+  });
+
+  $('#search_text_size_discount').keyup(function()
+  {
+    var base_url=$('#base_url').val();
+    var product_type=$('#product_type').val();
+    var search = $(this).val(); 
+    if(search != '')
+    {
+      $.ajax({
+          url     : base_url+'type-size',
+          method  : "POST",
+          //dataType:'json',
+          data: { product_type:product_type,size:search},
+          success: function(data) 
+          {
+            $('#filterSize').html(data);
+          }
+      });
+    }
+    
+  });
+
+  $('#search_text_brand_discount').keyup(function()
+  {
+    var base_url=$('#base_url').val();
+    var product_type=$('#product_type').val();
+    var search = $(this).val(); 
+    if(search != '')
+    {
+      $.ajax({
+          url     : base_url+'type-brand',
+          method  : "POST",
+          //dataType:'json',
+          data: { product_type:product_type,brand:search},
+          success: function(data) 
+          {
+            $('#filterBrand').html(data);
+          }
+      });
+    }
+    
+  });
+
 
 });
 
