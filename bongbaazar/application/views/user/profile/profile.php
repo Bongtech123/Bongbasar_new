@@ -210,7 +210,12 @@
                     <div class="my-orders">
                     <?php 
                     
-                    foreach ($user_order as $user_order_row){?>
+                    foreach ($user_order as $user_order_row)
+                    {
+                      $user_details=unserialize($user_order_row->address);
+                      if(!empty($user_details))
+                      {
+                    ?>
                     <a href="<?=base_url('order-details/'.$user_order_row->order_code)?>">
                         <div class="product-single-item">
                             <div class="container-fluid">
@@ -221,7 +226,9 @@
                                                 <div class="col-md-2">
                                                     <div class="product-img more-img-outer">
                                                         <a class="dress-card-img" href="#">
-
+                                                       
+                                                          
+                                                     
                                                            <?php 
                                                             $product_img=unserialize($user_order_row->image);
                                                             if(!empty($product_img))
@@ -250,21 +257,18 @@
                                                         <?=$user_order_row->order_code?>
                                                     </p>
                                                     <p class="product-description"><span class="product-title">Number of items: </span>
-                                                        <?=$user_order_row->nu_of_item?>
+                                                        <?=$user_order_row->count?>
                                                     </p>
                                                     <p class="ship-to"><span class="product-title">Order From:</span>
-                                                        <?=$userdata->name;?>
+                                                    <?php
+                                                        $user_name=explode("##",$user_order_row->order_from);
+                                                        echo $user_name[0].' '.$user_name[1];
+                                                      ?>
                                                     </p>
                                                     <p class="ship-to"><span class="product-title">Ship to:</span>
-                                                        <?=$user_order_row->name?>
+                                                        <?=$user_details->name?>
                                                     </p>
-                                                    <?php if($user_order_row->status!='cancel'){?>
-                                                    <!-- <div class="button-part">
-                                                    <a type="button" class="btn card-button-inner remove-btn" href="<?=base_url('order-destroy/'.$user_order_row->order_code)?>" onclick="return confirm('Are you sure cancel this order?')">
-                                                    <span>Cancel Order</span>
-                                                    </a>
-                                                    </div> -->
-                                                    <?php }?>
+                                                    
                                                 </div>
                                                 <div class="col-md-4 product-details-right">
                                                     <p class="order-date product-title"><span>Order On:</span>
@@ -275,24 +279,27 @@
                                                         <svg width="8" height="10" viewBox="0 0 8 10" class="priceDetail-base-icon">
                                                         <path fill-rule="nonzero" d="M1.951 5.845l3.91 3.602-.902.376L.7 5.845l.452-.711c.186-.005.392-.02.615-.048a5.2 5.2 0 0 0 1.347-.356c.218-.09.42-.201.604-.331.185-.13.345-.281.479-.455.134-.173.231-.371.29-.594H.865v-.841h3.644a1.759 1.759 0 0 0-.284-.667 1.826 1.826 0 0 0-.567-.512 2.964 2.964 0 0 0-.865-.332A5.22 5.22 0 0 0 1.63.882H.864V0h6.2v.882H4.18c.173.077.33.174.468.29a2.09 2.09 0 0 1 .612.848c.064.162.11.325.137.489h1.668v.84H5.383a2.38 2.38 0 0 1-.43 1.03 3.095 3.095 0 0 1-.8.748 4.076 4.076 0 0 1-1.043.482 6.15 6.15 0 0 1-1.159.236z"></path>
                                                         </svg>
-                                                        <span><?=$user_order_row->total_amount?></span>
+                                                        <span ><?=Intval($user_order_row->sell_price+$user_order_row->shipping_price)?></span>
                                                     </p>
-                                                    <p><span class="product-title">Deliverd:</span>
-                                                        <?=$user_order_row->delevery_date?>
+                                                    <p><span class="product-title">Deliverd: </span>
+                                                    <?=$user_order_row->delivery_date?>
                                                     </p>
                                                     <p><span class="contact-no"><span class="product-title">Contact No:</span>
-                                                        <?=$user_order_row->mobile_no?>
+                                                    <?=$user_details->mobile_no?>
                                                     </p>
                                                 </div>
                                             </div>
-
+                                         
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </a>
-                    <?php } ?>
+                  <?php 
+                      }
+                    }
+                  ?>
                 </div>
                     
                   </div>
@@ -469,7 +476,9 @@
                     <label>State</label>
                     <select id="state" name="state" class="form-control validate[required]" data-errormessage-value-missing="State is required" data-prompt-position="bottomLeft">
                         <option value="">Select State</option>
-                    <?php foreach($all_state as $all_state_row){?>
+                    <?php 
+                     
+                    foreach($all_state as $all_state_row){?>
                         <option value="<?=$all_state_row->id;?>"><?=$all_state_row->name?></option>
                     <?php }?>
                     </select>    
