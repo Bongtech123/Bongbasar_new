@@ -41,7 +41,8 @@ class UserController extends CI_Controller
                 $userData['otp']=$otp;
                 $userData['uniqcode']='us'.randomPassword(28);
                 //insert user data
-
+                $message=$userData['otp']." is your Bongbasar OTP. Don't share this with anyone. Thank you.- Bongbasar";
+                send_sms($userData['mobile_no'],$message);
                 $insert = $this->User_Model->insert($userData,'tbl_users');
 
                 //check if the user data inserted
@@ -149,6 +150,8 @@ class UserController extends CI_Controller
                 $where=array('mobile_no'=>$mobile_no);
                 $dataChange=array('password'=>$password);
                 $update = $this->User_Model->update('tbl_users',$where,$dataChange);
+                $message="Congrats! You have successfully registered with Bongbasar from your mobile no. ".$mobile_no.". SHOPPING KI SOCH BADLO BONGBASAR KE SATH -Bongbasar";
+                send_sms($mobile_no,$message);
                 echo json_encode(['result'=>1]);  
             }
             else
@@ -176,7 +179,7 @@ class UserController extends CI_Controller
          //pr($this->data['user_wishlist']);
         $this->data['all_state'] = $this->User_Model->all_state(['is_active'=>'Active','country_id'=>'101'],'tbl_state_mast');
         //pr($this->data);
-        
+
    
         $this->data['subview']='profile/profile';
         $this->load->view('user/layout/default', $this->data);

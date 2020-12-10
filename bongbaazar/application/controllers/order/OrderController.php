@@ -562,7 +562,22 @@ class OrderController extends CI_Controller
             $user_id=$this->session->userdata('loginDetail')->uniqcode;
             // $this->data['menu_lebel'] = $this->Home_Model->get_categories();
             $this->data['user_order_details'] = $this->Order_Model->user_orders_details($user_id,$order_code);
-			$this->data['user_order_item'] = $this->Order_Model->user_delivery_item($user_id,$order_code);
+            $this->data['user_order_item'] = $this->Order_Model->user_delivery_item($user_id,$order_code);
+            // pr($this->data['user_order_item']);
+            foreach ($this->data['user_order_item'] as $key => $user_order_item) 
+            {
+                $where=array(
+                    'uniqcode'=>$user_order_item->product_features_id,
+                );
+                $product_data=$this->Order_Model->selectrow($where,'tbl_product_features');
+                $final_stock_quentity=Intval($product_data->stock_quentity-$user_order_item->quantity);
+                $data=array(
+                    'stock_quentity'=>$final_stock_quentity
+                );
+                $this->Order_Model->update('tbl_product_features', $where,$data);
+
+            }
+           
 			$this->data['page_title']='Bongbazaar | OrderSuccess';
 			$this->data['subview']='order/success';
 			// pr($this->data);

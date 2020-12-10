@@ -84,7 +84,7 @@
                   <div class="select-size-part">
                     <ul class="nav nav-tabs">
                       <?php 
-                        
+                       
                       foreach($product_view_size as $key => $product_view_size_row){
                         if(
                           $product_view_size_row->product_id==$product_view_price_image->product_id && 
@@ -114,6 +114,7 @@
                   </div>
                 
                   <div class="row">
+                    
                       <div class="col-md-6 card-button">
                       <?php if($this->session->userdata('loginDetail')!=NULL){ 
                           $chack=array(
@@ -147,6 +148,11 @@
                             <span>Buy Now</span>
                           </button>
                       </div>
+                      <!-- <div class="col-md-6">  
+                          <h2>Sold Out</h2>
+                          <h5>This item is currently out of stock</h5>
+                      <div> -->
+                      
                   </div>
                   <div class="pincode-deliveryContainer">
                     <h4>

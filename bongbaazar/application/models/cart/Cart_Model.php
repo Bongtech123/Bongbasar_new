@@ -120,6 +120,22 @@ class Cart_Model extends CI_Model
 		$query = $this->db->get($table);		
     	$count_row = $query->num_rows();
     	return $count_row;
+    }
+    public function selectrow($data,$table)
+	{
+		$data=$this->db->where($data)
+				->from($table)
+				->get()->row();
+		if(!empty($data))
+		{
+				
+		 	return $data;
+				
+		}
+		else
+		{
+		 	return false;
+		}
 	}
 	
 }

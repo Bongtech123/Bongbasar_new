@@ -215,24 +215,41 @@ class CartController extends CI_Controller
 			$quantity=$this->input->post('quantity');
 			if(!empty($uniqcode) && !empty($quantity))
 			{
-				if($quantity>0)
+				$where=array(
+					'uniqcode'=>$uniqcode
+				);
+				$cart_data=$this->Cart_Model->selectrow($where,'tbl_cart');
+				$where=array(
+					'uniqcode'=>$cart_data->product_features_id
+				);
+				$product_data=$this->Cart_Model->selectrow($where,'tbl_product_features');
+				if($product_data->stock_quentity>=$quantity)
 				{
-					$where=array(
-						'uniqcode'=>$uniqcode
-					);
-					$data=array(
-						'quantity'=>$quantity
-					);
-					$cart_row=$this->Cart_Model->update('tbl_cart',$where,$data);
-					if($cart_row)
+					if($quantity>0)
 					{
-						echo json_encode(['result'=>1]);
+						$where=array(
+							'uniqcode'=>$uniqcode
+						);
+						$data=array(
+							'quantity'=>$quantity
+						);
+						$cart_row=$this->Cart_Model->update('tbl_cart',$where,$data);
+						if($cart_row)
+						{
+							echo json_encode(['result'=>1]);
+							return false;
+						}
+					}
+					else
+					{
+						$this->session->set_flashdata('error', 'Minimum one quantity required...');
+						echo json_encode(['result'=>2]);
 						return false;
 					}
 				}
 				else
 				{
-					$this->session->set_flashdata('error', 'Minimum one quantity required...');
+					$this->session->set_flashdata('error', 'Number of quantity is unavailable!');
 					echo json_encode(['result'=>2]);
 					return false;
 				}
