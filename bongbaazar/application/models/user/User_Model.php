@@ -134,12 +134,13 @@ class User_Model extends CI_Model
 
     public function user_wishlist($user_id)
     {
-        $this->db->select('view_products.admin_id,view_products.admin_name,view_products.product_uniqcode,view_products.product_name,view_products.image, view_products.mrp_price,view_products.sell_price,view_products.discount,view_products.uniqcode,view_products.product_type,view_products.color,view_products.slug');
+        $this->db->select('view_products.admin_id,view_products.admin_name,view_products.product_uniqcode,view_products.product_name,view_products.image, view_products.mrp_price,view_products.sell_price,view_products.discount,view_products.uniqcode,view_products.product_type,view_products.color,view_products.slug,tbl_color.color_name');
             $this->db->from('tbl_wishlist');
             $this->db->join('view_products', 'view_products.uniqcode = tbl_wishlist.product_features_id', 'inner');
             $this->db->join('tbl_category', 'tbl_category.uniqcode= view_products.category_id', 'inner');
             $this->db->join('tbl_sub_category', 'tbl_sub_category.uniqcode = view_products.sub_category_id', 'inner');
             $this->db->join('tbl_child_category','tbl_child_category.uniqcode = view_products.child_category_id','inner');
+            $this->db->join('tbl_color','tbl_color.uniqcode = view_products.color','inner');
             $this->db->where('tbl_category.status', 'Active');
             $this->db->where('tbl_sub_category.status', 'Active');
             $this->db->where('tbl_child_category.status', 'Active');

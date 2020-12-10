@@ -173,6 +173,7 @@ class UserController extends CI_Controller
         $this->data['user_order'] = $this->Order_Model->user_orders($this->session->userdata('loginDetail')->uniqcode);
         //pr($this->data['user_order']);
         $this->data['user_wishlist'] = $this->User_Model->user_wishlist($this->session->userdata('loginDetail')->uniqcode);
+         //pr($this->data['user_wishlist']);
         $this->data['all_state'] = $this->User_Model->all_state(['is_active'=>'Active','country_id'=>'101'],'tbl_state_mast');
         //pr($this->data);
    
