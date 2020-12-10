@@ -261,7 +261,7 @@
                                                     </p>
                                                     <p class="ship-to"><span class="product-title">Order From:</span>
                                                     <?php
-                                                        if(empty($user_order_row->order_from))
+                                                        if(!empty($user_order_row->order_from))
                                                         {
                                                           $user_name=explode("##",$user_order_row->order_from);
                                                           echo $user_name[0].' '.$user_name[1];
