@@ -130,32 +130,493 @@ class ProductController extends CI_Controller
 
     public function ClothingAllDiscount()
     {
-      $this->data['prodct_all']=$this->Home_Model->ProductDiscountAllClothing(30,'Clothing');
+        $where           = '';
+        $where_clause    = '';
+        //$data            = array();
+        $shortBy = $this->input->get("shortBy");
+        $color = $this->input->get("color");
+        $size = $this->input->get("size");
+        $brand = $this->input->get("brand");
+        $text1= explode(',', $color);
+        $text2= explode(',', $size);
+        $text3= explode(',', $brand);
+        
+
+        if($color != '')
+        {
+          $color2="";
+          foreach ($text1 as $col) 
+          {
+            $color2.="'".$col."',";
+          }
+          $color3=rtrim($color2, ",");
+          $this->data['color']=$text1;
+          $this->data1['color']=$color;
+          $where .= "color IN (".$color3.") AND ";
+        }
+
+        if($size != '')
+        {
+          $size2="";
+          foreach ($text2 as $col) 
+          {
+            $size2.="'".$col."',";
+          }
+          $size3=rtrim($size2, ",");
+          $this->data['size']=$text2;
+          $this->data1['size']=$size;
+
+          $where .= "size IN (".$size3.") AND ";
+        }
+
+        if($brand != '')
+        {
+          $brand2="";
+          foreach ($text3 as $col) 
+          {
+            $brand2.="'".$col."',";
+          }
+          $brand3=rtrim($brand2, ",");
+          $this->data['brand']=$text3;
+          $this->data1['brand']=$brand;
+          $where .= "brand_name IN (".$brand3.") AND ";
+        }
+
+
+       $where.= "status= 'Active' AND ";
+       $where.= "super_admin_status= 'Active' AND ";
+       $where.= "admin_status= 'Active' AND ";
+       $where.= "super_admin_product_status= 'Active' AND ";
+       $where.= "admin_product_status= 'Active' AND ";
+       $where.= "product_type= 'Clothing' ";
+     
+       $where.= "GROUP BY product_uniqcode ";
+
+        if($shortBy != '')
+        {
+            $this->data['shortBy']=$shortBy;
+            $this->data1['shortBy']=$shortBy;
+            if ($shortBy == 'LH') 
+            {
+              $where .= "ORDER BY sell_price ASC ";
+            }else if($shortBy == 'HL')
+            {
+              $where .= "ORDER BY sell_price DESC ";
+            }else if($shortBy == 'AZ')
+            {
+              $where .= "ORDER BY product_name ASC ";
+            }else if($shortBy == 'ZA')
+            {
+              $where .= "ORDER BY product_name DESC ";
+            }
+            
+        }
+
+
+        /*if($where != ''){
+            $where_clause = substr($where, 0, -4);
+        }*/
+
+    
+        $where_clause = $where;
+        
+
+        $offset = $this->input->get("per_page");
+
+        $limit  = 10;
+
+        $query= $this->db->select('*')->where($where_clause)->get('view_products'); 
+
+        $total_rows = $query->num_rows();
+
+        //echo $total_rows;
+
+        $this->load->library('pagination');
+
+    	$config=[
+        'base_url'=>base_url('clothing-all-discount/')."?".http_build_query($this->data1),
+        'per_page'=>$limit,
+        'total_rows'=>$total_rows,
+        'last_link'=>'>>',
+        'first_link'=>'<<',
+        'full_tag_open'=>"<ul class='pagination'>",
+        'full_tag_close'=>"</ul>",
+        'first_tag_open'=>'<li>',
+        'first_tag_close'=>'</li>',
+        'last_tag_open'=>'<li>',
+        'last_tag_close'=>'</li>',
+        'next_tag_open'=>"<li>",
+        'next_tag_close'=>"</li>",
+        'prev_tag_open'=>"<li>",
+        'prev_tag_close'=>"</li>",
+        'num_tag_open'=>"<li>",
+        'num_tag_close'=>"</li>",
+        'cur_tag_open'=>"<li class='active'><a>",
+        'cur_tag_close'=>"</a></li>"
+      ];
+
+      $config['page_query_string'] = TRUE;
+
+    	$this->pagination->initialize($config);
+
+    	$page = $offset;
+ 
+    	$this->data["links"] = $this->pagination->create_links();
+      //pr($this->data);	
+      //$this->data['menu_lebel'] = $this->Home_Model->get_categories();
+      $this->data['prodct_all']=$this->Home_Model->ProductDiscountAllClothingFilter($where_clause,$limit,$offset);
+      $this->data['find_by_color']=$this->Home_Model->find_by_color_type('Clothing');
+      $this->data['find_by_size']=$this->Home_Model->find_by_size_type('Clothing');
+      $this->data['find_by_brand']=$this->Home_Model->find_by_brand_type('Clothing');
+      $this->data['product_type']='Clothing';
+      if(empty($page))
+      {
+        $this->data['page']=1;
+      }
+      else
+      {
+        $this->data['page']=$page;
+      }
       
-    	$this->data['page_title']='clothing all discount';  
-      $this->data['subview']='product/product';
-        //pr($this->data);
-		  $this->load->view('user/layout/default', $this->data);    
+      $totalpage=intval($config['total_rows'])/intval($config['per_page']);
+      $pageDataType=gettype($totalpage);
+      if($pageDataType=='double')
+      {
+        $totalpage=intval($totalpage)+1;
+      }
+      $this->data['totalpage']=$totalpage;
+      $this->data['page_title']='clothing all discount';  
+      $this->data['subview']='product/discount';
+      //pr($this->data);
+		  $this->load->view('user/layout/default', $this->data);		  
     }
 
     public function AccessoriesAllDiscount()
     {
     
-      $this->data['prodct_all']=$this->Home_Model->ProductDiscountAllClothing(30,'Accessories');
-    	$this->data['page_title']='clothing all discount'; 
-      $this->data['subview']='product/product';
-      pr($this->data);
+      $where           = '';
+        $where_clause    = '';
+        //$data            = array();
+        $shortBy = $this->input->get("shortBy");
+        $color = $this->input->get("color");
+        $size = $this->input->get("size");
+        $brand = $this->input->get("brand");
+        $text1= explode(',', $color);
+        $text2= explode(',', $size);
+        $text3= explode(',', $brand);
+        
+
+        if($color != '')
+        {
+          $color2="";
+          foreach ($text1 as $col) 
+          {
+            $color2.="'".$col."',";
+          }
+          $color3=rtrim($color2, ",");
+          $this->data['color']=$text1;
+          $this->data1['color']=$color;
+          $where .= "color IN (".$color3.") AND ";
+        }
+
+        if($size != '')
+        {
+          $size2="";
+          foreach ($text2 as $col) 
+          {
+            $size2.="'".$col."',";
+          }
+          $size3=rtrim($size2, ",");
+          $this->data['size']=$text2;
+          $this->data1['size']=$size;
+
+          $where .= "size IN (".$size3.") AND ";
+        }
+
+        if($brand != '')
+        {
+          $brand2="";
+          foreach ($text3 as $col) 
+          {
+            $brand2.="'".$col."',";
+          }
+          $brand3=rtrim($brand2, ",");
+          $this->data['brand']=$text3;
+          $this->data1['brand']=$brand;
+          $where .= "brand_name IN (".$brand3.") AND ";
+        }
+
+
+       $where.= "status= 'Active' AND ";
+       $where.= "super_admin_status= 'Active' AND ";
+       $where.= "admin_status= 'Active' AND ";
+       $where.= "super_admin_product_status= 'Active' AND ";
+       $where.= "admin_product_status= 'Active' AND ";
+       $where.= "product_type= 'Accessories' ";
+     
+       $where.= "GROUP BY product_uniqcode ";
+
+        if($shortBy != '')
+        {
+            $this->data['shortBy']=$shortBy;
+            $this->data1['shortBy']=$shortBy;
+            if ($shortBy == 'LH') 
+            {
+              $where .= "ORDER BY sell_price ASC ";
+            }else if($shortBy == 'HL')
+            {
+              $where .= "ORDER BY sell_price DESC ";
+            }else if($shortBy == 'AZ')
+            {
+              $where .= "ORDER BY product_name ASC ";
+            }else if($shortBy == 'ZA')
+            {
+              $where .= "ORDER BY product_name DESC ";
+            }
+            
+        }
+
+
+        /*if($where != ''){
+            $where_clause = substr($where, 0, -4);
+        }*/
+
+    
+        $where_clause = $where;
+        
+
+        $offset = $this->input->get("per_page");
+
+        $limit  = 10;
+
+        $query= $this->db->select('*')->where($where_clause)->get('view_products'); 
+
+        $total_rows = $query->num_rows();
+
+        //echo $total_rows;
+
+        $this->load->library('pagination');
+
+    	$config=[
+        'base_url'=>base_url('accessories-all-discount/')."?".http_build_query($this->data1),
+        'per_page'=>$limit,
+        'total_rows'=>$total_rows,
+        'last_link'=>'>>',
+        'first_link'=>'<<',
+        'full_tag_open'=>"<ul class='pagination'>",
+        'full_tag_close'=>"</ul>",
+        'first_tag_open'=>'<li>',
+        'first_tag_close'=>'</li>',
+        'last_tag_open'=>'<li>',
+        'last_tag_close'=>'</li>',
+        'next_tag_open'=>"<li>",
+        'next_tag_close'=>"</li>",
+        'prev_tag_open'=>"<li>",
+        'prev_tag_close'=>"</li>",
+        'num_tag_open'=>"<li>",
+        'num_tag_close'=>"</li>",
+        'cur_tag_open'=>"<li class='active'><a>",
+        'cur_tag_close'=>"</a></li>"
+      ];
+
+      $config['page_query_string'] = TRUE;
+
+    	$this->pagination->initialize($config);
+
+    	$page = $offset;
+ 
+    	$this->data["links"] = $this->pagination->create_links();
+      //pr($this->data);	
+      //$this->data['menu_lebel'] = $this->Home_Model->get_categories();
+      $this->data['prodct_all']=$this->Home_Model->ProductDiscountAllClothingFilter($where_clause,$limit,$offset);
+      $this->data['find_by_color']=$this->Home_Model->find_by_color_type('Accessories');
+      $this->data['find_by_size']=$this->Home_Model->find_by_size_type('Accessories');
+      $this->data['find_by_brand']=$this->Home_Model->find_by_brand_type('Accessories');
+      $this->data['product_type']='Accessories';
+      if(empty($page))
+      {
+        $this->data['page']=1;
+      }
+      else
+      {
+        $this->data['page']=$page;
+      }
+      
+      $totalpage=intval($config['total_rows'])/intval($config['per_page']);
+      $pageDataType=gettype($totalpage);
+      if($pageDataType=='double')
+      {
+        $totalpage=intval($totalpage)+1;
+      }
+      $this->data['totalpage']=$totalpage;
+      $this->data['page_title']='Accessories all discount';  
+      $this->data['subview']='product/discount';
+      //pr($this->data);
 		  $this->load->view('user/layout/default', $this->data);
       
     }
 
     public function ShoesAllDiscount()
     {
-    	$this->data['prodct_all']=$this->Home_Model->ProductDiscountAllClothing(30,'Shoes');
-      $this->data['page_title']='shoes all discount'; 
-      $this->data['subview']='product/product';
-      pr($this->data);
-      $this->load->view('user/layout/default', $this->data);
+    	$where           = '';
+        $where_clause    = '';
+        //$data            = array();
+        $shortBy = $this->input->get("shortBy");
+        $color = $this->input->get("color");
+        $size = $this->input->get("size");
+        $brand = $this->input->get("brand");
+        $text1= explode(',', $color);
+        $text2= explode(',', $size);
+        $text3= explode(',', $brand);
+        
+
+        if($color != '')
+        {
+          $color2="";
+          foreach ($text1 as $col) 
+          {
+            $color2.="'".$col."',";
+          }
+          $color3=rtrim($color2, ",");
+          $this->data['color']=$text1;
+          $this->data1['color']=$color;
+          $where .= "color IN (".$color3.") AND ";
+        }
+
+        if($size != '')
+        {
+          $size2="";
+          foreach ($text2 as $col) 
+          {
+            $size2.="'".$col."',";
+          }
+          $size3=rtrim($size2, ",");
+          $this->data['size']=$text2;
+          $this->data1['size']=$size;
+
+          $where .= "size IN (".$size3.") AND ";
+        }
+
+        if($brand != '')
+        {
+          $brand2="";
+          foreach ($text3 as $col) 
+          {
+            $brand2.="'".$col."',";
+          }
+          $brand3=rtrim($brand2, ",");
+          $this->data['brand']=$text3;
+          $this->data1['brand']=$brand;
+          $where .= "brand_name IN (".$brand3.") AND ";
+        }
+
+
+       $where.= "status= 'Active' AND ";
+       $where.= "super_admin_status= 'Active' AND ";
+       $where.= "admin_status= 'Active' AND ";
+       $where.= "super_admin_product_status= 'Active' AND ";
+       $where.= "admin_product_status= 'Active' AND ";
+       $where.= "product_type= 'Shoes' ";
+     
+       $where.= "GROUP BY product_uniqcode ";
+
+        if($shortBy != '')
+        {
+            $this->data['shortBy']=$shortBy;
+            $this->data1['shortBy']=$shortBy;
+            if ($shortBy == 'LH') 
+            {
+              $where .= "ORDER BY sell_price ASC ";
+            }else if($shortBy == 'HL')
+            {
+              $where .= "ORDER BY sell_price DESC ";
+            }else if($shortBy == 'AZ')
+            {
+              $where .= "ORDER BY product_name ASC ";
+            }else if($shortBy == 'ZA')
+            {
+              $where .= "ORDER BY product_name DESC ";
+            }
+            
+        }
+
+
+        /*if($where != ''){
+            $where_clause = substr($where, 0, -4);
+        }*/
+
+    
+        $where_clause = $where;
+        
+
+        $offset = $this->input->get("per_page");
+
+        $limit  = 10;
+
+        $query= $this->db->select('*')->where($where_clause)->get('view_products'); 
+
+        $total_rows = $query->num_rows();
+
+        //echo $total_rows;
+
+        $this->load->library('pagination');
+
+    	$config=[
+        'base_url'=>base_url('shoes-all-discount/')."?".http_build_query($this->data1),
+        'per_page'=>$limit,
+        'total_rows'=>$total_rows,
+        'last_link'=>'>>',
+        'first_link'=>'<<',
+        'full_tag_open'=>"<ul class='pagination'>",
+        'full_tag_close'=>"</ul>",
+        'first_tag_open'=>'<li>',
+        'first_tag_close'=>'</li>',
+        'last_tag_open'=>'<li>',
+        'last_tag_close'=>'</li>',
+        'next_tag_open'=>"<li>",
+        'next_tag_close'=>"</li>",
+        'prev_tag_open'=>"<li>",
+        'prev_tag_close'=>"</li>",
+        'num_tag_open'=>"<li>",
+        'num_tag_close'=>"</li>",
+        'cur_tag_open'=>"<li class='active'><a>",
+        'cur_tag_close'=>"</a></li>"
+      ];
+
+      $config['page_query_string'] = TRUE;
+
+    	$this->pagination->initialize($config);
+
+    	$page = $offset;
+ 
+    	$this->data["links"] = $this->pagination->create_links();
+      //pr($this->data);	
+      //$this->data['menu_lebel'] = $this->Home_Model->get_categories();
+      $this->data['prodct_all']=$this->Home_Model->ProductDiscountAllClothingFilter($where_clause,$limit,$offset);
+      $this->data['find_by_color']=$this->Home_Model->find_by_color_type('Shoes');
+      $this->data['find_by_size']=$this->Home_Model->find_by_size_type('Shoes');
+      $this->data['find_by_brand']=$this->Home_Model->find_by_brand_type('Shoes');
+      $this->data['product_type']='Shoes';
+      if(empty($page))
+      {
+        $this->data['page']=1;
+      }
+      else
+      {
+        $this->data['page']=$page;
+      }
+      
+      $totalpage=intval($config['total_rows'])/intval($config['per_page']);
+      $pageDataType=gettype($totalpage);
+      if($pageDataType=='double')
+      {
+        $totalpage=intval($totalpage)+1;
+      }
+      $this->data['totalpage']=$totalpage;
+      $this->data['page_title']='Accessories all discount';  
+      $this->data['subview']='product/discount';
+      //pr($this->data);
+		  $this->load->view('user/layout/default', $this->data);
     }
 
     public function SpecialCareAllDiscount()
@@ -403,6 +864,61 @@ class ProductController extends CI_Controller
         $find_by_min_max=$this->Home_Model->find_by_child_category_min_max($child_category_id);
         //pr($find_by_min_max);
         echo intval($find_by_min_max->min_price).'##'.intval($find_by_min_max->max_price);
+    }
+
+    public function productColorType()
+    {
+        $product_type=$this->input->post('product_type');
+        $color=$this->input->post('color');
+        $find_by_color=$this->Home_Model->find_by_type_color($product_type,$color);
+        //pr($find_by_color);
+
+        foreach ($find_by_color as $key => $find_by_color_row) 
+        {
+            echo '<li>
+                  <div class="aks-input-wrap">
+                    <input class="aks-input comon_selector color" type="checkbox" id="checkbox" name="checkbox" value="'.$find_by_color_row->uniqcode.'">
+                    <label class="aks-input-label" for="checkbox">'.$find_by_color_row->color_name.'</label>
+                  </div>
+                </li>';
+        }   
+    }
+
+    public function productSizeType()
+    {
+        $product_type=$this->input->post('product_type');
+        $size=$this->input->post('size');
+        $find_by_size=$this->Home_Model->find_by_type_size($product_type,$size);
+        //pr($find_by_size);
+
+        foreach ($find_by_size as $key => $find_by_size_row) 
+        {
+            echo '<li>
+                  <div class="aks-input-wrap">
+                    <input class="aks-input comon_selector size" type="checkbox" id="checkbox" name="checkbox" value="'.$find_by_size_row->uniqcode.'">
+                    <label class="aks-input-label" for="checkbox">'.$find_by_size_row->size_name.'</label>
+                  </div>
+                </li>';
+        }
+    }
+    public function productBrandType()
+    {
+        $product_type=$this->input->post('product_type');
+        $product_type=$this->input->post('product_type');
+        
+        $brand=$this->input->post('brand');
+        $find_by_brand=$this->Home_Model->find_by_type_brand($product_type,$brand);
+        // pr($find_by_brand);
+
+        foreach ($find_by_brand as $key => $find_by_brand_row) 
+        {
+            echo '<li>
+                  <div class="aks-input-wrap">
+                    <input class="aks-input comon_selector brand" type="checkbox" id="checkbox" name="checkbox" value="'.$find_by_brand_row->brand_name.'">
+                    <label class="aks-input-label" for="checkbox">'.$find_by_brand_row->brand_name.'</label>
+                  </div>
+                </li>';
+        }
     }
 }
     
