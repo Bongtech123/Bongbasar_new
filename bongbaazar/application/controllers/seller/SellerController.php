@@ -31,13 +31,14 @@ class SellerController extends CI_Controller
 
 	public function Seller($admin_id)
 	{
-		$where           = '';
+		    $where           = '';
         $where_clause    = '';
         //$data            = array();
         $shortBy = $this->input->get("shortBy");
         $color = $this->input->get("color");
         $size = $this->input->get("size");
         $brand = $this->input->get("brand");
+        $search = $this->input->get("search");
         $text1= explode(',', $color);
         $text2= explode(',', $size);
         $text3= explode(',', $brand);
@@ -64,8 +65,8 @@ class SellerController extends CI_Controller
             $size2.="'".$col."',";
           }
           $size3=rtrim($size2, ",");
-		  $this->data['size']=$text2;
-		  $this->data1['size']=$size;
+		      $this->data['size']=$text2;
+		      $this->data1['size']=$size;
           $where .= "size IN (".$size3.") AND ";
         }
 
@@ -77,10 +78,16 @@ class SellerController extends CI_Controller
             $brand2.="'".$col."',";
           }
           $brand3=rtrim($brand2, ",");
-		  $this->data['brand']=$text3;
-		  $this->data1['brand']=$brand;
-		  
+		      $this->data['brand']=$text3;
+		      $this->data1['brand']=$brand;
           $where .= "brand_name IN (".$brand3.") AND ";
+        }
+
+        if($search !='')
+        {
+          $this->data['search']=$search;
+          $this->data1['search']=$search;
+          $where.="product_name LIKE '%".$search."%' AND ";
         }
 
 

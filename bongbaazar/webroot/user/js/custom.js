@@ -1262,39 +1262,6 @@ function shopSelect()
   }
 }
 
-function shopProduct(shopid)
-{
-  var shop_product=$('#shop_product').val();
-  //alert('hi'+shop_product+shopid);
-
-  if(shop_product !='')
-  {
-    var base_url=$('#base_url').val();
-    var url=base_url+'shop-product-select';
-    $.ajax({
-      type: 'post',
-      url:url,
-      data:{
-        shop_product:shop_product,
-        shopid:shopid
-      },
-        success: function (data) 
-        {
-          if(data=='empty')
-          {
-
-            $('#filter_data').html('<h1>data do not found</h1>');
-          }
-          else
-          {
-          
-            $('#filter_data').html(data);
-          }
-        }
-    });
-  }   
-}
-
 function shop_refresh()
 {
   location.reload();   
@@ -1696,6 +1663,55 @@ $(document).ready(function()
     }
     
   }
+  function shopProduct()
+  {
+    var current_url=window.location.href;
+    var url = new URL(current_url);
+    var query=$('#shop_product').val();
+
+    if(window.location.search)
+    {
+      var search=url.searchParams.get("search");
+      var per_page=url.searchParams.get("per_page");
+      if(search!=null)
+      {
+        if(per_page!=null)
+        {
+          url.searchParams.set("per_page",'0');
+          url.searchParams.set("search",query);
+          
+        }
+        else{
+          url.searchParams.set("search",query);
+        }
+        window.location=url;
+        // res=current_url.replace(shortBy,order);
+        // window.location=res;
+      }
+      else
+      {
+        if(per_page!=null)
+        {
+          url.searchParams.set("per_page",'0');
+          url=url+"&search="+query;
+        }
+        else
+        {
+          url=current_url+"&search="+query;
+        }
+        window.location=url;
+      }
+      
+    }
+    else
+    {
+      res=current_url+"?search="+query;
+      window.location=res;
+    }
+  }
+
+
+
   function setCancelId(orderid)
   {
     $('#cancelorderId').val(orderid);

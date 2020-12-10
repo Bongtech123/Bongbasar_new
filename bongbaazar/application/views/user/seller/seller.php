@@ -66,6 +66,7 @@
                         <input id="admin_search_text_color" class="searchbar" type="text" placeholder="Search...">
                         <a id="btnSearch" class="btn-search"><i class="fa fa-search"></i></a>
                       </div>
+
                     </li>
                     <li>
                       <ul class="navSearchItem" id="filterColor">
@@ -159,11 +160,11 @@
                 </div>
                 <div class="col-md-6">
                   <div class="search-field">
-                    <input type="text" placeholder="Search Product...." name="" id="shop_product" onkeyup="shopProduct('<?=$shop_details->uniqcode?>')">
+                    <input type="text" placeholder="Search Product...." name="shop_product" id="shop_product" value="<?php if($search !=''){echo $search;}?>">
                     <!-- <input type="hidden" name="shopid" id="shopid" value=""> -->
-                    <!-- <button type="submit" class="searchButton" onclick="shopProduct()">
+                    <button type="submit" class="searchButton" onclick="shopProduct()">
                       <i class="fa fa-search"></i>
-                   </button> -->
+                   </button> 
                   </div>
                 </div>
               </div>
