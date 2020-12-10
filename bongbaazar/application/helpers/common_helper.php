@@ -15,7 +15,8 @@
 	 // 	return $data;
 	 // }
 	 
-	function email_send(){
+    function email_send()
+    {
 		$CI = get_instance();
 		$config['protocol']    = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
@@ -33,13 +34,15 @@
 
 	}	
 
-	function create_slug($string) {
+    function create_slug($string) 
+    {
 	   $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
 	   $string = strtolower($string);
 
 	   return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
 	}
-	function randomPassword($len = 10) {
+    function randomPassword($len = 10) 
+    {
 
     //enforce min length 8
     if($len < 10)
@@ -60,7 +63,8 @@
     }
 
     //use all characters to fill up to $len
-    while(strlen($password) < $len) {
+    while(strlen($password) < $len) 
+    {
         //get a random set
         $randomSet = $sets[array_rand($sets)];
         
@@ -71,7 +75,8 @@
     //shuffle the password string before returning!
     return str_shuffle($password);
 }
-function randomID($len = 10) {
+function randomID($len = 10) 
+{
 
     //enforce min length 8
     if($len < 10)
@@ -102,4 +107,31 @@ function randomID($len = 10) {
     
     //shuffle the password string before returning!
     return str_shuffle($password);
+}
+
+function send_sms($mobile,$message)
+{
+    $authKey = "36573A52iu3Oow5f881623P30";
+    $senderId = "NEWMSG";
+    $route = "default";
+    $postData = array(
+    'authkey' => $authKey,
+    'mobiles' => $mobile,
+    'message' => $message,
+    'sender' => $senderId,
+    'route' => $route
+    );
+    $url="http://fastsms.fastsmsindia.com/api/sendhttp.php";
+    $ch = curl_init();
+    curl_setopt_array($ch, array(
+    CURLOPT_URL => $url,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => $postData
+    ));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    $output = curl_exec($ch);
+    curl_close($ch);
+    
 }
