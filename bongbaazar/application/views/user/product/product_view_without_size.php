@@ -80,6 +80,10 @@
                  
                 
                   <div class="row">
+                  <?php 
+                    if($product_quantity->stock_quentity>0 && $product_quantity->business_type=="Retailer" || $product_quantity->stock_quentity>50 && $product_quantity->business_type=="Wholesaler" || $product_quantity->stock_quentity>50 && $product_quantity->business_type=="Manufacture")
+                    {
+                    ?>
                       <div class="col-md-6 card-button">
                       <?php if($this->session->userdata('loginDetail')!=NULL){ 
                          $chack=array(
@@ -112,6 +116,19 @@
                             <span>Buy Now</span>
                           </button>
                       </div>
+                      <?php
+                          }
+                          else
+                          {
+                      ?>
+                      <div class="col-md-6">  
+                          <h2 style="margin-top: 11px;color: red;
+                            ">Sold Out</h2>
+                          <h5>This item is currently out of stock</h5>
+                      <div>
+                      <?php
+                          }
+                      ?>
                   </div>
                   <div class="pincode-deliveryContainer">
                     <h4>

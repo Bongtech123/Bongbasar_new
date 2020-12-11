@@ -31,7 +31,7 @@ class ProductController extends CI_Controller
             $this->data['product_view_price_image']=$this->Product_Model->productViewPriceImage($product_features_id);
             $this->data['product_view_size']=$this->Product_Model->productViewSize($product_id,$color);    
             $this->data['product_quantity']=$this->Product_Model->product_quantity($product_features_id);    
-           
+           //pr( $this->data['product_quantity']);
             if(!empty($this->data['product_view']) && !empty($this->data['product_view_color']) &&!empty($this->data['product_view_price_image']) && !empty($this->data['product_view_size']))
             {
               $this->data['product_view']=$this->Product_Model->productView($product_id);
@@ -58,6 +58,8 @@ class ProductController extends CI_Controller
               $this->data['product_view']=$this->Product_Model->productView($product_id);
               $this->data['product_view_color']=$this->Product_Model->productViewColor($product_id);
               $this->data['product_view_price_image']=$this->Product_Model->productViewPriceImage($product_features_id);
+              
+
               if(!empty($this->data['product_view']) && !empty($this->data['product_view_color']) && !empty($this->data['product_view_price_image']))
               { 
                 $this->data['page_title']='product view';      

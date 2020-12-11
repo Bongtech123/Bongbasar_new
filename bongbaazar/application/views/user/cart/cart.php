@@ -2,6 +2,7 @@
 <?php
     $product_available=0;
     $outofstock=0;
+    $temp=0;
 ?>
 <section id="shopping-cart">
     <div id="regForm" class="shopping-cart">
@@ -118,9 +119,9 @@ echo "0";
 
                                                     <div class="number-of-products" id="buyBlock">
                                                         <?php
-                                                            if($product_quantity[$key]>0)
+                                                            if($product_quantity[$key]->stock_quentity>0 && $product_quantity[$key]->business_type=="Retailer" || $product_quantity[$key]->stock_quentity>50 && $product_quantity[$key]->business_type=="Wholesaler" || $product_quantity[$key]->stock_quentity>50 && $product_quantity[$key]->business_type=="Manufacture" )
                                                             {
-                                                                
+                                                                $temp=0;
                                                         ?>
                                                         <span id="priceATC" class="quantity-up-down">
                                                             <label>Qty</label>
@@ -133,9 +134,15 @@ echo "0";
                                                             else
                                                             {
                                                                $outofstock=1; 
+                                                               $temp=1;
                                                         ?>
+                                                        <span id="priceATC" class="quantity-up-down">
+                                                            <label>Qty:<?=$cart_row->quantity?></label>
+                                                        </span>
                                                         <span>
                                                             <label style="color: red;
+                                                            margin-left: 71px;
+                                                            font-size: 20px;
                                                             ">Out Of Stock.</label>
                                                         </span>
                                                         <?php
@@ -163,11 +170,19 @@ echo "0";
                                                                 d="M1.951 5.845l3.91 3.602-.902.376L.7 5.845l.452-.711c.186-.005.392-.02.615-.048a5.2 5.2 0 0 0 1.347-.356c.218-.09.42-.201.604-.331.185-.13.345-.281.479-.455.134-.173.231-.371.29-.594H.865v-.841h3.644a1.759 1.759 0 0 0-.284-.667 1.826 1.826 0 0 0-.567-.512 2.964 2.964 0 0 0-.865-.332A5.22 5.22 0 0 0 1.63.882H.864V0h6.2v.882H4.18c.173.077.33.174.468.29a2.09 2.09 0 0 1 .612.848c.064.162.11.325.137.489h1.668v.84H5.383a2.38 2.38 0 0 1-.43 1.03 3.095 3.095 0 0 1-.8.748 4.076 4.076 0 0 1-1.043.482 6.15 6.15 0 0 1-1.159.236z"
                                                             ></path>
                                                         </svg>
-                                                        <span class="dress-card-crossed"><?=intval($cart_row->mrp_price)?></span>
+                                                        <span class="dress-card-crossed"><?=intval($cart_row->mrp_price)?> </span>
                                                         <span class="dress-card-off">&ensp;(<?=intval($cart_row->discount)?>% OFF)</span>
                                                     </p>
                                                     <p>Delivery By: Wed Sep 2</p>
-                                                    <p><h4>sgsg</h4></p>
+                                                    <?php
+                                                        if($cart_row->quantity > $product_quantity[$key]->stock_quentity &&  $temp==0)
+                                                        {
+                                                            $product_available=1;
+                                                    ?>
+                                                    <p><h5 style="color: red;">Number of quantity is unavailable!</h5></p>
+                                                    <?php
+                                                        }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -208,7 +223,7 @@ echo "0";
                             </span>
                         </div>
                         <div class="card-button">
-                            <button id="nextBtn" type="button" class="btn card-button-inner bag-button buy-btn btn-block place-order" onclick="placeOrder()">
+                            <button id="nextBtn" type="button" class="btn card-button-inner bag-button buy-btn btn-block place-order" onclick="placeOrder('<?=$product_available?>','<?=$outofstock?>')">
                                 <span>Place Order</span>
                             </button>
                         </div>
@@ -240,6 +255,7 @@ else
     </div>
 </section>
 <?php
-    echo $outofstock;
+    // echo $outofstock;
+    // echo $product_available;
 ?>
 <!-- Cart section end -->

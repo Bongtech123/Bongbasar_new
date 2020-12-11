@@ -146,7 +146,7 @@ class Cart_Model extends CI_Model
 		$this->db->where('tbl_product_features.uniqcode',$product_features_id);
         
         $stock_quentity=$this->db->get()->row();
-        return $stock_quentity->stock_quentity;
+        return $stock_quentity;
         
     }
 	
