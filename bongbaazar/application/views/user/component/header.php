@@ -121,7 +121,7 @@
                             $query = $this->db->get('tbl_cart');
                             $cart_count = $query->num_rows();
                         ?>
-                        <li><a href="<?=base_url('bag')?>" class="wow bounceInDown"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Bag<span class="badge"><?= $cart_count;?></span></a></li>
+                        <li><a href="<?=base_url('bag')?>" class="wow bounceInDown" onclick="onloadbag()"><i class="fa fa-shopping-bag" aria-hidden="true" ></i> Bag<span class="badge"><?= $cart_count;?></span></a></li>
                         <?php 
                           }
                           else 

@@ -18,13 +18,17 @@ class CartController extends CI_Controller
 	{
 		if(($this->session->userdata('loginDetail')!=NULL))
 		{
+			$product_quantity=array();
 			$this->BuyNowUpdate();
 			$this->data['page_title']='Bongbazaar | Cart';
 			//$this->data['menu_lebel'] = $this->Home_Model->get_categories();
 			$this->data['subview']='cart/cart';
 			$this->data['cart_details']=$this->Cart_Model->get_cartItem($this->session->userdata('loginDetail')->uniqcode);
-			//pr($this->data);
-			// die;
+			foreach ($this->data['cart_details'] as $key => $cart_details) {
+				$product_quantity[$key]=$this->Cart_Model->product_quantity( $cart_details->product_features_id);
+			}
+			pr($product_quantity);
+			$this->data['product_quantity']=$product_quantity;
 			$this->load->view('user/layout/default', $this->data);
 		}
 		else
@@ -253,6 +257,47 @@ class CartController extends CI_Controller
 					echo json_encode(['result'=>2]);
 					return false;
 				}
+			}
+		}
+		else
+		{
+			$this->session->set_flashdata('error', 'You do not sing in...');
+			echo json_encode(['result'=>3]);
+			return false;
+		}
+	}
+	public function decrementbagUpdate()
+	{
+
+		if(($this->session->userdata('loginDetail')!=NULL))
+		{
+			$uniqcode=$this->input->post('uniqcode');
+			$quantity=$this->input->post('quantity');
+			if(!empty($uniqcode) && !empty($quantity))
+			{
+				
+					if($quantity>0)
+					{
+						$where=array(
+							'uniqcode'=>$uniqcode
+						);
+						$data=array(
+							'quantity'=>$quantity
+						);
+						$cart_row=$this->Cart_Model->update('tbl_cart',$where,$data);
+						if($cart_row)
+						{
+							echo json_encode(['result'=>1]);
+							return false;
+						}
+					}
+					else
+					{
+						$this->session->set_flashdata('error', 'Minimum one quantity required...');
+						echo json_encode(['result'=>2]);
+						return false;
+					}
+				
 			}
 		}
 		else
