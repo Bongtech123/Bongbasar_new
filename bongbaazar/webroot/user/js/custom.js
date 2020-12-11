@@ -1171,36 +1171,7 @@ function ztoa()
     });
   }
 }
-function rangeSlider()
-{
-  var sub_category_id=$('#sub_category_id').val();
-  var child_category_id=$('#child_category_id').val();
-  var base_url=$('#base_url').val();
-  var rangestart=$('#rangestart').val();
-  var rangeend=$('#rangeend').val();
-  if(sub_category_id !='' && child_category_id!='')
-  {
-    var url=base_url+'range-slider/'+sub_category_id+'_'+child_category_id;
-    $.ajax({
-      type: 'post',
-      url:url,
-      data:{
-        sub_category_id:sub_category_id,
-        child_category_id:child_category_id,
-        rangestart:rangestart,
-        rangeend:rangeend
-      },
-        success: function (data) 
-        {
-          var all_data=data.split('##');
-          // alert(all_data)
-          $('#filter_data').html(all_data[0]);
-          $('#pagination_data').html(all_data[1]);
-        }
-    });
-  }
-  
-}
+
 function shopLocation()
 {
   var location = $('#select-country').val();
@@ -1769,6 +1740,61 @@ $(document).ready(function()
       res=current_url+"?search="+query;
       window.location=res;
     }
+  }
+
+  function rangeSlider()
+  {
+    var rangestart=$('#rangestart').val();
+    var rangeend=$('#rangeend').val();
+    console.log(rangestart+" "+rangeend);
+    var current_url=window.location.href;
+    var url = new URL(current_url);
+    if(window.location.search)
+    {
+      var rangestart1=url.searchParams.get("rangestart");
+      var rangeend1=url.searchParams.get("rangeend");
+      var per_page=url.searchParams.get("per_page");
+      if(rangestart1!=null && rangeend1!=null)
+      {
+        if(per_page!=null)
+        {
+          url.searchParams.set("per_page",'0');
+          url.searchParams.set("rangestart",rangestart);
+          url.searchParams.set("rangeend",rangeend);
+          
+        }
+        else
+        {
+          
+          url.searchParams.set("rangestart",rangestart);
+          url.searchParams.set("rangeend",rangeend);
+        }
+        window.location=url;
+        
+      }
+      else
+      {
+        if(per_page!=null)
+        {
+          url.searchParams.set("per_page",'0');
+          url=url+"&rangestart="+rangestart+"&rangeend="+rangeend;
+        }
+        else
+        {
+          url=current_url+"&rangestart="+rangestart+"&rangeend="+rangeend;
+        }
+        window.location=url;
+      }
+      
+    }
+    else
+    {
+      res=current_url+"?rangestart="+rangestart+"&rangeend="+rangeend;
+      window.location=res;
+    }
+   
+   
+    
   }
 
 

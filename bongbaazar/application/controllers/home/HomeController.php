@@ -21,6 +21,7 @@ class HomeController extends CI_Controller
 		$this->load->model('user/User_Model');			
 	} 
 	
+	
 	public function index()
 	{
 

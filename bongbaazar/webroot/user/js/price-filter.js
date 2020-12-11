@@ -136,7 +136,7 @@
     var double_html =
         '<span class="irs-shadow shadow-from"></span>' +
         '<span class="irs-shadow shadow-to"></span>' +
-        '<span class="irs-slider from"></span>' +
+        '<span class="irs-slider from" ></span>' +
         '<span class="irs-slider to"></span>';
 
     var disable_html =
@@ -2372,72 +2372,109 @@
 // Trigger
 
 $(function () {
-  
-var $range = $(".js-range-slider"),
-    $inputFrom = $(".js-input-from"),
-    $inputTo = $(".js-input-to"),
-    instance,
-    min = 0,
-    max = 10000,
-    from = 0,
-    to = 0;
+    var child_category_id=$("#child_category_id").val();
+    var admin_id=$("#admin_id").val();
+    var minimum=$("#minimum").val();
+    var maximum=$("#maximum").val();
+  //  alert(minimum+" "+maximum);
+    if(child_category_id != null)
+    {
+      var base_url=$('#base_url').val();
+      url=base_url+'min-max';
+      $.ajax({
+        type: 'post',
+        url:url,
+        data:{
+            child_category_id:child_category_id
+        },
+          success: function (data) 
+          {
+            console.log(data);
+            var all_data=data.split('##');
+            var $range = $(".js-range-slider"),
+                $inputFrom = $(".js-input-from"),
+                $inputTo = $(".js-input-to"),
+                instance,
+                min = all_data[0],
+                max = all_data[1],
+                from = 0,
+                to = max;
 
-$range.ionRangeSlider({
-    type: "double",
-    min: min,
-    max: max,
-    from: 0,
-    to: 500,
-    prefix: '₹Rs. ',
-    onStart: updateInputs,
-    onChange: updateInputs,
-    step: 100,
-    prettify_enabled: true,
-    prettify_separator: ",",
-  values_separator: " - ",
-  force_edges: true
-  
+            $range.ionRangeSlider({
+                type: "double",
+                min: min,
+                max: max,
+                from: minimum,
+                to: maximum,
+                prefix: '₹Rs. ',
+                onStart: updateInputs,
+                onChange: updateInputs,
+                step: 100,
+                prettify_enabled: true,
+                prettify_separator: ",",
+            values_separator: " - ",
+            force_edges: true
+            
 
-});
+            });
 
-instance = $range.data("ionRangeSlider");
+            instance = $range.data("ionRangeSlider");
 
-function updateInputs (data) {
-    from = data.from;
-    to = data.to;
-    
-    $inputFrom.prop("value", from);
-    $inputTo.prop("value", to); 
-}
+            function updateInputs (data) {
+                from = data.from;
+                to = data.to;
+                
+                $inputFrom.prop("value", from);
+                $inputTo.prop("value", to); 
+            }
 
-$inputFrom.on("input", function () {
-    var val = $(this).prop("value");
-    
-    // validate
-    if (val < min) {
-        val = min;
-    } else if (val > to) {
-        val = to;
+            $inputFrom.on("input", function () {
+                var val = $(this).prop("value");
+                
+                // validate
+                if (val < min) {
+                    val = min;
+                } else if (val > to) {
+                    val = to;
+                }
+                
+                instance.update({
+                    from: val
+                });
+            });
+
+            $inputTo.on("input", function () {
+                var val = $(this).prop("value");
+                
+                // validate
+                if (val < from) {
+                    val = from;
+                } else if (val > max) {
+                    val = max;
+                }
+                
+                instance.update({
+                    to: val
+                });
+            });
+            
+          }
+      });
+     
     }
-    
-    instance.update({
-        from: val
-    });
-});
-
-$inputTo.on("input", function () {
-    var val = $(this).prop("value");
-    
-    // validate
-    if (val < from) {
-        val = from;
-    } else if (val > max) {
-        val = max;
+    else if(admin_id!=null)
+    {
+        var base_url=$('#base_url').val();
+        url=base_url+'min-max';
+        $.ajax({
+          type: 'post',
+          url:url,
+          dataType:'json',
+            success: function (data) 
+            {
+              console.log(data);
+              
+            }
+        });
     }
-    
-    instance.update({
-        to: val
-    });
 });
-
-    });
