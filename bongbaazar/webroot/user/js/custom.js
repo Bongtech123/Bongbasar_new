@@ -758,7 +758,7 @@ function quentityDecrement(id)
   var base_url=$('#base_url').val();
     $.ajax({
       type: 'post',
-      url:base_url+'update-bag',
+      url:base_url+'update-bag-decrement',
       dataType: 'json',
       data:{uniqcode:cart_id,quantity:quantity},
         success: function (data) 
@@ -782,6 +782,7 @@ function quentityDecrement(id)
 
 function placeOrder()
 {
+  
   var base_url=$('#base_url').val();
   var url=base_url+'address';
   location.assign(url);
@@ -1837,6 +1838,7 @@ $(document).ready(function()
    
     
   }
+ 
   
   
   

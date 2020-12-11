@@ -64,6 +64,7 @@ $route['bag-check'] = 'cart/CartController/BagCheck';
 $route['bag'] = 'cart/CartController/Bag';
 $route['remove-bag'] = 'cart/CartController/destroy';
 $route['update-bag'] = 'cart/CartController/bagUpdate';
+$route['update-bag-decrement'] = 'cart/CartController/decrementbagUpdate';
 
 $route['address'] = 'address/AddressController/index';
 $route['address-add'] = 'address/AddressController/addAddress';

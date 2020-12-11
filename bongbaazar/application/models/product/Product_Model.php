@@ -93,4 +93,13 @@ class Product_Model extends CI_Model
         $query = $this->db->get();
         return $query->num_rows();
     }
+    public function product_quantity($product_features_id)
+    {
+        $this->db->select('stock_quentity');
+        $this->db->from('tbl_product_features');
+        $this->db->where('uniqcode',$product_features_id);
+        $stock_quentity=$this->db->get()->row();
+        return $stock_quentity->stock_quentity;
+        
+    }
 }

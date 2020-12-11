@@ -137,5 +137,17 @@ class Cart_Model extends CI_Model
 		 	return false;
 		}
 	}
+	public function product_quantity($product_features_id)
+    {
+        $this->db->select('tbl_product_features.stock_quentity,tbl_admin.business_type');
+		$this->db->from('tbl_product_features');
+		$this->db->join('tbl_product', 'tbl_product.uniqcode = tbl_product_features.product_id');
+		$this->db->join('tbl_admin', 'tbl_admin.uniqcode = tbl_product.admin_id');
+		$this->db->where('tbl_product_features.uniqcode',$product_features_id);
+        
+        $stock_quentity=$this->db->get()->row();
+        return $stock_quentity->stock_quentity;
+        
+    }
 	
 }

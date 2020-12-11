@@ -1,4 +1,8 @@
 <!-- -----------Cart section start----------- -->
+<?php
+    $product_available=0;
+    $outofstock=0;
+?>
 <section id="shopping-cart">
     <div id="regForm" class="shopping-cart">
         <div class="container">
@@ -51,15 +55,15 @@ echo "0";
                                     ></path>
                                 </svg>
                                 <?php
-$total=0;
-foreach($cart_details as $cart_row)
-{
-$total=$total+(intval($cart_row->sell_price)*intval($cart_row->quantity)); } ?>
+                                    $total=0;
+                                    foreach($cart_details as  $key => $cart_row)
+                                    {
+                                    $total=$total+(intval($cart_row->sell_price)*intval($cart_row->quantity)); } ?>
                                 <span id="totalamount_view"><?= $total;?></span>
                                 <input type="hidden" id="totalamount" value="<?=$total;?>" />
                             </div>
                         </div>
-                        <?php foreach($cart_details as $cart_row){?>
+                        <?php foreach($cart_details as $key => $cart_row){?>
                         <div class="product-single-item">
                             <i class="fa fa-times" aria-hidden="true" onclick="removeItem('<?=$cart_row->uniqcode?>')"></i>
                             <div class="container-fluid">
@@ -73,17 +77,17 @@ $total=$total+(intval($cart_row->sell_price)*intval($cart_row->quantity)); } ?>
                                                 href="<?=base_url('product/'.$cart_row->slug.'?proid='.$cart_row->product_id.'&feid='.$cart_row->product_features_id.'&cid='.$cart_row->color.'&type='.$cart_row->product_type)?>"
                                             >
                                                 <?php
-$product_img=unserialize($cart_row->image); if(!empty($product_img)) {?>
+                                                 $product_img=unserialize($cart_row->image); if(!empty($product_img)) {?>
                                                 <img class="" src="<?=base_url('webroot/admin/product/web/').$product_img[0]?>" alt="" />
                                                 <?php
-}
-else
-{
-?>
+                                                }
+                                                else
+                                                {
+                                                ?>
                                                 <img src="<?=base_url('webroot/user/images/no_image.jpg')?>" />
                                                 <?php
-}
-?>
+                                                }
+                                                ?>
                                             </a>
                                         </div>
                                     </div>
@@ -93,7 +97,7 @@ else
                                                 <div class="col-md-8 col-xs-12 col-sm-12">
                                                     <p class="product-title">
                                                         <?php
-$name = strlen($cart_row->product_name) > 80 ? substr($cart_row->product_name,0,80)."..." : $cart_row->product_name; echo $name ; ?>
+                                                            $name = strlen($cart_row->product_name) > 80 ? substr($cart_row->product_name,0,80)."..." : $cart_row->product_name; echo $name ; ?>
                                                     </p>
                                                     <p class="sold-by">
                                                         <a href="<?=base_url('shop/'.$cart_row->admin_id)?>">Sold By:<?=$cart_row->admin_name?></a>
@@ -113,13 +117,33 @@ $name = strlen($cart_row->product_name) > 80 ? substr($cart_row->product_name,0,
                                                     <?php }?>
 
                                                     <div class="number-of-products" id="buyBlock">
+                                                        <?php
+                                                            if($product_quantity[$key]>0)
+                                                            {
+                                                                
+                                                        ?>
                                                         <span id="priceATC" class="quantity-up-down">
                                                             <label>Qty</label>
                                                             <span class="icon-minus-squared <?= $cart_row->quantity == 1 ? 'off' : '';?>" onclick="quentityDecrement('<?=$cart_row->uniqcode?>')">&ndash;</span>
                                                             <input name="Quantity" type="number" value="<?=$cart_row->quantity?>" id="quen<?=$cart_row->uniqcode?>" class="qty-field" min="1" max="200" />
                                                             <span class="icon-plus-squared" onclick="quentityUpdate('<?=$cart_row->uniqcode?>')">+</span>
                                                         </span>
+                                                        <?php
+                                                            }
+                                                            else
+                                                            {
+                                                               $outofstock=1; 
+                                                        ?>
+                                                        <span>
+                                                            <label style="color: red;
+                                                            ">Out Of Stock.</label>
+                                                        </span>
+                                                        <?php
+                                                            }
+                                                        ?>
+                                                       
                                                     </div>
+                                                    
                                                 </div>
                                                 <div class="col-md-4 col-xs-12 col-sm-12 product-details-right">
                                                     <p class="base-value product-title">
@@ -143,6 +167,7 @@ $name = strlen($cart_row->product_name) > 80 ? substr($cart_row->product_name,0,
                                                         <span class="dress-card-off">&ensp;(<?=intval($cart_row->discount)?>% OFF)</span>
                                                     </p>
                                                     <p>Delivery By: Wed Sep 2</p>
+                                                    <p><h4>sgsg</h4></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -214,4 +239,7 @@ else
         </div>
     </div>
 </section>
+<?php
+    echo $outofstock;
+?>
 <!-- Cart section end -->
