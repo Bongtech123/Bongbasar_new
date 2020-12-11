@@ -2465,14 +2465,83 @@ $(function () {
     else if(admin_id!=null)
     {
         var base_url=$('#base_url').val();
-        url=base_url+'min-max';
+        url=base_url+'admin-min-max';
         $.ajax({
           type: 'post',
           url:url,
-          dataType:'json',
+          data:{
+            admin_id:admin_id
+            },
             success: function (data) 
             {
-              console.log(data);
+                console.log(data);
+                var all_data=data.split('##');
+                var $range = $(".js-range-slider"),
+                    $inputFrom = $(".js-input-from"),
+                    $inputTo = $(".js-input-to"),
+                    instance,
+                    min = all_data[0],
+                    max = all_data[1],
+                    from = 0,
+                    to = max;
+    
+                $range.ionRangeSlider({
+                    type: "double",
+                    min: min,
+                    max: max,
+                    from: minimum,
+                    to: maximum,
+                    prefix: '₹Rs. ',
+                    onStart: updateInputs,
+                    onChange: updateInputs,
+                    step: 100,
+                    prettify_enabled: true,
+                    prettify_separator: ",",
+                values_separator: " - ",
+                force_edges: true
+                
+    
+                });
+    
+                instance = $range.data("ionRangeSlider");
+    
+                function updateInputs (data) {
+                    from = data.from;
+                    to = data.to;
+                    
+                    $inputFrom.prop("value", from);
+                    $inputTo.prop("value", to); 
+                }
+    
+                $inputFrom.on("input", function () {
+                    var val = $(this).prop("value");
+                    
+                    // validate
+                    if (val < min) {
+                        val = min;
+                    } else if (val > to) {
+                        val = to;
+                    }
+                    
+                    instance.update({
+                        from: val
+                    });
+                });
+    
+                $inputTo.on("input", function () {
+                    var val = $(this).prop("value");
+                    
+                    // validate
+                    if (val < from) {
+                        val = from;
+                    } else if (val > max) {
+                        val = max;
+                    }
+                    
+                    instance.update({
+                        to: val
+                    });
+                });
               
             }
         });

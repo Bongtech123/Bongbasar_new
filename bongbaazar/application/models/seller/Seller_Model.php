@@ -255,4 +255,18 @@ class Seller_Model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function find_by_admin_id_min_max($admin_id)
+    {
+        $this->db->select('min(sell_price) as min_price,max(sell_price) as max_price');
+        $this->db->from('view_products');
+        $this->db->where('status', 'Active');
+        $this->db->where('super_admin_status', 'Active');
+        $this->db->where('admin_status', 'Active');
+        $this->db->where('super_admin_product_status','Active');
+        $this->db->where('admin_product_status','Active');
+        $this->db->where('admin_id',$admin_id);
+        $query = $this->db->get();
+        return $query->row();
+    }
 }
