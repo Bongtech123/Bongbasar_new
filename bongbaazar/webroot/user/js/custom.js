@@ -780,6 +780,37 @@ function quentityDecrement(id)
         }
     });
 }
+function quentityadd(id)
+{
+  var cart_id=$("#uniqcode"+id).val();
+  var sell_price=parseInt($("#sell_price"+id).val());
+  var quantity=(parseInt($("#quen"+id).val()));
+  var totalamount=parseInt($("#totalamount").val());
+  var base_url=$('#base_url').val();
+    $.ajax({
+      type: 'post',
+      url:base_url+'update-bag',
+      dataType: 'json',
+      data:{uniqcode:cart_id,quantity:quantity},
+        success: function (data) 
+        {
+          console.log(data);
+          if(data.result==1)
+          {
+            var amount=(totalamount-sell_price);
+            $("#totalamount").val(amount);
+            $("#totalamount_view").html(amount);
+            $("#bag_total").html(amount);
+            $("#neet_amount").html(amount);
+            location.reload();    
+          }
+          else
+          {
+            location.reload();    
+          }
+        }
+    });
+}
 
 function placeOrder(product_available,outofstock)
 {

@@ -126,7 +126,7 @@ echo "0";
                                                         <span id="priceATC" class="quantity-up-down">
                                                             <label>Qty</label>
                                                             <span class="icon-minus-squared <?= $cart_row->quantity == 1 ? 'off' : '';?>" onclick="quentityDecrement('<?=$cart_row->uniqcode?>')">&ndash;</span>
-                                                            <input name="Quantity" type="number" value="<?=$cart_row->quantity?>" id="quen<?=$cart_row->uniqcode?>" class="qty-field" min="1" max="200" />
+                                                            <input name="Quantity" type="number" value="<?=$cart_row->quantity?>" id="quen<?=$cart_row->uniqcode?>" class="qty-field" min="1" max="200" onblur="quentityadd('<?=$cart_row->uniqcode?>')" />
                                                             <span class="icon-plus-squared" onclick="quentityUpdate('<?=$cart_row->uniqcode?>')">+</span>
                                                         </span>
                                                         <?php
