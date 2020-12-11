@@ -782,6 +782,7 @@ function quentityDecrement(id)
 
 function placeOrder()
 {
+  
   var base_url=$('#base_url').val();
   var url=base_url+'address';
   location.assign(url);

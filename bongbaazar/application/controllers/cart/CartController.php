@@ -23,7 +23,7 @@ class CartController extends CI_Controller
 			//$this->data['menu_lebel'] = $this->Home_Model->get_categories();
 			$this->data['subview']='cart/cart';
 			$this->data['cart_details']=$this->Cart_Model->get_cartItem($this->session->userdata('loginDetail')->uniqcode);
-			// pr($this->data);
+			//pr($this->data);
 			// die;
 			$this->load->view('user/layout/default', $this->data);
 		}

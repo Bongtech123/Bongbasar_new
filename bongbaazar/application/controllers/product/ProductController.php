@@ -32,7 +32,8 @@ class ProductController extends CI_Controller
 
             $this->data['product_view_price_image']=$this->Product_Model->productViewPriceImage($product_features_id);
             $this->data['product_view_size']=$this->Product_Model->productViewSize($product_id,$color);    
-            //pr($this->data);
+            $this->data['product_quantity']=$this->Product_Model->product_quantity($product_features_id);    
+           
             if(!empty($this->data['product_view']) && !empty($this->data['product_view_color']) &&!empty($this->data['product_view_price_image']) && !empty($this->data['product_view_size']))
             {
               

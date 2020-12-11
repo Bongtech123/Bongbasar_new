@@ -114,7 +114,10 @@
                   </div>
                 
                   <div class="row">
-                    
+                    <?php 
+                    if($product_quantity>0)
+                    {
+                    ?>
                       <div class="col-md-6 card-button">
                       <?php if($this->session->userdata('loginDetail')!=NULL){ 
                           $chack=array(
@@ -148,10 +151,19 @@
                             <span>Buy Now</span>
                           </button>
                       </div>
-                      <!-- <div class="col-md-6">  
-                          <h2>Sold Out</h2>
+                      <?php
+                          }
+                          else
+                          {
+                      ?>
+                      <div class="col-md-6">  
+                          <h2 style="margin-top: 11px;color: red;
+                            ">Sold Out</h2>
                           <h5>This item is currently out of stock</h5>
-                      <div> -->
+                      <div>
+                      <?php
+                          }
+                      ?>
                       
                   </div>
                   <div class="pincode-deliveryContainer">
