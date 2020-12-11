@@ -1,4 +1,6 @@
 <input type="hidden" name="admin_id" id="admin_id" value="<?=$admin_id?>">
+<input type="hidden" name="minimum" id="minimum" value = "<?=($minimum=='')?'swapan':$minimum?>">
+<input type="hidden" name="maximum" id="maximum" value = "<?=($maximum=='')?'soumen':$maximum?>">
     <!-- --------------Seller head view start-------------- -->
     <input type="hidden" />
         <section id="seller-view">
@@ -145,6 +147,20 @@
                   </ul>
                 </div>
               </div>
+            </div>
+            <div class="price-filter">
+              <div class="range-slider">
+                  <input type="text" class="js-range-slider" value="" >
+              </div>
+              <div class="extra-controls form-inline">
+                <div class="form-group">
+                  <input type="text" class="js-input-from form-control "  value="200" id="rangestart"/>
+                  To
+                  <input type="text" class="js-input-to form-control " value="0" id="rangeend"/>
+                  <button onclick="rangeSlider()" class="btn btn-info" style="margin-left: 5px;">Apply</button>
+                </div>
+              </div>
+              
             </div>
 
           </ul>

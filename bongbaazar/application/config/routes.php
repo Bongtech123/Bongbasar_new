@@ -20,6 +20,7 @@ $route['special-care-all-discount'] = 'product/ProductController/SpecialCareAllD
 
 $route['all-shop'] = 'seller/SellerController/SellerAll';
 $route['shop/([a-zA-Z0-9]+)'] ='seller/SellerController/Seller/$1';
+$route['admin-min-max'] = 'seller/SellerController/adminProductMinMax';
 $route['admin-color'] = 'seller/SellerController/productColor';
 $route['admin-size'] = 'seller/SellerController/productSize';
 $route['admin-brand'] = 'seller/SellerController/productBrand';
