@@ -329,32 +329,53 @@
                             <div class="tab-content">
                               <div id="home" class="tab-pane fade in active">
                                 <div class="col-md-12 modal-form-underpart">
+                                  <!-- Login -->
                                    <form  id="login" method="post">
                                     <div class="form-group">
                                       <label for="userId">User Id:</label>
                                       <input type="text" class="form-control validate[required]" id="userId" placeholder="Enter email or phone no" name="userId"data-errormessage-value-missing="Email or phone is required" data-prompt-position="bottomLeft" maxlength="200">
                                     </div>
                                     <div class="form-group">
-                                      <label for="password">Password:</label>
+                                      <label for="password">Password: </label>
+
                                       <input class="form-control effect-1 validate[required]" type="password" id="password" name="password" data-errormessage-value-missing="Password is required!" data-prompt-position="bottomLeft"  maxlength="20" placeholder="Enter your password">                                    
 
                                     <i class="fa fa-eye-slash showicon" onclick="toggleShowPassword()" id="showicon"></i>
                                             
                                     </div>
+                                    <div class="form-group">
+                                      <p class="on-forget">Forgot</p>
+                                    </div>
+                                    
                                     <span class="error" style="color: red"></span>
                                     <button type="submit" class="btn btn-block submit-btn hvr-bounce-to-right hvr-icon-pulse-grow">
                                       Sign In
                                       <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
                                     </button>
                                   </form>
+
+                                  <!-- forget -->
+                                  <div id="forgot_form">
+                                    <form  id="forget" method="post">
+                                      <div class="form-group">
+                                        <label for="userId">User Id:</label>
+                                        <input type="text" class="form-control validate[required]" id="FuserId" placeholder="Enter email or phone no" name="FuserId" data-errormessage-value-missing="Email or phone is required" data-prompt-position="bottomLeft" maxlength="200">
+                                      </div>
+                                      <div class="form-group">
+                                        <p class="on-login">Sign In?</p>
+                                      </div>
+                                      <span class="error" style="color: red"></span>
+                                      <button type="submit"  id="forgot_btn" class="btn btn-block submit-btn hvr-bounce-to-right hvr-icon-pulse-grow">
+                                        Forgot
+                                        <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
+                                      </button>
+                                    </form>
+                                  </div>
                                 </div>
                               </div>
                               <div id="menu1" class="tab-pane fade">
                                 <div class="col-md-12 modal-form-underpart">
                                   <form  id="register" method="post">
-
-                                    
-
                                     <div class="form-group">
                                       <label for="mobile_no">Phone no:</label>
                                       <input type="text" name="mobile_no" id="mobile_no" class="form-control only_integer validate[required,custom[phone]]minSize[10],maxSize[10]" data-errormessage-value-missing="Phone number is required" data-prompt-position="bottomLeft" placeholder="Enter phone number" maxlength="10">
@@ -367,6 +388,7 @@
                                   </form>
                                 </div>
                               </div>
+                              
                             </div>
                           </div>
                         </div>

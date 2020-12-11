@@ -359,6 +359,13 @@ section {
 	  border-color: #bbc1e1;
 	}
 /*end*/
+.on-forget, .on-login {
+	color: #006ae4;
+	cursor: pointer;
+}
+#forget {
+	display: none;
+}
 
 .navbar {
 	margin-bottom: 0px;

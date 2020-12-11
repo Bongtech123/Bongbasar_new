@@ -167,6 +167,98 @@ class UserController extends CI_Controller
 
     }
 
+    public function forgot()
+    {
+        $str=$this->input->post('user_id');
+
+        if(strpos($str,'@'))
+        {
+            $count=$this->Home_Model->entty_check(['email'=>$str],'tbl_users');
+            if($count)
+            {
+                $otp=rand(4,9999);
+                $userData['otp']=$otp;
+                //insert user data
+                $message=$userData['otp']." is your Bongbasar OTP. Don't share this with anyone. Thank you.- Bongbasar";
+                //send_sms($userData['mobile_no'],$message);
+
+                echo ' <form  id="submit_forget" method="post">
+                    <div class="form-group">
+                    <label for="userId">User Id:</label>
+                    <input type="text" class="form-control validate[required]" id="FSuserId" placeholder="Enter email or phone no" name="FuserId" data-errormessage-value-missing="Email or phone is required" data-prompt-position="bottomLeft" maxlength="200" readonly>
+                    </div>
+                    <div class="form-group">
+                    <label for="userId">OTP:</label>
+                    <input type="text" class="form-control validate[required]" id="fotp" name="fotp" placeholder="Enter your otp" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" maxlength="200">
+                    </div>
+                    <div class="form-group">
+                    <label for="userId">New Password:</label>
+                    <input type="text" class="form-control validate[required]" id="new_password" name="new_password" placeholder="Enter new password" data-errormessage-value-missing="New password is required" data-prompt-position="bottomLeft" maxlength="200">
+                    </div>
+                    <div class="form-group">
+                    <p class="on-login">Sign In?</p>
+                    </div>
+                    <span class="error" style="color: red"></span>
+                    <button type="submit"  id="submit_forgot_btn" class="btn btn-block submit-btn hvr-bounce-to-right hvr-icon-pulse-grow">
+                    Forgot
+                    <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
+                    </button>
+                </form>';
+            }
+            else
+            {
+                echo "email";
+            }
+            
+        }
+        else
+        {
+            echo "+++";
+            $count=$this->Home_Model->entty_check(['mobile_no'=>$str],'tbl_users');
+            if($count)
+            {
+                $otp=rand(4,9999);
+                $userData['otp']=$otp;
+                //insert user data
+                $message=$userData['otp']." is your Bongbasar OTP. Don't share this with anyone. Thank you.- Bongbasar";
+                send_sms($str,$message);
+
+
+                echo ' <form  id="submit_forget" method="post">
+                    <div class="form-group">
+                    <label for="userId">User Id:</label>
+                    <input type="text" class="form-control validate[required]" id="change_mobile_no" name="change_mobile_no" readonly value="<?=$str?>">
+                    </div>
+                    <div class="form-group">
+                    <label for="userId">OTP:</label>
+                    <input type="text" class="form-control validate[required]" id="fotp" name="fotp" placeholder="Enter your otp" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" maxlength="200">
+                    </div>
+                    <div class="form-group">
+                    <label for="userId">New Password:</label>
+                    <input type="text" class="form-control validate[required]" id="new_password" name="new_password" placeholder="Enter new password" data-errormessage-value-missing="New password is required" data-prompt-position="bottomLeft" maxlength="200">
+                    </div>
+                    <div class="form-group">
+                    <p class="on-login">Sign In?</p>
+                    </div>
+                    <span class="error" style="color: red"></span>
+                    <button type="submit"  id="submit_forgot_btn" class="btn btn-block submit-btn hvr-bounce-to-right hvr-icon-pulse-grow">
+                    Forgot
+                    <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
+                    </button>
+                </form>';
+            }
+            else
+            {
+                echo "mobile";
+            }  
+        }
+    }
+
+    public function forgotVerify()
+    {
+        
+    }
+
     public function profile()
     {
         $this->data['page_title']='Bongbazaar | profile';

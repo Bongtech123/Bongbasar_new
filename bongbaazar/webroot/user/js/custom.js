@@ -156,6 +156,17 @@ $(document).ready(function(){
     });
   /*Mobile view search menu end*/
 
+  // Modal open close start
+    $(".on-forget").click(function(){
+      $("#forget").css("display", "block");
+      $("#login").css("display", "none");
+    });
+    $(".on-login").click(function(){
+      $("#forget").css("display", "none");
+      $("#login").css("display", "block");
+    });
+  // Modal open close end
+
   /*---------Side nav accordian start---------*/
     $( "#accordion" ).accordion({
       heightStyle: "content",
@@ -427,6 +438,7 @@ $(function () {
     $("#address-edit").validationEngine();
     $("#user_profile").validationEngine();
     $("#searchEngine").validationEngine();
+    $("#forget").validationEngine();
 });
 $(".only_character").keypress(function (e) {
       var regex = new RegExp("^[a-zA-Z ]+$");
@@ -529,6 +541,40 @@ $('#register').on('submit', function (e)
           }
       });
     }
+  }
+});
+
+$('#forget').on('submit', function (e) 
+{  
+  //alert($('#FuserId').val());
+  e.preventDefault(); 
+  if($('#FuserId').val() != '')
+  {
+    var str=$('#FuserId').val();
+  
+      $('.reg-error').hide();
+      var base_url=$('#base_url').val();
+      
+      $.ajax({
+      type: 'post',
+      url:base_url+'forgot',
+      data:{user_id:str},
+          success: function (data) 
+          {
+            console.log(data);
+            // if(data==0)
+            // {
+            //   $('.reg-error').show();
+            //   $('.reg-error').html('Mobile number allreday exits !').delay(1000).fadeOut('show');
+            // }
+            // else
+            // {
+              $('#forgot_form').html(data);  
+
+            //   //alert('hi');
+            // }
+          }
+      });
   }
 });
 
