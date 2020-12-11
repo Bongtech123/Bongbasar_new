@@ -27,7 +27,7 @@ class CartController extends CI_Controller
 			foreach ($this->data['cart_details'] as $key => $cart_details) {
 				$product_quantity[$key]=$this->Cart_Model->product_quantity( $cart_details->product_features_id);
 			}
-			pr($product_quantity);
+			//pr($product_quantity);
 			$this->data['product_quantity']=$product_quantity;
 			$this->load->view('user/layout/default', $this->data);
 		}

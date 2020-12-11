@@ -115,7 +115,7 @@
                 
                   <div class="row">
                     <?php 
-                    if($product_quantity>0)
+                    if($product_quantity->stock_quentity>0 && $product_quantity->business_type=="Retailer" || $product_quantity->stock_quentity>50 && $product_quantity->business_type=="Wholesaler" || $product_quantity->stock_quentity>50 && $product_quantity->business_type=="Manufacture")
                     {
                     ?>
                       <div class="col-md-6 card-button">

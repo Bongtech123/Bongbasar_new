@@ -771,6 +771,7 @@ function quentityDecrement(id)
             $("#totalamount_view").html(amount);
             $("#bag_total").html(amount);
             $("#neet_amount").html(amount);
+            location.reload();    
           }
           else
           {
@@ -780,12 +781,25 @@ function quentityDecrement(id)
     });
 }
 
-function placeOrder()
+function placeOrder(product_available,outofstock)
 {
   
-  var base_url=$('#base_url').val();
-  var url=base_url+'address';
-  location.assign(url);
+  if(outofstock==1)
+  {
+    alert('Remove Out of Stock Product');
+  }
+  else if(product_available==1)
+  {
+    
+    alert('Change Product Quantity');
+  }
+  else
+  {
+    var base_url=$('#base_url').val();
+    var url=base_url+'address';
+    location.assign(url);
+  }
+  
 }
 function placeOrder1()
 {
