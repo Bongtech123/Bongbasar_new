@@ -218,7 +218,8 @@ class UserController extends CI_Controller
             if($count)
             {
                 $otp=rand(4,9999);
-                $userData['otp']=$otp;
+                $userData['otp']=$otp;  
+                
                 //insert user data
                 $message=$userData['otp']." is your Bongbasar OTP. Don't share this with anyone. Thank you.- Bongbasar";
                 send_sms($str,$message);
