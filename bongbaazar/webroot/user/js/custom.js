@@ -584,6 +584,33 @@ $('#forget').on('submit', function (e)
               $("#forget").css('display', 'none');
               $("#submit_forget").css('display', 'block');
               $("#change_mobile_no").val(data.user_id);
+              var minit=2;
+              var sec=10;
+        
+              var x = setInterval(function() {
+        
+                sec--;
+                if(sec==0)
+                {
+                  minit=minit-1;
+                  sec=9;
+                }
+                if(sec<10)
+                {
+                  fsec="0"+sec;
+                }
+                else{
+                  fsec=sec;
+                }
+                document.getElementById("timer").innerHTML=minit+":"+fsec;
+                if (minit < 0) {
+                  clearInterval(x);
+                  document.getElementById("timer").innerHTML = "00:00";
+                  $("#resend").attr("href","");
+                  $("#resend").css('color', '#006ae4');
+
+                }
+              }, 1000);
             }
           }
       });
@@ -1986,8 +2013,13 @@ $(document).ready(function()
    
     
   }
+  function aaa()
+  {
+ 
+  }
  function otpcheck(otp,id)
  {
+  
   var base_url=$('#base_url').val();
     let userid=$('#'+id).val();
     if(otp)
@@ -2012,9 +2044,11 @@ $(document).ready(function()
               {
                 $("#fotp").attr("readonly","true");
                 $("#new_password_filed").css('display', 'block');
+                
               }
             }
         });
+        aaa();
     }
     else
     {
