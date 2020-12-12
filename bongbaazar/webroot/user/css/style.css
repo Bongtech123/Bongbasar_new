@@ -362,6 +362,7 @@ section {
 .on-forget, .on-login {
 	color: #006ae4;
 	cursor: pointer;
+	display: inline-block;
 }
 #forget {
 	display: none;

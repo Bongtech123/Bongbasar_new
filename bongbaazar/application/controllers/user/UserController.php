@@ -173,15 +173,7 @@ class UserController extends CI_Controller
 
         if(strpos($str,'@'))
         {
-            $count=$this->Home_Model->entty_check(['email'=>$str],'tbl_users');
-            if($count)
-            {
-                $otp=rand(4,9999);
-                $userData['otp']=$otp;
-                //insert user data
-                $message=$userData['otp']." is your Bongbasar OTP. Don't share this with anyone. Thank you.- Bongbasar";
-                //send_sms($userData['mobile_no'],$message);
-
+           
                 echo ' <form  id="submit_forget" method="post">
                     <div class="form-group">
                     <label for="userId">User Id:</label>
@@ -204,31 +196,15 @@ class UserController extends CI_Controller
                     <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
                     </button>
                 </form>';
-            }
-            else
-            {
-                echo "email";
-            }
+            
             
         }
         else
         {
-            echo "+++";
-            $count=$this->Home_Model->entty_check(['mobile_no'=>$str],'tbl_users');
-            if($count)
-            {
-                $otp=rand(4,9999);
-                $userData['otp']=$otp;  
-                
-                //insert user data
-                $message=$userData['otp']." is your Bongbasar OTP. Don't share this with anyone. Thank you.- Bongbasar";
-                send_sms($str,$message);
-
-
                 echo ' <form  id="submit_forget" method="post">
                     <div class="form-group">
                     <label for="userId">User Id:</label>
-                    <input type="text" class="form-control validate[required]" id="change_mobile_no" name="change_mobile_no" readonly value="<?=$str?>">
+                    <input type="text" class="form-control validate[required]" id="change_mobile_no" name="change_mobile_no" readonly value="'.$str.'">
                     </div>
                     <div class="form-group">
                     <label for="userId">OTP:</label>
@@ -246,12 +222,13 @@ class UserController extends CI_Controller
                     Forgot
                     <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
                     </button>
-                </form>';
-            }
-            else
-            {
-                echo "mobile";
-            }  
+                </form>
+                <script>
+                $(".on-login").click(function(){
+                    $("#submit_forget").css("display", "none");
+                    $("#login").css("display", "block");
+                  });
+                </script>'; 
         }
     }
 
