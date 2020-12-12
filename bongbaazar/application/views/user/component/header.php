@@ -344,7 +344,7 @@
                                             
                                     </div>
                                     <div class="form-group">
-                                      <p class="on-forget">Forgot</p>
+                                      <p class="on-forget" id="forget1">Forgot</p>
                                     </div>
                                     
                                     <span class="error" style="color: red"></span>
@@ -356,20 +356,44 @@
 
                                   <!-- forget -->
                                   <div id="forgot_form">
+
                                     <form  id="forget" method="post">
                                       <div class="form-group">
                                         <label for="userId">User Id:</label>
                                         <input type="text" class="form-control validate[required]" id="FuserId" placeholder="Enter email or phone no" name="FuserId" data-errormessage-value-missing="Email or phone is required" data-prompt-position="bottomLeft" maxlength="200">
                                       </div>
                                       <div class="form-group">
-                                        <p class="on-login">Sign In?</p>
+                                        <p class="on-login" id="sign_in1">Sign In?</p>
                                       </div>
-                                      <span class="error" style="color: red"></span>
+                                      <span class="error1" style="color: red"></span>
                                       <button type="submit"  id="forgot_btn" class="btn btn-block submit-btn hvr-bounce-to-right hvr-icon-pulse-grow">
                                         Forgot
                                         <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
                                       </button>
                                     </form>
+
+                                    <form  id="submit_forget" method="post" style="display:none;">
+                                      <div class="form-group">
+                                      <label for="userId">User Id:</label>
+                                      <input type="text" class="form-control validate[required]" id="change_mobile_no" name="change_mobile_no" readonly value="">
+                                      </div>
+                                      <div class="form-group">
+                                      <label for="userId">OTP:</label>
+                                      <input type="text" class="form-control only_integer validate[required,maxSize[4],minSize[4]" id="fotp" name="fotp" placeholder="Enter your otp" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" maxlength="200" onblur="otpcheck(this.value,'change_mobile_no')">
+                                      </div>
+                                      <div class="form-group" style="display:none;" id='new_password_filed'>
+                                      <label for="userId">New Password:</label>
+                                      <input type="text" class="form-control validate[required]" id="new_password" name="new_password" placeholder="Enter new password" data-errormessage-value-missing="New password is required" data-prompt-position="bottomLeft" maxlength="200">
+                                      </div>
+                                      <div class="form-group">
+                                      <p class="on-login" id="sign_in2">Sign In?</p>
+                                      </div>
+                                      <span class="error2" style="color: red"></span>
+                                      <button type="submit"  id="submit_forgot_btn" class="btn btn-block submit-btn hvr-bounce-to-right hvr-icon-pulse-grow">
+                                      Forgot
+                                      <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
+                                      </button>
+                                  </form>
                                   </div>
                                 </div>
                               </div>

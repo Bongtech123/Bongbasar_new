@@ -39,6 +39,7 @@ $route['register-step'] = 'user/UserController/UserRegisterStep';
 $route['verify'] = 'login/LoginController/verify';
 $route['forgot'] = 'user/UserController/forgot';
 $route['forgot-verify'] = 'user/UserController/forgotVerify';
+$route['otp-check'] = 'user/UserController/otp_check';
 $route['logout'] = 'login/LoginController/logout';
 $route['profile'] = 'user/UserController/profile';
 $route['oders'] = 'user/UserController/oders';

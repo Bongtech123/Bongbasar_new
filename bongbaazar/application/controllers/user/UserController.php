@@ -173,68 +173,49 @@ class UserController extends CI_Controller
 
         if(strpos($str,'@'))
         {
-           
-                echo ' <form  id="submit_forget" method="post">
-                    <div class="form-group">
-                    <label for="userId">User Id:</label>
-                    <input type="text" class="form-control validate[required]" id="FSuserId" placeholder="Enter email or phone no" name="FuserId" data-errormessage-value-missing="Email or phone is required" data-prompt-position="bottomLeft" maxlength="200" readonly>
-                    </div>
-                    <div class="form-group">
-                    <label for="userId">OTP:</label>
-                    <input type="text" class="form-control validate[required]" id="fotp" name="fotp" placeholder="Enter your otp" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" maxlength="200">
-                    </div>
-                    <div class="form-group">
-                    <label for="userId">New Password:</label>
-                    <input type="text" class="form-control validate[required]" id="new_password" name="new_password" placeholder="Enter new password" data-errormessage-value-missing="New password is required" data-prompt-position="bottomLeft" maxlength="200">
-                    </div>
-                    <div class="form-group">
-                    <p class="on-login">Sign In?</p>
-                    </div>
-                    <span class="error" style="color: red"></span>
-                    <button type="submit"  id="submit_forgot_btn" class="btn btn-block submit-btn hvr-bounce-to-right hvr-icon-pulse-grow">
-                    Forgot
-                    <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
-                    </button>
-                </form>';
-            
-            
+            $count=$this->User_Model->entty_check(['email'=>$str,'status'=>'Active'],'tbl_users');
+            if($count)
+            {
+                $otp=random_string('numeric',4);
+                $Data['otp']=$otp;
+                //insert user data
+                $message=$otp." is your Bongbasar OTP. Don't share this with anyone. Thank you.- Bongbasar";
+               // send_sms($str,$message);
+                $this->User_Model->update('tbl_users',['email'=>$str],['otp'=>$otp]);
+                echo json_encode(['user_id'=>$str,'message'=>"success"]);
+            }
+            else
+            {
+                echo json_encode(['message'=>"error"]);
+            }
         }
         else
         {
-                echo ' <form  id="submit_forget" method="post">
-                    <div class="form-group">
-                    <label for="userId">User Id:</label>
-                    <input type="text" class="form-control validate[required]" id="change_mobile_no" name="change_mobile_no" readonly value="'.$str.'">
-                    </div>
-                    <div class="form-group">
-                    <label for="userId">OTP:</label>
-                    <input type="text" class="form-control validate[required]" id="fotp" name="fotp" placeholder="Enter your otp" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" maxlength="200">
-                    </div>
-                    <div class="form-group">
-                    <label for="userId">New Password:</label>
-                    <input type="text" class="form-control validate[required]" id="new_password" name="new_password" placeholder="Enter new password" data-errormessage-value-missing="New password is required" data-prompt-position="bottomLeft" maxlength="200">
-                    </div>
-                    <div class="form-group">
-                    <p class="on-login">Sign In?</p>
-                    </div>
-                    <span class="error" style="color: red"></span>
-                    <button type="submit"  id="submit_forgot_btn" class="btn btn-block submit-btn hvr-bounce-to-right hvr-icon-pulse-grow">
-                    Forgot
-                    <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
-                    </button>
-                </form>
-                <script>
-                $(".on-login").click(function(){
-                    $("#submit_forget").css("display", "none");
-                    $("#login").css("display", "block");
-                  });
-                </script>'; 
+            $count=$this->User_Model->entty_check(['mobile_no'=>$str,'status'=>'Active'],'tbl_users');
+            if($count)
+            {
+                $otp=random_string('numeric',4);
+                $Data['otp']=$otp;
+                //insert user data
+                $message=$otp." is your Bongbasar OTP. Don't share this with anyone. Thank you.- Bongbasar";
+               // send_sms($str,$message);
+                $this->User_Model->update('tbl_users',['mobile_no'=>$str],['otp'=>$otp]);
+                echo json_encode(['user_id'=>$str,'message'=>"success"]);
+            }
+            else
+            {
+                echo json_encode(['message'=>"error"]);
+            }   
         }
     }
 
     public function forgotVerify()
     {
-        
+        $user_id=$this->input->post('user_id');
+        $otp=$this->input->post('otp');
+        $password=$this->input->post('password');
+        $this->User_Model->update_password('tbl_users',$user_id,md5($password));
+
     }
 
     public function profile()
@@ -451,6 +432,13 @@ class UserController extends CI_Controller
     public function notifications()
     {
            
+    }
+    public function otp_check()
+    {
+        $user_id=$this->input->post('userid');
+        $otp=$this->input->post('otp');
+        $result=$this->User_Model->checkOtp($user_id,$otp);
+        echo $result;
     }
 }
     

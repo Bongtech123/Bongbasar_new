@@ -157,12 +157,21 @@ $(document).ready(function(){
   /*Mobile view search menu end*/
 
   // Modal open close start
-    $(".on-forget").click(function(){
+    $("#forget1").click(function()
+    {
       $("#forget").css("display", "block");
       $("#login").css("display", "none");
     });
-    $(".on-login").click(function(){
+
+    $("#sign_in1").click(function()
+    {
       $("#forget").css("display", "none");
+      $("#login").css("display", "block");
+    });
+
+    $("#sign_in2").click(function()
+    {
+      $("#submit_forget").css("display", "none");
       $("#login").css("display", "block");
     });
   // Modal open close end
@@ -439,6 +448,7 @@ $(function () {
     $("#user_profile").validationEngine();
     $("#searchEngine").validationEngine();
     $("#forget").validationEngine();
+    $("#submit_forget").validationEngine();
 });
 $(".only_character").keypress(function (e) {
       var regex = new RegExp("^[a-zA-Z ]+$");
@@ -552,29 +562,76 @@ $('#forget').on('submit', function (e)
   {
     var str=$('#FuserId').val();
   
-      $('.reg-error').hide();
+      $('.error1').hide();
       var base_url=$('#base_url').val();
       
       $.ajax({
       type: 'post',
       url:base_url+'forgot',
+      dataType: 'json',
       data:{user_id:str},
           success: function (data) 
           {
-            console.log(data);
-            // if(data==0)
+           
+            if(data.message == "error")
+            {
+         
+              $('.error1').show();
+              $('.error1').html('User Id Dose Not Exist !').delay(1200).fadeOut('show');
+            }
+            else
+            {
+              $("#forget").css('display', 'none');
+              $("#submit_forget").css('display', 'block');
+              $("#change_mobile_no").val(data.user_id);
+            }
+          }
+      });
+  }
+});
+
+$('#submit_forget').on('submit', function (e) 
+{  
+ 
+  e.preventDefault(); 
+  var change_mobile_no= $('#change_mobile_no').val();
+  var fotp=$('#fotp').val();
+  var new_password=$('#new_password').val();
+  if(change_mobile_no !='' && fotp !='' && new_password !='')
+  {
+   
+      $('.error2').hide();
+      var base_url=$('#base_url').val(); 
+      $.ajax({
+      type: 'post',
+      url:base_url+'forgot-verify',
+      dataType: 'json',
+      data:{
+            user_id:change_mobile_no,
+            otp:fotp,
+            password:new_password
+          },
+          success: function (data) 
+          {
+           
+            // if(data.message == "error")
             // {
-            //   $('.reg-error').show();
-            //   $('.reg-error').html('Mobile number allreday exits !').delay(1000).fadeOut('show');
+         
+            //   $('.error2').show();
+            //   $('.error2').html('User Id Dose Not Exist !').delay(1200).fadeOut('show');
             // }
             // else
             // {
-              $('#forgot_form').html(data);  
-
-            //   //alert('hi');
+            //   $("#forget").css('display', 'none');
+            //   $("#submit_forget").css('display', 'block');
+            //   $("#change_mobile_no").val(data.user_id);
             // }
           }
       });
+  }
+  else
+  {
+    return false;
   }
 });
 
@@ -1929,7 +1986,42 @@ $(document).ready(function()
    
     
   }
- 
+ function otpcheck(otp,id)
+ {
+  var base_url=$('#base_url').val();
+    let userid=$('#'+id).val();
+    if(otp)
+    {
+      $.ajax({
+        type: 'post',
+        url:base_url+'otp-check',
+        dataType: 'json',
+        data:{
+              userid:userid,
+              otp:otp,
+            },
+            success: function (data) 
+            {
+            
+              if(data=='0')
+              {
+                $('.error2').show();
+                $('.error2').html('OTP is Incorrect!').delay(1200).fadeOut('show');
+              }
+              else
+              {
+                $("#fotp").attr("readonly","true");
+                $("#new_password_filed").css('display', 'block');
+              }
+            }
+        });
+    }
+    else
+    {
+        return false;
+    }
+    
+ }
   
   
   
