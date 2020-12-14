@@ -533,25 +533,39 @@ $('#register').on('submit', function (e)
       $.ajax({
       type: 'post',
       url:base_url+'register',
-      data: $('#register').serialize(),
+      data:{mobile_no:str},
           success: function (data) 
           {
-            console.log(data);
-            if(data==0)
+            if(data != 4)
             {
-              $('.reg-error').show();
-              $('.reg-error').html('Mobile number allreday exits !').delay(1000).fadeOut('show');
+              $('#menu1').html(data);  
             }
             else
             {
-              $('#menu1').html(data);  
+              
+              $('#home').removeClass('tab-pane fade in');
+              $('#menu1').removeClass('tab-pane fade in');
+              $('#home').addClass('tab-pane fade active in');
+              $('#menu1').addClass('tab-pane fade');
+              $('#limenu').removeClass('active');
+              $('#lihome').addClass('active');
+              $("#userId").val(str);
+              $("#register").css('display','none');
 
-              //alert('hi');
+
+
+            
+            
+
             }
           }
       });
     }
   }
+});
+$('#limenu').on('click', function (e) 
+{ 
+  $("#register").css('display','block');
 });
 
 $('#forget').on('submit', function (e) 
@@ -584,33 +598,7 @@ $('#forget').on('submit', function (e)
               $("#forget").css('display', 'none');
               $("#submit_forget").css('display', 'block');
               $("#change_mobile_no").val(data.user_id);
-              var minit=2;
-              var sec=10;
-        
-              var x = setInterval(function() {
-        
-                sec--;
-                if(sec==0)
-                {
-                  minit=minit-1;
-                  sec=9;
-                }
-                if(sec<10)
-                {
-                  fsec="0"+sec;
-                }
-                else{
-                  fsec=sec;
-                }
-                document.getElementById("timer").innerHTML=minit+":"+fsec;
-                if (minit < 0) {
-                  clearInterval(x);
-                  document.getElementById("timer").innerHTML = "00:00";
-                  $("#resend").attr("href","");
-                  $("#resend").css('color', '#006ae4');
-
-                }
-              }, 1000);
+              timer_set()
             }
           }
       });
@@ -632,7 +620,7 @@ $('#submit_forget').on('submit', function (e)
       $.ajax({
       type: 'post',
       url:base_url+'forgot-verify',
-      dataType: 'json',
+      
       data:{
             user_id:change_mobile_no,
             otp:fotp,
@@ -640,19 +628,7 @@ $('#submit_forget').on('submit', function (e)
           },
           success: function (data) 
           {
-           
-            // if(data.message == "error")
-            // {
-         
-            //   $('.error2').show();
-            //   $('.error2').html('User Id Dose Not Exist !').delay(1200).fadeOut('show');
-            // }
-            // else
-            // {
-            //   $("#forget").css('display', 'none');
-            //   $("#submit_forget").css('display', 'block');
-            //   $("#change_mobile_no").val(data.user_id);
-            // }
+              location.reload();
           }
       });
   }
@@ -661,6 +637,58 @@ $('#submit_forget').on('submit', function (e)
     return false;
   }
 });
+
+function timer_set()
+{
+  var minit=2;
+  var sec=2;
+
+  var x = setInterval(function() 
+  {
+
+    sec--;
+    if(sec==0)
+    {
+      minit=minit-1;
+      sec=1;
+    }
+    if(sec<10)
+    {
+      fsec="0"+sec;
+    }
+    else{
+      fsec=sec;
+    }
+    document.getElementById("timer").innerHTML=minit+":"+fsec;
+    if (minit < 0) 
+    {
+      clearInterval(x);
+      document.getElementById("timer").innerHTML = "";
+      $("#resend").attr("onclick","resend_otp('change_mobile_no')");
+      $("#resend").css('color', '#006ae4');
+      $("#resend").css('cursor', 'pointer');
+    }
+  }, 1000);
+}
+
+function resend_otp(id)
+{
+  $("#resend").removeAttr('onclick');
+  let userid=$('#'+id).val();
+  var base_url=$('#base_url').val();
+      
+  $.ajax({
+  type: 'post',
+  url:base_url+'forgot',
+  dataType: 'json',
+  data:{user_id:userid},
+      success: function (data) 
+      {
+          timer_set()
+      }
+  });
+  
+}
 
 
 function changefname()
@@ -2044,6 +2072,7 @@ $(document).ready(function()
               {
                 $("#fotp").attr("readonly","true");
                 $("#new_password_filed").css('display', 'block');
+                $("#resend").css('display', 'none');
                 
               }
             }

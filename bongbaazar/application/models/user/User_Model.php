@@ -164,7 +164,7 @@ class User_Model extends CI_Model
     {
         $this->db->query("UPDATE ".$table."  SET `password`='".$password."' WHERE `mobile_no`='".$user_id."' or `email`='".$user_id."'");
         $result = $this->db->affected_rows();
-        echo $result;
+        return $result;
         
     }
 }

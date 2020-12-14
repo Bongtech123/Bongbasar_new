@@ -18,19 +18,19 @@
     function email_send()
     {
 		$CI = get_instance();
-		$config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'ssl://smtp.gmail.com';
-      	$config['smtp_port']    = '465';
+        $config['protocol'] = 'smtp';
+        $config['smtp_host'] = 'ssl://smtp.gmail.com';
+        $config['smtp_port'] = '465';
         $config['smtp_timeout'] = '7';
-      
-	    $config['smtp_user']    = 'pradipta.bongtechsolutions@gmail.com';
-	    $config['smtp_pass']    = 'pradipta@123';
-	    $config['charset']    = 'utf-8';
-	    $config['newline']    = "\r\n";
-	    $config['mailtype'] = 'html'; // or html
-	    $config['validation'] = TRUE; // bool whether to validate email or not      
-	    $CI->email->initialize($config);
-	    $CI->load->library('Email', $config);
+
+        $config['smtp_user'] = 'developer.bongtechsolution@gmail.com';
+        $config['smtp_pass'] = 'Bong@123#';
+        $config['charset'] = 'utf-8';
+        $config['newline'] = "\r\n";
+        $config['mailtype'] = 'html'; // or html
+        $config['validation'] = TRUE; // bool whether to validate email or not
+        $CI->email->initialize($config);
+        $CI->load->library('Email', $config);
 
 	}	
 

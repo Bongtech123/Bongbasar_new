@@ -500,7 +500,7 @@ section {
     margin-left: 550px;
     margin-top: 15px;
 }
-}
+
 .common-btn.hvr-bounce-to-right:before {
 	border-radius: 4px;
 	background: #0069e4;
@@ -652,7 +652,7 @@ section {
 	  color:#2874f0;
 	}
 
-	}
+	
 	#myNavbar form{
 	  position:relative;
 	  top:10px;
@@ -5324,7 +5324,7 @@ section {
 
 		}
 		.magnifier img {
-			max-width: ;
+			/*max-width: ;*/
 		}
 
 	}
@@ -5577,10 +5577,10 @@ textarea
 	  display: none;
   }
 
-  / Hide scrollbar for IE, Edge and Firefox /
+  /*Hide scrollbar for IE, Edge and Firefox */
   .custom-select .select-items {
-	-ms-overflow-style: none;  / IE and Edge /
-	scrollbar-width: none;  / Firefox /
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
   }
 
   /*hide the items when the select box is closed:*/

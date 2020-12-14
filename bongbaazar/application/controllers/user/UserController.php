@@ -30,104 +30,85 @@ class UserController extends CI_Controller
 	public function UserRegister()
     {
         
-    	$userData['mobile_no']=$this->input->post('mobile_no');
-        if(!empty($userData['mobile_no']))
-        {
-            
-            $count=$this->User_Model->entty_check(['mobile_no'=>$userData['mobile_no']],'tbl_users');
-            if($count==0)
+    	$mobile_no=$this->input->post('mobile_no');
+        if(!empty($mobile_no))
+        {   
+            $count=$this->User_Model->entty_check(['mobile_no'=>$mobile_no,'status'=>'Active'],'tbl_users');
+            if(!$count)
             {
-                $otp=rand(4,9999);
-                $userData['otp']=$otp;
-                $userData['uniqcode']='us'.randomPassword(28);
-                //insert user data
-                $message=$userData['otp']." is your Bongbasar OTP. Don't share this with anyone. Thank you.- Bongbasar";
-                send_sms($userData['mobile_no'],$message);
-                $insert = $this->User_Model->insert($userData,'tbl_users');
-
-                //check if the user data inserted
-                if($insert)
-                {
-                    
-                    echo '<div class="col-md-12 modal-form-underpart">                
-                    <form role="form" id="register-step"  method="post">
-                            <input type="hidden" name="mobile_no"value="'.$userData['mobile_no'].'">
-                            <input type="hidden" id="old_otp" name="old_otp"value="'.$userData['otp'].'">
-
-                            <div class="form-group">
-                                <label for="mobile_no">Phone no:</label>
-                                <input type="text" class="form-control validate[required]" id="mobile_no" placeholder="Enter phone no" name="mobile_no" data-errormessage-value-missing="phone is required" data-prompt-position="bottomLeft" maxlength="200" value="'.$userData['mobile_no'].'"disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="password1">Password:</label>
-                                <input type="password" class="form-control validate[required]" id="password1" placeholder="Enter password" name="password1" data-errormessage-value-missing="password is required" data-prompt-position="bottomLeft" maxlength="200">
-                            </div>
-                            <div class="form-group">
-                                <label for="otp">OTP</label>
-                                <input type="text" class="form-control validate[required,equals[old_otp]]" id="otp" placeholder="Enter otp no" name="otp" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" maxlength="200">
-                            </div>
-                            <span class="reg-step-error" style="color: red"></span>
-                            <button type="submit" class="btn btn-block submit-btn hvr-bounce-to-right hvr-icon-pulse-grow">
-                              Sign Up
-                              <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
-                            </button>
-                            
-                        </form>
-                    </div>                       
-                    <script>
-                        $(function () {                
-                            $("#register-step").validationEngine();
-                        });
-                        $("#register-step").on("submit", function (e) 
-                        {
-                            if($("#password1").val() != "" && $("#otp").val() != "")
-                            {  
-                                $(".reg-step-error").hide();
-                                var base_url=$("#base_url").val();
-                                e.preventDefault();
-                                $.ajax({
-                                type: "post",
-                                dataType: "json",
-                                url:base_url+"register-step",
-                                data: $("#register-step").serialize(),
-                                    success: function (data) 
+                $otp=random_string('numeric',4);
+                $this->session->set_userdata('otp',$otp);
+                $message=$otp." is your Bongbasar OTP. Don't share this with anyone. Thank you.- Bongbasar";
+                send_sms($mobile_no,$message); 
+                echo '<div class="col-md-12 modal-form-underpart">                
+                <form role="form" id="register-step"  method="post">
+                        <div class="form-group">
+                            <label for="mobile_no">Phone no:</label>
+                            <input type="text" class="form-control validate[required]" id="mobile_no" placeholder="Enter phone no" name="mobile_no" data-errormessage-value-missing="phone is required" data-prompt-position="bottomLeft" maxlength="200" value="'.$mobile_no.'"disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="password1">Password:</label>
+                            <input type="password" class="form-control validate[required]" id="password1" placeholder="Enter password" name="password1" data-errormessage-value-missing="password is required" data-prompt-position="bottomLeft" maxlength="200">
+                        </div>
+                        <div class="form-group">
+                            <label for="otp">OTP</label>
+                            <input type="text" class="form-control validate[required]" id="otp" placeholder="Enter otp no" name="otp" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" maxlength="200">
+                        </div>
+                        <span class="reg-step-error" style="color: red"></span>
+                        <button type="submit" class="btn btn-block submit-btn hvr-bounce-to-right hvr-icon-pulse-grow">
+                            Sign Up
+                            <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
+                        </button>
+                        
+                    </form>
+                </div>                       
+                <script>
+                    $(function () {                
+                        $("#register-step").validationEngine();
+                    });
+                    $("#register-step").on("submit", function (e) 
+                    {
+                        if($("#password1").val() != "" && $("#otp").val() != "")
+                        {  
+                            $(".reg-step-error").hide();
+                            var base_url=$("#base_url").val();
+                            var mobile_no=$("#mobile_no").val();
+                            var otp=$("#otp").val();
+                            e.preventDefault();
+                            $.ajax({
+                            type: "post",
+                            dataType: "json",
+                            url:base_url+"register-step",
+                            data: {mobile_no:mobile_no,otp:otp},
+                                success: function (data) 
+                                {
+                                    console.log(data.result)
+                                    if (data.result==1)
                                     {
-                                        console.log(data.result)
-                                        if (data.result==1)
-                                        {
-                                            location.reload();
-                                        }
-                                        else
-                                        {
-                                            if(data.result ==3)
-                                            {
-                                                $(".reg-step-error").show();  
-                                                $(".reg-step-error").html("OTP dose not match.").delay(4000).fadeOut("slow");
-                                            }
-                                            else
-                                            {
-                                                $(".reg-step-error").show();  
-                                                $(".reg-step-error").html("Can not be empty.").delay(4000).fadeOut("slow"); 
-                                            }
-                                                  
-                                        } 
+                                        location.reload();
                                     }
-                                  });
-                            }
-                       
-                        });
-                    </script>'
-                    ;
-
-                }
-                else
-                {
-                    echo "3";
-                }
+                                    else if(data.result ==3)
+                                    {
+                                        $(".reg-step-error").show();  
+                                        $(".reg-step-error").html("OTP dose not match.").delay(4000).fadeOut("slow");
+                                    }
+                                    else if(data.result ==4)
+                                    {
+                                        $(".reg-step-error").show();  
+                                        $(".reg-step-error").html("You are already registered. Please log in.").delay(4000).fadeOut("slow"); 
+                                    }
+                                    
+                                }
+                                });
+                        }
+                    
+                    });
+                </script>'
+                ;
             }
             else
             {
-                echo "0";
+                echo '4';
             }
         }
         else
@@ -140,19 +121,41 @@ class UserController extends CI_Controller
     {
 
     	$mobile_no= $this->input->post('mobile_no');
-        $old_otp= $this->input->post('old_otp');
         $otp= $this->input->post('otp');
         $password=md5($this->security->xss_clean($this->input->post('password1')));
         if(!empty($otp) &&  !empty($password))
         {
-            if($old_otp==$otp)
+            if($this->session->userdata('otp')==$otp)
             {
-                $where=array('mobile_no'=>$mobile_no);
-                $dataChange=array('password'=>$password);
-                $update = $this->User_Model->update('tbl_users',$where,$dataChange);
-                $message="Congrats! You have successfully registered with Bongbasar from your mobile no. ".$mobile_no.". SHOPPING KI SOCH BADLO BONGBASAR KE SATH -Bongbasar";
-                send_sms($mobile_no,$message);
-                echo json_encode(['result'=>1]);  
+                $count=$this->User_Model->entty_check(['mobile_no'=>$mobile_no,'status'=>'Active'],'tbl_users');
+                if(!$count)
+                {
+                    $data=array(
+                        'uniqcode'=>"ur".random_string('alnum',28),
+                        'mobile_no'=>$mobile_no,
+                        'otp'=>$otp,
+                        'status'=>'Active',
+                        'datetime'=>date('Y-m-d h:i:s')
+                    );
+                    if($this->User_Model->insert($data,'tbl_users'))
+                    {
+                        $message="Congrats! You have successfully registered with Bongbasar from your mobile no. ".$mobile_no.". SHOPPING KI SOCH BADLO BONGBASAR KE SATH -Bongbasar";
+                        send_sms($mobile_no,$message);
+                        echo json_encode(['result'=>1]); 
+                        return false;
+                    }
+                    else
+                    {
+                        $this->session->set_flashdata('error', 'Some problem.');
+                        echo json_encode(['result'=>2]);
+                        return false;
+                    } 
+                }
+                else
+                {
+                    echo json_encode(['result'=>4]);            
+                }
+                
             }
             else
             {
@@ -162,7 +165,6 @@ class UserController extends CI_Controller
         else
         {
             echo json_encode(['result'=>'']);            
-
         }
 
     }
@@ -178,9 +180,25 @@ class UserController extends CI_Controller
             {
                 $otp=random_string('numeric',4);
                 $Data['otp']=$otp;
-                //insert user data
+                $config = Array(
+                    'protocol' => 'smtp',
+                    'mailtype' => 'html',
+                    'charset' => 'utf-8',
+                    'wordwrap' => TRUE
+                );
+                $this->load->library('email', $config);
+                $from='developer.bongtechsolution@gmail.com';
+                $from_name='Bongbasar';
+                $to_email= $str;
+                $subject='Forget Password ';
                 $message=$otp." is your Bongbasar OTP. Don't share this with anyone. Thank you.- Bongbasar";
                // send_sms($str,$message);
+                email_send();
+                $this->email->from($from, $from_name);
+			    $this->email->to($to_email);
+			    $this->email->subject($subject);
+			    $this->email->message($message);
+			    $send=$this->email->send();
                 $this->User_Model->update('tbl_users',['email'=>$str],['otp'=>$otp]);
                 echo json_encode(['user_id'=>$str,'message'=>"success"]);
             }
@@ -214,7 +232,15 @@ class UserController extends CI_Controller
         $user_id=$this->input->post('user_id');
         $otp=$this->input->post('otp');
         $password=$this->input->post('password');
-        $this->User_Model->update_password('tbl_users',$user_id,md5($password));
+        $fv=$this->User_Model->update_password('tbl_users',$user_id,md5($password));
+        if($fv==1)
+        {
+            $this->session->set_flashdata('success', 'Your Password updated successfully');
+        }
+        else
+        {
+            $this->session->set_flashdata('error', 'Your Password updated unsuccessfully');
+        }
 
     }
 

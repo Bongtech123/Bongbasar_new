@@ -322,8 +322,8 @@
                               <img src="<?=base_url('webroot/user/')?>images/nwlogo.png">
                             </div>
                             <ul class="nav nav-tabs">
-                              <li class="active"><a data-toggle="tab" href="#home">I AM A MEMBER</a></li>
-                              <li><a data-toggle="tab" href="#menu1">I AM NEW HERE</a></li>
+                              <li id="lihome" class="active"><a data-toggle="tab" href="#home" id="alihome">I AM A MEMBER</a></li>
+                              <li id="limenu"><a data-toggle="tab" href="#menu1" id="alimenu">I AM NEW HERE</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -380,9 +380,8 @@
                                       <div class="form-group">
                                       <label for="userId">OTP:</label>
                                       <input type="text" class="form-control only_integer validate[required,maxSize[4],minSize[4]" id="fotp" name="fotp" placeholder="Enter your otp" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" maxlength="200" onblur="otpcheck(this.value,'change_mobile_no')">
-                                      <label><a id='resend'>Resend OTP</a><span style="
-                                          float:right;
-                                      " id='timer'></span></label>
+                                      <label><p id='resend'style="margin-top: 8px;">Resend OTP<span style="
+                                          float:right;" id='timer'></span></p></label>
                                       </div>
                                       <div class="form-group" style="display:none;" id='new_password_filed'>
                                       <label for="userId">New Password:</label>
@@ -402,6 +401,7 @@
                               </div>
                               <div id="menu1" class="tab-pane fade">
                                 <div class="col-md-12 modal-form-underpart">
+                                
                                   <form  id="register" method="post">
                                     <div class="form-group">
                                       <label for="mobile_no">Phone no:</label>
