@@ -133,7 +133,7 @@ class UserController extends CI_Controller
                     $data=array(
                         'uniqcode'=>"ur".random_string('alnum',28),
                         'mobile_no'=>$mobile_no,
-                        'otp'=>$otp,
+                        'password'=>$password,
                         'status'=>'Active',
                         'datetime'=>date('Y-m-d h:i:s')
                     );
@@ -459,6 +459,7 @@ class UserController extends CI_Controller
     {
            
     }
+    
     public function otp_check()
     {
         $user_id=$this->input->post('userid');
@@ -466,5 +467,7 @@ class UserController extends CI_Controller
         $result=$this->User_Model->checkOtp($user_id,$otp);
         echo $result;
     }
+
+
 }
     

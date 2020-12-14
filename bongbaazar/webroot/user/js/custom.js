@@ -551,12 +551,6 @@ $('#register').on('submit', function (e)
               $('#lihome').addClass('active');
               $("#userId").val(str);
               $("#register").css('display','none');
-
-
-
-            
-            
-
             }
           }
       });
