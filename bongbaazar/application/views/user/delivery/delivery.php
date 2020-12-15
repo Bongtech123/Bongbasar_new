@@ -232,10 +232,10 @@
                             <p>Delivery By:<?php echo date("D M d", strtotime($user_order_item_row->delivery_date));  ?></p>
                            
                             <div class="button-part">
-                               <!-- <button type="button" class="btn card-button-inner hvr-icon-pop rate-btn" data-toggle="modal" data-target="#rateReview">
+                               <button type="button" class="btn card-button-inner hvr-icon-pop rate-btn" data-toggle="modal" data-target="#rateReview">
                                 Rate & Review
                                 <i class="fa fa-star hvr-icon" aria-hidden="true"></i>
-                              </button> -->
+                              </button>
                               <?php
                                 if($status=='Pending')
                                 {

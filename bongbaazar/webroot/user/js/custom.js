@@ -2208,6 +2208,74 @@ $(document).ready(function()
     }
     
  }
+
+ function rating(rating)
+ {
+   //alert(rating);
+   $("#rating").val(rating);
+ }
+ $(document).ready(function() {
+  document.getElementById('review_image').addEventListener('change', readImage, false);
+  
+  $( "#image_show" ).sortable();
+  
+  $(document).on('click', '#img_remove', function() {
+      let no = $(this).data('no');
+      $("#review-img-"+no).remove();
+  });
+  $(document).on('click', '#upload_img', function() {
+    console.log(document.getElementById('review_image').files);
+    var formData = new FormData(); 
+    formData.append("file", document.getElementById('review_image').files);
+   
+    var base_url=$('#base_url').val();
+    $.ajax({
+      type: 'post',
+      url:base_url+'review-add',
+      dataType: 'json',
+      data:formData,
+      contentType: false,
+      cache: false,
+      processData: false,
+      success: function (data) 
+      {
+        alert(data);
+      }
+      });
+
+  });
+});
+ var num = 4;
+function readImage() {
+    if (window.File && window.FileList && window.FileReader) {
+        var files = event.target.files; //FileList object
+        var output = $("#image_show");
+
+        for (let i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (!file.type.match('image')) continue;
+            
+            var picReader = new FileReader();
+            
+            picReader.addEventListener('load', function (event) {
+                var picFile = event.target;
+                var html =  '<div class="review-img" id="review-img-' + num + '">' +
+                            ' <img src="' + picFile.result + '">' +
+                            '<i class="fa fa-minus-circle" aria-hidden="true" id="img_remove"  data-no="' + num + '"></i>' +
+                            '</div>';
+
+                output.append(html);
+                num = num + 1;
+            });
+
+            picReader.readAsDataURL(file);
+        }
+        $("#pro-image").val('');
+    } else {
+        console.log('Browser not support');
+    }
+}
+
   
   
   

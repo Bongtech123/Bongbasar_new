@@ -411,6 +411,12 @@ class UserController extends CI_Controller
         }
     }
 
+    public function review_add()
+    {
+        $file=$_FILES['file'];
+        pr($file);
+    }
+
 
 }
     

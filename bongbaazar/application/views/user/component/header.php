@@ -21,6 +21,7 @@
     <link href='<?=base_url()?>webroot/user/css/validationEngine.jquery.css' rel="stylesheet">
     <link href="<?=base_url()?>webroot/user/css/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?=base_url()?>webroot/user/css/bootstrap-select.min.css">
+    
     <script type="text/javascript" charset="utf-8" src="<?=base_url()?>webroot/user/js/jquery.js"></script>
 
   </head>
@@ -470,11 +471,12 @@
                               <p class="product-title">Formal Saree</p>
                               <p class="product-description">Mustard Silk Blend Woven Design Banarasi Saree</p>
                               <div class="star">
-                                <div class="star__item"><i class="fa fa-star emoji--happy" aria-hidden="true"></i></div>
-                                <div class="star__item"><i class="fa fa-star emoji--sad" aria-hidden="true"></i></div>
-                                <div class="star__item"><i class="fa fa-star emoji--crying" aria-hidden="true"></i></div>
-                                <div class="star__item"><i class="fa fa-star emoji--grimacing" aria-hidden="true"></i></div>
-                                <div class="star__item"><i class="fa fa-star emoji--love" aria-hidden="true"></i></div>
+                                <div class="star__item" onclick="rating(1)"><i class="fa fa-star emoji--happy" aria-hidden="true"></i></div>
+                                <div class="star__item" onclick="rating(2)"><i class="fa fa-star emoji--sad" aria-hidden="true"></i></div>
+                                <div class="star__item" onclick="rating(3)"><i class="fa fa-star emoji--crying" aria-hidden="true"></i></div>
+                                <div class="star__item" onclick="rating(4)"><i class="fa fa-star emoji--grimacing" aria-hidden="true"></i></div>
+                                <div class="star__item" onclick="rating(5)"><i class="fa fa-star emoji--love" aria-hidden="true"></i></div>
+                                <input type="hidden" id="rating" value="">
                               </div>
                             </div>
                           </div>
@@ -486,20 +488,22 @@
                         <div class="review-img-contaner">
                           <span class="writeReview-gallery">
                             <div tabindex="0" style="outline: none;">
-                              <input type="file" name="product" accept="image/*" multiple="" >
+                            <form enctype="multipart/form-data" >
+                              <input type="file" name="review_image" id="review_image" accept="image/*" multiple="" >
                               <i class="fa fa-picture-o" aria-hidden="true"></i>
+                            </form>
                             </div>
                           </span>
-                          <div class="review-img">
-                            <img src="https://assets.myntassets.com/w_111,h_148,q_95,c_limit,fl_progressive/h_148,q_95,w_111/v1/assets/images/productimage/2019/9/21/b7a40051-2ea0-44d0-805b-10761f4844dd1569013480119-1.jpg">
-                            <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                
+                          <div id='image_show'>
+                                      
                           </div>
                         </div>
                       </div>
 
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn card-button-inner buy-btn save-btn">
+                      <button type="button" class="btn card-button-inner buy-btn save-btn" id='upload_img'>
                         <span>Submit</span>
                       </button>
                     </div>
