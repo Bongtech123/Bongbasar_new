@@ -449,6 +449,7 @@ $(function () {
     $("#searchEngine").validationEngine();
     $("#forget").validationEngine();
     $("#submit_forget").validationEngine();
+   
 });
 $(".only_character").keypress(function (e) {
       var regex = new RegExp("^[a-zA-Z ]+$");
@@ -533,12 +534,16 @@ $('#register').on('submit', function (e)
       $.ajax({
       type: 'post',
       url:base_url+'register',
+      dataType:'json',
       data:{mobile_no:str},
           success: function (data) 
           {
-            if(data != 4)
+            if(data.msg == 1)
             {
-              $('#menu1').html(data);  
+              $("#register").css('display','none');
+              $("#register-step").css('display','block');
+              $("#reg_mobile_no").val(data.mobile_no);
+              timer_set1();
             }
             else
             {
@@ -560,6 +565,44 @@ $('#register').on('submit', function (e)
 $('#limenu').on('click', function (e) 
 { 
   $("#register").css('display','block');
+});
+
+$("#register-step").on("submit", function (e) 
+{
+    if($("#password1").val() != "" && $("#otp").val() != "")
+    {  
+        $(".reg-step-error").hide();
+        var base_url=$("#base_url").val();
+        var mobile_no=$("#reg_mobile_no").val();
+        var otp=$("#rotp").val();
+        e.preventDefault();
+        $.ajax({
+        type: "post",
+        dataType: "json",
+        url:base_url+"register-step",
+        data: {reg_mobile_no:mobile_no,rotp:otp},
+            success: function (data) 
+            {
+                console.log(data.result)
+                if (data.result==1)
+                {
+                    location.reload();
+                }
+                else if(data.result ==3)
+                {
+                    $(".reg-step-error").show();  
+                    $(".reg-step-error").html("OTP dose not match.").delay(4000).fadeOut("slow");
+                }
+                else if(data.result ==4)
+                {
+                    $(".reg-step-error").show();  
+                    $(".reg-step-error").html("You are already registered. Please log in.").delay(4000).fadeOut("slow"); 
+                }
+                
+            }
+            });
+    }
+
 });
 
 $('#forget').on('submit', function (e) 
@@ -635,7 +678,7 @@ $('#submit_forget').on('submit', function (e)
 function timer_set()
 {
   var minit=2;
-  var sec=2;
+  var sec=60;
 
   var x = setInterval(function() 
   {
@@ -644,7 +687,7 @@ function timer_set()
     if(sec==0)
     {
       minit=minit-1;
-      sec=1;
+      sec=59;
     }
     if(sec<10)
     {
@@ -679,6 +722,57 @@ function resend_otp(id)
       success: function (data) 
       {
           timer_set()
+      }
+  });
+  
+}
+function timer_set1()
+{
+  var minit=2;
+  var sec=60;
+
+  var x = setInterval(function() 
+  {
+
+    sec--;
+    if(sec==0)
+    {
+      minit=minit-1;
+      sec=59;
+    }
+    if(sec<10)
+    {
+      fsec="0"+sec;
+    }
+    else{
+      fsec=sec;
+    }
+    document.getElementById("timer1").innerHTML=minit+":"+fsec;
+    if (minit < 0) 
+    {
+      clearInterval(x);
+      document.getElementById("timer1").innerHTML = "";
+      $("#resend1").attr("onclick","resend_otp1('reg_mobile_no')");
+      $("#resend1").css('color', '#006ae4');
+      $("#resend1").css('cursor', 'pointer');
+    }
+  }, 1000);
+}
+
+function resend_otp1(id)
+{
+  $("#resend1").removeAttr('onclick');
+  let userid=$('#'+id).val();
+  var base_url=$('#base_url').val();
+      
+  $.ajax({
+  type: 'post',
+  url:base_url+'forgot',
+  dataType: 'json',
+  data:{user_id:userid},
+      success: function (data) 
+      {
+          timer_set1()
       }
   });
   
@@ -2035,10 +2129,7 @@ $(document).ready(function()
    
     
   }
-  function aaa()
-  {
  
-  }
  function otpcheck(otp,id)
  {
   
@@ -2071,7 +2162,45 @@ $(document).ready(function()
               }
             }
         });
-        aaa();
+    }
+    else
+    {
+        return false;
+    }
+    
+ }
+ function otpcheck1(otp,id)
+ {
+  
+  var base_url=$('#base_url').val();
+    let userid=$('#'+id).val();
+    if(otp)
+    {
+      $.ajax({
+        type: 'post',
+        url:base_url+'otp-check',
+        dataType: 'json',
+        data:{
+              userid:userid,
+              otp:otp,
+            },
+            success: function (data) 
+            {
+            
+              if(data=='0')
+              {
+                $('.reg-step-error').show();
+                $('.reg-step-error').html('OTP is Incorrect!').delay(1200).fadeOut('show');
+              }
+              else
+              {
+                $("#rotp").attr("readonly","true");
+                $("#reg_password_filed").css('display', 'block');
+                $("#resend1").css('display', 'none');
+                
+              }
+            }
+        });
     }
     else
     {

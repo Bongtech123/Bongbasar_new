@@ -156,15 +156,11 @@ class User_Model extends CI_Model
        
         $count_row = $this->db->query("SELECT * FROM `tbl_users` WHERE (`email` = '".$user_id."' OR `mobile_no` = '".$user_id."') AND `otp` = '".$otp."' AND `status` = 'Active'");
         $result = $count_row->num_rows();
-        return $result;
-        
-       
+        return $result; 
     }
     public function update_password($table,$user_id,$password)
     {
-        $this->db->query("UPDATE ".$table."  SET `password`='".$password."' WHERE `mobile_no`='".$user_id."' or `email`='".$user_id."'");
-        $result = $this->db->affected_rows();
-        return $result;
-        
+        $this->db->query("UPDATE ".$table."  SET `password`='".$password."' WHERE `mobile_no`='".$user_id."' or `email`='".$user_id."'");  
+        return 1;  
     }
 }

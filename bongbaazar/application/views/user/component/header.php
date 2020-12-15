@@ -50,7 +50,7 @@
                     <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                           <i class="fa fa-bars"></i>
                         </button> -->
-                    <a class="navbar-brand wow pulse" href="<?=base_url()?>">
+                    <a class="navbar-brand" href="<?=base_url()?>">
                       <img src="<?=base_url()?>webroot/user/images/nwlogo.png">
                     </a>
                     <!-- Only for mobile -->
@@ -121,13 +121,13 @@
                             $query = $this->db->get('tbl_cart');
                             $cart_count = $query->num_rows();
                         ?>
-                        <li><a href="<?=base_url('bag')?>" class="wow bounceInDown" onclick="onloadbag()"><i class="fa fa-shopping-bag" aria-hidden="true" ></i> Bag<span class="badge"><?= $cart_count;?></span></a></li>
+                        <li><a href="<?=base_url('bag')?>" onclick="onloadbag()"><i class="fa fa-shopping-bag" aria-hidden="true" ></i> Bag<span class="badge"><?= $cart_count;?></span></a></li>
                         <?php 
                           }
                           else 
                           {
                         ?>
-                          <li><a href="javascript-void(0)" class="wow bounceInDown" data-toggle="modal" data-target="#signIn"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Bag<span class="badge"></span></a></li>
+                          <li><a href="javascript-void(0)"  data-toggle="modal" data-target="#signIn"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Bag<span class="badge"></span></a></li>
                         <?php 
                           }
                         ?>
@@ -136,14 +136,14 @@
                             if(empty($userdata))
                             {
                         ?>
-                        <li><a href="javascript-void(0)" class="wow bounceInDown" data-toggle="modal" data-target="#signIn"><i class="fa fa-sign-out" aria-hidden="true"></i> Login</a></li>
+                        <li><a href="javascript-void(0)"  data-toggle="modal" data-target="#signIn"><i class="fa fa-sign-out" aria-hidden="true"></i> Login</a></li>
                         <?php 
                            }
                            else
                            {
                         ?>
                          <li class="profile">
-                          <a  class="wow bounceInDown"><i class="fa fa-user" aria-hidden="true"></i>
+                          <a><i class="fa fa-user" aria-hidden="true"></i>
                             <span class="profile-name"><?=($userdata->name=="")?'My Account':$userdata->name?></span>
                           </a>
                           <div class="sub-options">
@@ -412,6 +412,28 @@
                                       Sign Up
                                       <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
                                     </button>
+                                  </form>
+                                  <form role="form" id="register-step"  method="post" style="display:none">
+                                      <div class="form-group">
+                                          <label for="mobile_no">Phone no:</label>
+                                          <input type="text" class="form-control validate[required]" id="reg_mobile_no" placeholder="Enter phone no" name="reg_mobile_no" data-errormessage-value-missing="phone is required" data-prompt-position="bottomLeft" maxlength="200" disabled>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="otp">OTP</label>
+                                          <input type="text" class="form-control validate[required]" id="rotp" placeholder="Enter otp no" name="rotp" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" maxlength="200" onblur="otpcheck1(this.value,'reg_mobile_no')">
+                                          <label><p id="resend1" style="margin-top: 8px;">Resend OTP<span style="
+                                                        float:right;" id="timer1"></span></p></label>
+                                      </div>
+                                      <div class="form-group" style="display:none;" id='reg_password_filed'>
+                                          <label for="password1">Password:</label>
+                                          <input type="password" class="form-control validate[required]" id="password1" placeholder="Enter password" name="password1" data-errormessage-value-missing="password is required" data-prompt-position="bottomLeft" maxlength="200">
+                                      </div>
+                                      <span class="reg-step-error" style="color: red"></span>
+                                      <button type="submit" class="btn btn-block submit-btn hvr-bounce-to-right hvr-icon-pulse-grow">
+                                          Sign Up
+                                          <i class="fa fa-sign-in hvr-icon" aria-hidden="true"></i>
+                                      </button>
+                                      
                                   </form>
                                 </div>
                               </div>
