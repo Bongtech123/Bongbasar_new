@@ -655,7 +655,7 @@ section {
 	
 	#myNavbar form{
 	  position:relative;
-	  top:10px;
+	  top:0px;
 	}
 /*Nav bar end*/
 
@@ -5324,7 +5324,7 @@ section {
 
 		}
 		.magnifier img {
-			/*max-width: ;*/
+			max-width: ;
 		}
 
 	}
