@@ -21,6 +21,7 @@
     <link href='<?=base_url()?>webroot/user/css/validationEngine.jquery.css' rel="stylesheet">
     <link href="<?=base_url()?>webroot/user/css/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?=base_url()?>webroot/user/css/bootstrap-select.min.css">
+    
     <script type="text/javascript" charset="utf-8" src="<?=base_url()?>webroot/user/js/jquery.js"></script>
 
   </head>
@@ -332,7 +333,7 @@
                                   <!-- Login -->
                                    <form  id="login" method="post">
                                     <div class="form-group">
-                                      <label for="userId">User Id:</label>
+                                      <label for="userId">Email or Mobile:</label>
                                       <input type="text" class="form-control validate[required]" id="userId" placeholder="Enter email or phone no" name="userId"data-errormessage-value-missing="Email or phone is required" data-prompt-position="bottomLeft" maxlength="200">
                                     </div>
                                     <div class="form-group">
@@ -359,7 +360,7 @@
 
                                     <form  id="forget" method="post">
                                       <div class="form-group">
-                                        <label for="userId">User Id:</label>
+                                        <label for="userId">Email or Mobile:</label>
                                         <input type="text" class="form-control validate[required]" id="FuserId" placeholder="Enter email or phone no" name="FuserId" data-errormessage-value-missing="Email or phone is required" data-prompt-position="bottomLeft" maxlength="200">
                                       </div>
                                       <div class="form-group">
@@ -470,39 +471,49 @@
                               <p class="product-title">Formal Saree</p>
                               <p class="product-description">Mustard Silk Blend Woven Design Banarasi Saree</p>
                               <div class="star">
-                                <div class="star__item"><i class="fa fa-star emoji--happy" aria-hidden="true"></i></div>
-                                <div class="star__item"><i class="fa fa-star emoji--sad" aria-hidden="true"></i></div>
-                                <div class="star__item"><i class="fa fa-star emoji--crying" aria-hidden="true"></i></div>
-                                <div class="star__item"><i class="fa fa-star emoji--grimacing" aria-hidden="true"></i></div>
-                                <div class="star__item"><i class="fa fa-star emoji--love" aria-hidden="true"></i></div>
+                                <div class="star__item" onclick="rating(1)"><i class="fa fa-star emoji--happy" aria-hidden="true"></i></div>
+                                <div class="star__item" onclick="rating(2)"><i class="fa fa-star emoji--sad" aria-hidden="true"></i></div>
+                                <div class="star__item" onclick="rating(3)"><i class="fa fa-star emoji--crying" aria-hidden="true"></i></div>
+                                <div class="star__item" onclick="rating(4)"><i class="fa fa-star emoji--grimacing" aria-hidden="true"></i></div>
+                                <div class="star__item" onclick="rating(5)"><i class="fa fa-star emoji--love" aria-hidden="true"></i></div>
+                                <input type="hidden" id="rating" value="">
                               </div>
                             </div>
                           </div>
                         </div>
                         <p class="review-heading">Review this product</p>
                         <div class="form-group">
-                          <textarea id="product-review" name="product-review" rows="4" placeholder="Please write product review here"></textarea>
+                          <textarea id="product-review" name="product-review" rows="4" placeholder="Please write product review here" id='review'></textarea>
                         </div>
+                        <form enctype="multipart/form-data" id='imageform' name='imageform'>
                         <div class="review-img-contaner">
+                        <?php  
+                          for($x=1;$x<=5;$x++)
+                          {
+                        ?>
                           <span class="writeReview-gallery">
                             <div tabindex="0" style="outline: none;">
-                              <input type="file" name="product" accept="image/*" multiple="" >
-                              <i class="fa fa-picture-o" aria-hidden="true"></i>
+                           
+                            <img src="<?=base_url('webroot/user/images/Add-Photo-Button.png')?>" id="upload_photo_<?=$x?>" onclick="get_upload_photo1('<?=$x?>')" style="cursor: pointer; object-fit: contain;" class="add_img_button">
+                            <input type="file" name="item_image_upload_<?=$x?>" class="showTableImage image-upload selected_img" id="input_upload_<?=$x?>" style="display: none" accept=".jpg,.jpeg,.png" onchange="show_photo1(this, '<?=$x?>')">
+                              
+                       
                             </div>
                           </span>
-                          <div class="review-img">
-                            <img src="https://assets.myntassets.com/w_111,h_148,q_95,c_limit,fl_progressive/h_148,q_95,w_111/v1/assets/images/productimage/2019/9/21/b7a40051-2ea0-44d0-805b-10761f4844dd1569013480119-1.jpg">
-                            <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                          </div>
+                        <?php 
+                          }
+                        ?> 
+                        
                         </div>
                       </div>
 
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn card-button-inner buy-btn save-btn">
+                      <button type="button" class="btn card-button-inner buy-btn save-btn" id='upload_img'>
                         <span>Submit</span>
                       </button>
                     </div>
+                    </form>
                 </div>
             </div>
           </div>

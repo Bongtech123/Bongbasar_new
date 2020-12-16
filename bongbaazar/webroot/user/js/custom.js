@@ -2208,6 +2208,79 @@ $(document).ready(function()
     }
     
  }
+
+ function rating(rating)
+ {
+   //alert(rating);
+   $("#rating").val(rating);
+ }
+ $(document).ready(function() 
+ {
+    $(document).on('click', '#upload_img', function() 
+    {
+      
+      let rating=$('#rating').val();
+      let review=$('#review').val();
+      var fileInput = document.getElementById('input_upload_1');
+      var file1 = fileInput.files[0];
+      var formData = new FormData();
+      formData.append('file', file1);
+      //formData.append('file', $('#input_upload_3').files);
+      formData.append('rating',rating);
+      formData.append('review',review);
+      console.log(formData);
+      var base_url=$('#base_url').val();
+      $.ajax({
+        type: 'post',
+        url:base_url+'review-add',
+        dataType: 'json',
+        data:formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) 
+        {
+          alert(data);
+        }
+        });
+
+    });
+});
+
+function get_upload_photo1(x) 
+{
+    $("#input_upload_"+x+"").trigger("click");
+}
+function show_photo1(input, x) {
+  if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      var FileSize = input.files[0].size / 1024 / 1024; // in MB
+      var FileType = input.files[0].type;
+      var ext = $("#input_upload_" + x + "")
+          .val()
+          .split(".")
+          .pop()
+          .toLowerCase();
+      if ($.inArray(ext, ["JPEG", "PNG", "JPG", "png", "jpg", "jpeg"]) == -1) {
+          alert("invalid extension!");
+      } else {
+          if (FileSize < 1) {
+              $("#selected_images_count").val("1");
+              reader.onload = function (e) {
+                  $("#upload_photo_" + x + "")
+                      .attr("src", e.target.result)
+                      .width(60)
+                      .height(60);
+              };
+              reader.readAsDataURL(input.files[0]);
+          } else {
+              alert("Maximum file size 1MB can be upload");
+              $(input).val("");
+          }
+      }
+  }
+}
+
   
   
   
