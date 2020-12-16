@@ -2221,28 +2221,47 @@ $(document).ready(function()
       
       let rating=$('#rating').val();
       let review=$('#review').val();
-      var fileInput = document.getElementById('input_upload_1');
-      var file1 = fileInput.files[0];
+      let order_uniqcode=$('#order_uniqcode').val();
+     
       var formData = new FormData();
-      formData.append('file', file1);
+      for(let i=1; i<=5; i++ )
+      {
+        var fileInput = document.getElementById('input_upload_'+i);
+        var file1 = fileInput.files[0];
+        formData.append('file'+i,file1);
+      }
+     
+     
+      
       //formData.append('file', $('#input_upload_3').files);
       formData.append('rating',rating);
       formData.append('review',review);
-      console.log(formData);
+      formData.append('order_uniqcode',order_uniqcode);
       var base_url=$('#base_url').val();
-      $.ajax({
-        type: 'post',
-        url:base_url+'review-add',
-        dataType: 'json',
-        data:formData,
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function (data) 
-        {
-          alert(data);
-        }
-        });
+      if(order_uniqcode!='')
+      {
+        $.ajax({
+          type: 'post',
+          url:base_url+'review-add',
+          dataType: 'json',
+          data:formData,
+          contentType: false,
+          cache: false,
+          processData: false,
+          success: function (data) 
+          {
+            if(data.result==1)
+            {
+              location.reload();
+            }
+          }
+          });
+      }
+      else
+      {
+        return false;
+      }
+      
 
     });
 });
@@ -2279,6 +2298,11 @@ function show_photo1(input, x) {
           }
       }
   }
+}
+
+function rateAndreview(uniqcode)
+{
+    $('#order_uniqcode').val(uniqcode);
 }
 
   

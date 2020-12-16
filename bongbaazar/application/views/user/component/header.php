@@ -477,13 +477,14 @@
                                 <div class="star__item" onclick="rating(4)"><i class="fa fa-star emoji--grimacing" aria-hidden="true"></i></div>
                                 <div class="star__item" onclick="rating(5)"><i class="fa fa-star emoji--love" aria-hidden="true"></i></div>
                                 <input type="hidden" id="rating" value="">
+                                <input type="hidden" id="order_uniqcode" value="">
                               </div>
                             </div>
                           </div>
                         </div>
                         <p class="review-heading">Review this product</p>
                         <div class="form-group">
-                          <textarea id="product-review" name="product-review" rows="4" placeholder="Please write product review here" id='review'></textarea>
+                          <textarea id="review" name="review" rows="4" placeholder="Please write product review here"></textarea>
                         </div>
                         <form enctype="multipart/form-data" id='imageform' name='imageform'>
                         <div class="review-img-contaner">

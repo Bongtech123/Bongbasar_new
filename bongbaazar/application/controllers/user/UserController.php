@@ -413,10 +413,49 @@ class UserController extends CI_Controller
 
     public function review_add()
     {
-        //$file=$_FILES['file']['name'];
-        $rating=$_POST['rating'];
-        echo $rating;
-        pr($_FILES);
+        $rating=$this->input->post('rating');
+        $review=$this->input->post('review');
+        $order_uniqcode=$this->input->post('order_uniqcode');
+        $image=array();
+      
+        for($i=1;$i<=5;$i++)
+        {
+            if(!empty($_FILES['file'.$i.'']['name']))
+            {
+                $config['upload_path']          = FCPATH.'/webroot/user/review_images/';
+                $config['allowed_types']        = '*';
+                $config['encrypt_name']         = TRUE;
+                $config['file_name']            = $_FILES['file'.$i]['name'];
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('file'.$i.''))
+                {
+                    $image_data = $this->upload->data();
+                    $image[$i]=$image_data['file_name'];
+
+                }
+                else
+                {
+                    echo $this->upload->display_errors();
+                   
+                }
+            }
+        }
+        $post=array(
+            'uniqcode'=>'rr'.randomPassword(28),
+            'order_id'=>$order_uniqcode,
+            'image'=>serialize($image),
+            'rating'=>$rating,
+            'review'=>$review,
+            'status'=>'Inactive',
+            'datetime'=>date('Y-m-d H:i:s')
+        );  
+        if($this->User_Model->insert($post,'tbl_review'))
+        {
+            $this->session->set_flashdata('success', 'Thank you so much. Your review has been saved.');
+            echo json_encode(['result'=>1]);
+            return false;
+        }
     }
 
 

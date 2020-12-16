@@ -651,7 +651,7 @@ class OrderController extends CI_Controller
 			$this->data['page_title']='Bongbazaar | Delivery';
 			$this->data['user_order_details'] = $this->Order_Model->user_orders_details($user_id,$order_code);
 			$this->data['user_order_item'] = $this->Order_Model->user_delivery_item($user_id,$order_code);
-        	
+        	//pr($this->data);
 			$this->data['subview']='delivery/delivery';
 			$this->load->view('user/layout/default', $this->data);
 		}
