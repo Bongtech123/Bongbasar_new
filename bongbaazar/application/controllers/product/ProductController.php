@@ -36,15 +36,18 @@ class ProductController extends CI_Controller
             {
               $this->data['product_view']=$this->Product_Model->productView($product_id);
               $this->data['product_view_color']=$this->Product_Model->productViewColor($product_id);
-
               $this->data['product_view_price_image']=$this->Product_Model->productViewPriceImage($product_features_id);
               $this->data['product_view_size']=$this->Product_Model->productViewSize($product_id,$color);    
+              $this->data['rate_review']=$this->Product_Model->rateReview($product_id);    
+              $this->data['rating_total']=$this->Product_Model->ratingTotal($product_id);
               //pr($this->data);
+        
               if(!empty($this->data['product_view']) && !empty($this->data['product_view_color']) &&!empty($this->data['product_view_price_image']) && !empty($this->data['product_view_size']))
               {
                 
                 $this->data['page_title']='product view';  
                 $this->data['subview']='product/product_view';
+                //pr($this->data);
                 $this->load->view('user/layout/default', $this->data);
               }
               else
@@ -58,13 +61,16 @@ class ProductController extends CI_Controller
               $this->data['product_view']=$this->Product_Model->productView($product_id);
               $this->data['product_view_color']=$this->Product_Model->productViewColor($product_id);
               $this->data['product_view_price_image']=$this->Product_Model->productViewPriceImage($product_features_id);
-              
+              $this->data['rate_review']=$this->Product_Model->rateReview($product_id);  
+              $this->data['rating_total']=$this->Product_Model->ratingTotal($product_id); 
+              pr($this->data);
+
 
               if(!empty($this->data['product_view']) && !empty($this->data['product_view_color']) && !empty($this->data['product_view_price_image']))
               { 
                 $this->data['page_title']='product view';      
                 $this->data['subview']='product/product_view_without_size';
-                  // pr($this->data);
+                //pr($this->data);
                 $this->load->view('user/layout/default', $this->data);
               }
               else

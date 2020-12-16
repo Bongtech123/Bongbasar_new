@@ -478,6 +478,7 @@
                                 <div class="star__item" onclick="rating(5)"><i class="fa fa-star emoji--love" aria-hidden="true"></i></div>
                                 <input type="hidden" id="rating" value="">
                                 <input type="hidden" id="order_uniqcode" value="">
+                                <input type="hidden" id="product_id" value="">
                               </div>
                             </div>
                           </div>

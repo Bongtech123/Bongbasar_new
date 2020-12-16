@@ -419,7 +419,7 @@ class UserController extends CI_Controller
         $image=array();
       
         for($i=1;$i<=5;$i++)
-        {
+        {   $count=0;
             if(!empty($_FILES['file'.$i.'']['name']))
             {
                 $config['upload_path']          = FCPATH.'/webroot/user/review_images/';
@@ -431,7 +431,8 @@ class UserController extends CI_Controller
                 if ($this->upload->do_upload('file'.$i.''))
                 {
                     $image_data = $this->upload->data();
-                    $image[$i]=$image_data['file_name'];
+                    $image[$count]=$image_data['file_name'];
+                    $count++;
 
                 }
                 else

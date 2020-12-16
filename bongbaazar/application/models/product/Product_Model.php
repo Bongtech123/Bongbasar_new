@@ -105,4 +105,71 @@ class Product_Model extends CI_Model
         return $stock_quentity;
         
     }
+
+    public function rateReview($product_id)
+    {
+       
+
+        $this->db->select('tbl_review.image,tbl_review.rating,tbl_review.review,tbl_users.name,tbl_users.image as user_image');
+		$this->db->from('tbl_review');
+		$this->db->join('tbl_order', 'tbl_order.uniqcode = tbl_review.order_id');
+		$this->db->join('tbl_users', 'tbl_users.uniqcode = tbl_order.user_id','left');
+		//$this->db->where('tbl_product_features.uniqcode',$product_features_id);
+        
+        $data=$this->db->get()->result();
+        return $data;
+    }
+
+    public function ratingTotal($product_id)
+    {
+        $fdata=array();
+        $this->db->select('count(tbl_review.id) as total_count');
+        $this->db->from('tbl_review');
+        $this->db->join('tbl_order', 'tbl_order.uniqcode = tbl_review.order_id');
+		$this->db->join('tbl_users', 'tbl_users.uniqcode = tbl_order.user_id','left');
+        $this->db->where('tbl_review.rating','1');
+        $this->db->where('tbl_order.product_id',$product_id);
+        $fdata['one']=$this->db->get()->row()->total_count;
+    
+
+        $this->db->select('count(tbl_review.id) as total_count');
+        $this->db->from('tbl_review');
+        $this->db->join('tbl_order', 'tbl_order.uniqcode = tbl_review.order_id');
+		$this->db->join('tbl_users', 'tbl_users.uniqcode = tbl_order.user_id','left');
+        $this->db->where('tbl_review.rating','2');
+        $this->db->where('tbl_order.product_id',$product_id);
+        $fdata['two']=$this->db->get()->row()->total_count;
+
+        $this->db->select('count(tbl_review.id) as total_count');
+        $this->db->from('tbl_review');
+        $this->db->join('tbl_order', 'tbl_order.uniqcode = tbl_review.order_id');
+		$this->db->join('tbl_users', 'tbl_users.uniqcode = tbl_order.user_id','left');
+        $this->db->where('tbl_review.rating','3');
+        $this->db->where('tbl_order.product_id',$product_id);
+        $fdata['there']=$this->db->get()->row()->total_count;
+
+        $this->db->select('count(tbl_review.id) as total_count');
+        $this->db->from('tbl_review');
+        $this->db->join('tbl_order', 'tbl_order.uniqcode = tbl_review.order_id');
+		$this->db->join('tbl_users', 'tbl_users.uniqcode = tbl_order.user_id','left');
+        $this->db->where('tbl_review.rating','4');
+        $this->db->where('tbl_order.product_id',$product_id);
+        $fdata['four']=$this->db->get()->row()->total_count;
+
+        $this->db->select('count(tbl_review.id) as total_count');
+        $this->db->from('tbl_review');
+        $this->db->join('tbl_order', 'tbl_order.uniqcode = tbl_review.order_id');
+		$this->db->join('tbl_users', 'tbl_users.uniqcode = tbl_order.user_id','left');
+        $this->db->where('tbl_review.rating','5');
+        $this->db->where('tbl_order.product_id',$product_id);
+        $fdata['five']=$this->db->get()->row()->total_count;
+
+        $this->db->select('avg(tbl_review.rating) as total_avg');
+        $this->db->from('tbl_review');
+        $this->db->join('tbl_order', 'tbl_order.uniqcode = tbl_review.order_id');
+		$this->db->join('tbl_users', 'tbl_users.uniqcode = tbl_order.user_id','left');
+        $this->db->where('tbl_order.product_id',$product_id);
+        $fdata['avg']=$this->db->get()->row()->total_avg;
+        return (object)$fdata;
+    }
 }

@@ -2300,9 +2300,11 @@ function show_photo1(input, x) {
   }
 }
 
-function rateAndreview(uniqcode)
+function rateAndreview(uniqcode,)
 {
+
     $('#order_uniqcode').val(uniqcode);
+   
 }
 
   
