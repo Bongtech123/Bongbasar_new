@@ -333,7 +333,7 @@
                                   <!-- Login -->
                                    <form  id="login" method="post">
                                     <div class="form-group">
-                                      <label for="userId">User Id:</label>
+                                      <label for="userId">Email or Mobile:</label>
                                       <input type="text" class="form-control validate[required]" id="userId" placeholder="Enter email or phone no" name="userId"data-errormessage-value-missing="Email or phone is required" data-prompt-position="bottomLeft" maxlength="200">
                                     </div>
                                     <div class="form-group">
@@ -360,7 +360,7 @@
 
                                     <form  id="forget" method="post">
                                       <div class="form-group">
-                                        <label for="userId">User Id:</label>
+                                        <label for="userId">Email or Mobile:</label>
                                         <input type="text" class="form-control validate[required]" id="FuserId" placeholder="Enter email or phone no" name="FuserId" data-errormessage-value-missing="Email or phone is required" data-prompt-position="bottomLeft" maxlength="200">
                                       </div>
                                       <div class="form-group">
@@ -483,21 +483,27 @@
                         </div>
                         <p class="review-heading">Review this product</p>
                         <div class="form-group">
-                          <textarea id="product-review" name="product-review" rows="4" placeholder="Please write product review here"></textarea>
+                          <textarea id="product-review" name="product-review" rows="4" placeholder="Please write product review here" id='review'></textarea>
                         </div>
+                        <form enctype="multipart/form-data" id='imageform' name='imageform'>
                         <div class="review-img-contaner">
+                        <?php  
+                          for($x=1;$x<=5;$x++)
+                          {
+                        ?>
                           <span class="writeReview-gallery">
                             <div tabindex="0" style="outline: none;">
-                            <form enctype="multipart/form-data" >
-                              <input type="file" name="review_image" id="review_image" accept="image/*" multiple="" >
-                              <i class="fa fa-picture-o" aria-hidden="true"></i>
-                            </form>
+                           
+                            <img src="<?=base_url('webroot/user/images/Add-Photo-Button.png')?>" id="upload_photo_<?=$x?>" onclick="get_upload_photo1('<?=$x?>')" style="cursor: pointer; object-fit: contain;" class="add_img_button">
+                            <input type="file" name="item_image_upload_<?=$x?>" class="showTableImage image-upload selected_img" id="input_upload_<?=$x?>" style="display: none" accept=".jpg,.jpeg,.png" onchange="show_photo1(this, '<?=$x?>')">
+                              
+                       
                             </div>
                           </span>
-                
-                          <div id='image_show'>
-                                      
-                          </div>
+                        <?php 
+                          }
+                        ?> 
+                        
                         </div>
                       </div>
 
@@ -507,6 +513,7 @@
                         <span>Submit</span>
                       </button>
                     </div>
+                    </form>
                 </div>
             </div>
           </div>

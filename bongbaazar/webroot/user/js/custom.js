@@ -2214,66 +2214,71 @@ $(document).ready(function()
    //alert(rating);
    $("#rating").val(rating);
  }
- $(document).ready(function() {
-  document.getElementById('review_image').addEventListener('change', readImage, false);
-  
-  $( "#image_show" ).sortable();
-  
-  $(document).on('click', '#img_remove', function() {
-      let no = $(this).data('no');
-      $("#review-img-"+no).remove();
-  });
-  $(document).on('click', '#upload_img', function() {
-    console.log(document.getElementById('review_image').files);
-    var formData = new FormData(); 
-    formData.append("file", document.getElementById('review_image').files);
-   
-    var base_url=$('#base_url').val();
-    $.ajax({
-      type: 'post',
-      url:base_url+'review-add',
-      dataType: 'json',
-      data:formData,
-      contentType: false,
-      cache: false,
-      processData: false,
-      success: function (data) 
-      {
-        alert(data);
-      }
-      });
-
-  });
-});
- var num = 4;
-function readImage() {
-    if (window.File && window.FileList && window.FileReader) {
-        var files = event.target.files; //FileList object
-        var output = $("#image_show");
-
-        for (let i = 0; i < files.length; i++) {
-            var file = files[i];
-            if (!file.type.match('image')) continue;
-            
-            var picReader = new FileReader();
-            
-            picReader.addEventListener('load', function (event) {
-                var picFile = event.target;
-                var html =  '<div class="review-img" id="review-img-' + num + '">' +
-                            ' <img src="' + picFile.result + '">' +
-                            '<i class="fa fa-minus-circle" aria-hidden="true" id="img_remove"  data-no="' + num + '"></i>' +
-                            '</div>';
-
-                output.append(html);
-                num = num + 1;
-            });
-
-            picReader.readAsDataURL(file);
+ $(document).ready(function() 
+ {
+    $(document).on('click', '#upload_img', function() 
+    {
+      
+      let rating=$('#rating').val();
+      let review=$('#review').val();
+      var fileInput = document.getElementById('input_upload_1');
+      var file1 = fileInput.files[0];
+      var formData = new FormData();
+      formData.append('file', file1);
+      //formData.append('file', $('#input_upload_3').files);
+      formData.append('rating',rating);
+      formData.append('review',review);
+      console.log(formData);
+      var base_url=$('#base_url').val();
+      $.ajax({
+        type: 'post',
+        url:base_url+'review-add',
+        dataType: 'json',
+        data:formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) 
+        {
+          alert(data);
         }
-        $("#pro-image").val('');
-    } else {
-        console.log('Browser not support');
-    }
+        });
+
+    });
+});
+
+function get_upload_photo1(x) 
+{
+    $("#input_upload_"+x+"").trigger("click");
+}
+function show_photo1(input, x) {
+  if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      var FileSize = input.files[0].size / 1024 / 1024; // in MB
+      var FileType = input.files[0].type;
+      var ext = $("#input_upload_" + x + "")
+          .val()
+          .split(".")
+          .pop()
+          .toLowerCase();
+      if ($.inArray(ext, ["JPEG", "PNG", "JPG", "png", "jpg", "jpeg"]) == -1) {
+          alert("invalid extension!");
+      } else {
+          if (FileSize < 1) {
+              $("#selected_images_count").val("1");
+              reader.onload = function (e) {
+                  $("#upload_photo_" + x + "")
+                      .attr("src", e.target.result)
+                      .width(60)
+                      .height(60);
+              };
+              reader.readAsDataURL(input.files[0]);
+          } else {
+              alert("Maximum file size 1MB can be upload");
+              $(input).val("");
+          }
+      }
+  }
 }
 
   

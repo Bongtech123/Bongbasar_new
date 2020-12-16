@@ -413,8 +413,10 @@ class UserController extends CI_Controller
 
     public function review_add()
     {
-        $file=$_FILES['file'];
-        pr($file);
+        //$file=$_FILES['file']['name'];
+        $rating=$_POST['rating'];
+        echo $rating;
+        pr($_FILES);
     }
 
 
