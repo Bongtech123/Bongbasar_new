@@ -54,12 +54,12 @@ class CartController extends CI_Controller
 
                 $data2=array(
                     'status'=>"Cart",
-                    'datetime'=>date('Y-m-d h:i:s')
+                    'datetime'=>date('Y-m-d H:i:s;)
                 );
 
                 $data3=array(
                     'status'=>"Delete",
-                    'datetime'=>date('Y-m-d h:i:s')
+                    'datetime'=>date('Y-m-d H:i:s;)
                 );
 
                 $check = $this->Cart_Model->entty_check($data,'tbl_cart');
@@ -117,7 +117,7 @@ class CartController extends CI_Controller
                 'quantity'=>$quantity,
 				'color'=>$color,
                 'status'=>'Cart',
-                'datetime'=>date('Y-m-d h:i:s')
+                'datetime'=>date('Y-m-d H:i:s;)
             );
 			// pr($newData);
 			// die;
@@ -185,7 +185,7 @@ class CartController extends CI_Controller
                 'quantity'=>$quantity,
                 'color'=>$color,
                 'status'=>'Buy',
-                'datetime'=>date('Y-m-d h:i:s')
+                'datetime'=>date('Y-m-d H:i:s;)
             );
 			// pr($newData);
 			// die;
@@ -315,7 +315,7 @@ class CartController extends CI_Controller
 		{
 			$data=array(
 			'status'=>'Delete',
-			'datetime'=>date('Y-m-d H:i:s'),
+			'datetime'=>date('Y-m-d H:i:s;),
 			);
 			$this->db->where('uniqcode', $uniqcode);
 			$this->db->update('tbl_cart', $data);

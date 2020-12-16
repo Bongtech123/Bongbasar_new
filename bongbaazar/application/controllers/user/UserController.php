@@ -72,7 +72,7 @@ class UserController extends CI_Controller
                         'mobile_no'=>$mobile_no,
                         'password'=>$password,
                         'status'=>'Active',
-                        'datetime'=>date('Y-m-d h:i:s')
+                        'datetime'=>date('Y-m-d H:i:s;)
                     );
                     if($this->User_Model->insert($data,'tbl_users'))
                     {
@@ -360,7 +360,7 @@ class UserController extends CI_Controller
                     'user_id'=>$user_id,
                     'product_features_id'=>$product_features_id,
                     'notification'=>'',
-                    'datetime'=>date('Y-m-d h:i:s')
+                    'datetime'=>date('Y-m-d H:i:s;)
                 );
                 //pr($post);
                 if($this->User_Model->insert($post,'tbl_wishlist'))

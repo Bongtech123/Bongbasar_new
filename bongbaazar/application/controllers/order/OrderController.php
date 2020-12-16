@@ -170,7 +170,7 @@ class OrderController extends CI_Controller
                     'tcs'=>number_format($tcs,2),
                     'payment_mode'=>'PayOnDelivery',
                     'payment_id'=>$payment_id,
-                    'datetime'=>date('Y-m-d h:i:s')
+                    'datetime'=>date('Y-m-d H:i:s;)
                 );            
                 $this->db->insert('tbl_order',$data);
                 $this->Order_Model->update('tbl_cart',$where1,$data1);
@@ -291,7 +291,7 @@ class OrderController extends CI_Controller
                     'tcs'=>number_format($tcs,2),
                     'payment_mode'=>'PayOnDelivery',
                     'payment_id'=>$payment_id,
-                    'datetime'=>date('Y-m-d h:i:s')
+                    'datetime'=>date('Y-m-d H:i:s;)
                 );         
                 $this->db->insert('tbl_order',$data);
                 $this->Order_Model->update('tbl_cart',$where1,$data1);
@@ -413,7 +413,7 @@ class OrderController extends CI_Controller
                     'tcs'=>number_format($tcs,2),
                     'payment_mode'=>'PayOnline',
                     'payment_id'=>$payment_id,
-                    'datetime'=>date('Y-m-d h:i:s')
+                    'datetime'=>date('Y-m-d H:i:s;)
                 );            
                 $this->db->insert('tbl_order',$data);
                 $this->Order_Model->update('tbl_cart',$where1,$data1);
@@ -536,7 +536,7 @@ class OrderController extends CI_Controller
                     'tcs'=>number_format($tcs,2),
                     'payment_mode'=>'PayOnline',
                     'payment_id'=>$payment_id,
-                    'datetime'=>date('Y-m-d h:i:s')
+                    'datetime'=>date('Y-m-d H:i:s;)
                 );            
                 $this->db->insert('tbl_order',$data);
                 $this->Order_Model->update('tbl_cart',$where1,$data1);
@@ -611,7 +611,7 @@ class OrderController extends CI_Controller
         $reason=$this->input->post('reason');
         $comment=$this->input->post('comment');
         $orderid=$this->input->post('orderid');
-        $date=date('Y-m-d h:i:s');
+        $date=date('Y-m-d H:i:s;);
         $data=array(
             'uniqcode' =>"st".random_string('alnum',28),
             'order_id'=>$orderid,
