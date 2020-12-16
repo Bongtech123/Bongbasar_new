@@ -102,7 +102,7 @@ class AddressController extends CI_Controller
 				'landmark' => $landmark,
 				'alternative_mob_no' => $alternative_mob_no,
 				'address_type' => $address_type,
-				'datetime' => date('Y-m-d H:i:s;)
+				'datetime' => date('Y-m-d H:i:s')
 			);
 			$this->Address_Model->insert($data,'tbl_users_delivery_address');
 			$this->session->set_flashdata('success', 'Address added successfully.');	
@@ -122,7 +122,7 @@ class AddressController extends CI_Controller
 		{
 			$data=array(
 				'status'=> 'Delete',
-				'datetime' => date('Y-m-d H:i:s;)
+				'datetime' => date('Y-m-d H:i:s')
 				);
 			$this->db->where('uniqcode', $uniqcode);
 			$update=$this->db->update('tbl_users_delivery_address', $data);
@@ -274,7 +274,7 @@ class AddressController extends CI_Controller
 				'landmark' => $landmark,
 				'alternative_mob_no' => $alternative_mob_no,
 				'address_type' => $address_type,
-				'datetime' => date('Y-m-d H:i:s;)
+				'datetime' => date('Y-m-d H:i:s')
 			);
 			$where=array('uniqcode'=>$uniqcode);
 			
@@ -324,7 +324,7 @@ class AddressController extends CI_Controller
 				'landmark' => $landmark,
 				'alternative_mob_no' => $alternative_mob_no,
 				'address_type' => $address_type,
-				'datetime' => date('Y-m-d H:i:s;)
+				'datetime' => date('Y-m-d H:i:s')
 			);
 			$this->Address_Model->insert($data,'tbl_users_delivery_address');
 			$this->session->set_flashdata('success', 'Address added successfully.');	
@@ -364,7 +364,7 @@ class AddressController extends CI_Controller
 				'landmark' => $landmark,
 				'alternative_mob_no' => $alternative_mob_no,
 				'address_type' => $address_type,
-				'datetime' => date('Y-m-d H:i:s;)
+				'datetime' => date('Y-m-d H:i:s')
 			);
 			$this->Address_Model->insert($data,'tbl_users_delivery_address');
 			$this->session->set_flashdata('success', 'Address added successfully.');	
@@ -627,7 +627,7 @@ class AddressController extends CI_Controller
 				'landmark' => $landmark,
 				'alternative_mob_no' => $alternative_mob_no,
 				'address_type' => $address_type,
-				'datetime' => date('Y-m-d H:i:s;)
+				'datetime' => date('Y-m-d H:i:s')
 			);
 			$where=array('uniqcode'=>$uniqcode);
 			
@@ -663,7 +663,7 @@ class AddressController extends CI_Controller
 				'landmark' => $landmark,
 				'alternative_mob_no' => $alternative_mob_no,
 				'address_type' => $address_type,
-				'datetime' => date('Y-m-d H:i:s;)
+				'datetime' => date('Y-m-d H:i:s')
 			);
 			$where=array('uniqcode'=>$uniqcode);
 			
@@ -693,7 +693,7 @@ class AddressController extends CI_Controller
 		{
 			$data=array(
 				'status'=> 'Delete',
-				'datetime' => date('Y-m-d H:i:s;)
+				'datetime' => date('Y-m-d H:i:s')
 				);
 			$this->db->where('uniqcode', $uniqcode);
 			$update=$this->db->update('tbl_users_delivery_address', $data);
@@ -719,7 +719,7 @@ class AddressController extends CI_Controller
 		{
 			$data=array(
 				'status'=> 'Delete',
-				'datetime' => date('Y-m-d H:i:s;)
+				'datetime' => date('Y-m-d H:i:s')
 				);
 			$this->db->where('uniqcode', $uniqcode);
 			$update=$this->db->update('tbl_users_delivery_address', $data);

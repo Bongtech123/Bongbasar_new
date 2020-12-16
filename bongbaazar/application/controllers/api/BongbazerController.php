@@ -126,9 +126,9 @@
                     $otp=rand(4,9999);
                     $userData['otp']=$otp;
                     $userData['uniqcode']='us'.randomPassword(28);
-                    $userData['datetime']=date('Y-m-d H:i:s;);
+                    $userData['datetime']=date('Y-m-d H:i:s');
 
-                    //'datetime'=>date('Y-m-d H:i:s;)
+                    //'datetime'=>date('Y-m-d H:i:s')
 
                     //insert user data
                     $insert = $this->Bongbazer_Model->insert($userData,'tbl_users');
@@ -185,7 +185,7 @@
 
                     $dataChange=array(
                         'password'=>md5($password),
-                        'datetime'=>date('Y-m-d H:i:s;)
+                        'datetime'=>date('Y-m-d H:i:s')
                     );
 
 
@@ -351,7 +351,7 @@
                     $dataChange=array(
                     'name'=>$first_name."##".$last_name,
                     'gender'=>$gender,
-                    'datetime'=>date('Y-m-d H:i:s;)
+                    'datetime'=>date('Y-m-d H:i:s')
                     );
 
 
@@ -415,7 +415,7 @@
 
                     $dataChange=array(
                     'email'=>$email,
-                    'datetime'=>date('Y-m-d H:i:s;)
+                    'datetime'=>date('Y-m-d H:i:s')
                     );
 
 
@@ -483,7 +483,7 @@
 
                     $dataChange=array(
                         'image'=>$a.'.jpg',
-                        'datetime'=>date('Y-m-d H:i:s;)
+                        'datetime'=>date('Y-m-d H:i:s')
                     );
 
 
@@ -1316,7 +1316,7 @@
                         'user_id'=>$user_id,
                         'product_features_id'=>$product_features_id,
                         'notification'=>'',
-                        'datetime'=>date('Y-m-d H:i:s;)
+                        'datetime'=>date('Y-m-d H:i:s')
                         );
                         $insert = $this->Bongbazer_Model->insert($post,'tbl_wishlist');
 
@@ -1484,7 +1484,7 @@
                     'locality'=>$locality,
                     'alternative_mob_no'=>$alternative_mob_no,
                     'landmark'=>$landmark,
-                    'datetime'=>date('Y-m-d H:i:s;)
+                    'datetime'=>date('Y-m-d H:i:s')
                 );
                
                 $insert = $this->Bongbazer_Model->insert($data,'tbl_users_delivery_address');
@@ -1723,7 +1723,7 @@
                     'locality'=>$locality,
                     'alternative_mob_no'=>$alternative_mob_no,
                     'landmark'=>$landmark,
-                    'datetime'=>date('Y-m-d H:i:s;)
+                    'datetime'=>date('Y-m-d H:i:s')
                 );
                 $check = $this->Bongbazer_Model->entty_check(['uniqcode'=>$uniqcode],'tbl_users_delivery_address');
                 //check if the user data inserted
@@ -1892,7 +1892,7 @@
                     'product_features_id'=>$product_features_id,
                     'color'=>$color,
                     'status'=>"Cart",
-                    'datetime'=>date('Y-m-d H:i:s;)
+                    'datetime'=>date('Y-m-d H:i:s')
                 );
                
                 $insert = $this->Bongbazer_Model->insert($data,'tbl_cart');
@@ -2055,7 +2055,7 @@
                 
                 $data=array(
                     'quantity'=>$quantity,
-                    'datetime'=>date('Y-m-d H:i:s;)
+                    'datetime'=>date('Y-m-d H:i:s')
                 );
                 $check = $this->Bongbazer_Model->entty_check(['uniqcode'=>$uniqcode],'tbl_cart');
                 //check if the user data inserted
@@ -2106,7 +2106,7 @@
                     'product_features_id'=>$product_features_id,
                     'color'=>$color,
                     'status'=>"Buy",
-                    'datetime'=>date('Y-m-d H:i:s;)
+                    'datetime'=>date('Y-m-d H:i:s')
                 );
                
                 $insert = $this->Bongbazer_Model->insert($data,'tbl_cart');
@@ -2174,12 +2174,12 @@
 
                 $data2=array(
                     'status'=>"Cart",
-                    'datetime'=>date('Y-m-d H:i:s;)
+                    'datetime'=>date('Y-m-d H:i:s')
                 );
 
                 $data3=array(
                     'status'=>"Delete",
-                    'datetime'=>date('Y-m-d H:i:s;)
+                    'datetime'=>date('Y-m-d H:i:s')
                 );
 
                 $check = $this->Bongbazer_Model->entty_check($data,'tbl_cart');
@@ -2356,7 +2356,7 @@
                     'tcs'=>number_format($tcs,2),
                     'payment_mode'=>$payment_mode,
                     'payment_id'=>$payment_id,
-                    'datetime'=>date('Y-m-d H:i:s;)
+                    'datetime'=>date('Y-m-d H:i:s')
                 );
  
               
