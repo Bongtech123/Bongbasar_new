@@ -172,4 +172,15 @@ class User_Model extends CI_Model
         $result=$this->db->get();
         return $result->row();
     }
+    public function user_wallet($user_id)
+    {
+        $wallet_details=array();
+        $this->db->where('user_id',$user_id);
+        $data=$this->db->get('tbl_wallet_details')->row();
+        $this->db->where('user_id',$user_id);
+        $data1=$this->db->get('tbl_wallet_transaction')->result();
+        $wallet_details['wallet']= $data;
+        $wallet_details['wallet_transaction']= $data1;
+        return $wallet_details;
+    }
 }
