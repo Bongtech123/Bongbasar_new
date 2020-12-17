@@ -178,6 +178,7 @@ class User_Model extends CI_Model
         $this->db->where('user_id',$user_id);
         $data=$this->db->get('tbl_wallet_details')->row();
         $this->db->where('user_id',$user_id);
+        $this->db->order_by('id','DESC');
         $data1=$this->db->get('tbl_wallet_transaction')->result();
         $wallet_details['wallet']= $data;
         $wallet_details['wallet_transaction']= $data1;

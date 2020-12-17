@@ -396,33 +396,47 @@
                                 <p>Total Value</p>
                             </div>
                             <div class="wallet-money">
-                                <p>₹ 420</p>
+                                <p>₹ <?=$user_wallet['wallet']->wallet_amount?></p>
                             </div>
                         </div>
+                        <?php
+                          foreach ($user_wallet['wallet_transaction'] as $key => $wallet_transaction) {
+                            if($wallet_transaction->credit_amount!='')
+                            {
+                        ?>
                         <div class="wallet-content plus">
                             <div class="content-icon">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </div>
                             <div class="content-text">
-                                <p class="text-bold">Apple iphone</p>
-                                <p class="text-light">12 July, 2016</p>
+                              <p class="text-light" style="font-size: 11px;"><?=$wallet_transaction->description?></p>
+                              <p class="text-light"><?php echo date("d M Y h:i a", strtotime($wallet_transaction->datetime));  ?></p>
                             </div>
                             <div class="content-money">
-                                <p>₹ 420</p>
+                                <p>₹<?=$wallet_transaction->credit_amount?></p>
                             </div>
                         </div>
+                        <?php
+                            }
+                            else if($wallet_transaction->debit_amount!='')
+                            {
+                        ?>
                         <div class="wallet-content minus">
                             <div class="content-icon">
                                 <i class="fa fa-minus" aria-hidden="true"></i>
                             </div>
                             <div class="content-text">
-                                <p class="text-bold">Apple iphone</p>
-                                <p class="text-light">12 July, 2016</p>
+                              <p class="text-light" style="font-size: 11px;"><?=$wallet_transaction->description?></p>
+                              <p class="text-light"><?php echo date("d M Y h:i a", strtotime($wallet_transaction->datetime));  ?></p>
                             </div>
                             <div class="content-money">
-                                <p>₹ 420</p>
+                                <p>₹<?=$wallet_transaction->debit_amount                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ?></p>
                             </div>
                         </div>
+                        <?php
+                            }
+                          }
+                        ?>
                     </div>
                   </div>
                   <div id="notifications" class="tab-pane fade">
