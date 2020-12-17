@@ -204,6 +204,8 @@ class UserController extends CI_Controller
         $this->data['user_profile'] = $this->User_Model->selectrow(['uniqcode'=>$this->session->userdata('loginDetail')->uniqcode],'tbl_users');
         $this->data['user_address'] = $this->Address_Model->user_address($this->session->userdata('loginDetail')->uniqcode,'tbl_users_delivery_address');
         $this->data['user_order'] = $this->Order_Model->user_orders($this->session->userdata('loginDetail')->uniqcode);
+        $this->data['user_wallet'] = $this->User_Model->user_wallet($this->session->userdata('loginDetail')->uniqcode);
+      
         //pr($this->data['user_order']);
         $this->data['user_wishlist'] = $this->User_Model->user_wishlist($this->session->userdata('loginDetail')->uniqcode);
          //pr($this->data['user_wishlist']);

@@ -66,12 +66,12 @@
                         <span>Wishlist</span>
                       </a>
                     </li>
-                  <!--   <li>
+                    <li>
                         <a data-toggle="tab" href="#wallet">
                             <i class="fa fa-university" aria-hidden="true"></i>
                             <span>Bong Wallet</span>
                         </a>
-                    </li> -->
+                    </li>
                     <!-- <li>
                       <a data-toggle="tab" href="#notifications">
                         <i class="fa fa-bell" aria-hidden="true"></i>
