@@ -76,6 +76,23 @@ class UserController extends CI_Controller
                     );
                     if($this->User_Model->insert($data,'tbl_users'))
                     {
+                        $wallet_data=array(
+                            'uniqcode'=>"wt".random_string('alnum',28),
+                            'user_id'=>$data['uniqcode'],
+                            'wallet_amount'=>'200',
+                            'status'=>'Active',
+                            'datetime'=>date('Y-m-d H:i:s')
+                        );
+                        $tid='T'.rand(10,99).time();
+                        $wallet_transaction=array(
+                            'user_id'=>$data['uniqcode'],
+                            'transaction_id'=>$tid,
+                            'description'=>'Added to wallet from Bongbasar. Transaction ID: '.$tid.'',
+                            'credit_amount'=>'200',
+                            'datetime'=>date('Y-m-d H:i:s')
+                        );
+                        $this->User_Model->insert($wallet_data,'tbl_wallet_details');
+                        $this->User_Model->insert($wallet_transaction,'tbl_wallet_transaction');
                         $message="Congrats! You have successfully registered with Bongbasar from your mobile no. ".$mobile_no.". SHOPPING KI SOCH BADLO BONGBASAR KE SATH -Bongbasar";
                         send_sms($mobile_no,$message);
                         echo json_encode(['result'=>1]); 
