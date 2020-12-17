@@ -46,6 +46,7 @@ $route['oders'] = 'user/UserController/oders';
 $route['wishlist'] = 'user/UserController/wishlist';
 $route['notifications'] = 'user/UserController/notifications';
 $route['review-add'] = 'user/UserController/review_add';
+$route['review-edit'] = 'user/UserController/review_edit';
 
 $route['profile-update'] = 'user/UserController/ProfileUpdate';
 $route['profile-picture-update'] = 'user/UserController/ProfilePictureUpdate';
