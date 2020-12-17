@@ -250,7 +250,7 @@
                                 {
                                 ?>
                                 <button type="button" class="btn card-button-inner hvr-icon-pop rate-btn" data-toggle="modal" data-target="#rateReviewUpdate" onclick="rateAndreviewUpdate('<?=$user_order_item_row->uniqcode?>','<?=$product_img[0]?>','<?=$user_order_item_row->product_name?>')">
-                                  Rate & Review1
+                                  Rate & Review
                                   <i class="fa fa-star hvr-icon" aria-hidden="true"></i>
                                 </button>
                                 <?php  

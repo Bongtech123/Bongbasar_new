@@ -2270,11 +2270,61 @@ $(document).ready(function()
     });
 
     $(document).on('click', '#update_upload_img', function() 
-    {
-      
-      alert("hi");
+    {    
+      let rating=$('#order_rating').val();
+      let review=$('#update_review').val();
+      let order_uniqcode=$('#order_uniqcode_update').val();
+      var base_url=$('#base_url').val();
+
+      var formData = new FormData();
+      for(let i=6; i<=10; i++ )
+      {
+        var oldfileInput= document.getElementById('old_item_image_upload_'+i).value;
+        formData.append('old_item_image_upload_'+i,oldfileInput);
+      }
+      for(let i=6; i<=10; i++ )
+      {
+        var fileInput= document.getElementById('input_upload_'+i);
+        if(fileInput)
+        {
+          var file1 = fileInput.files[0];
+          formData.append('input_upload_'+i,file1);
+        }
+        else
+        {
+          formData.append('input_upload_'+i,'');
+        }
+      }
+      formData.append('rating',rating);
+      formData.append('review',review);
+      formData.append('order_uniqcode',order_uniqcode);
+      if(order_uniqcode!='')
+      {
+        $.ajax({
+          type: 'post',
+          url:base_url+'review-update',
+          dataType: 'json',
+          data:formData,
+          contentType: false,
+          cache: false,
+          processData: false,
+          success: function (data) 
+          {
+            if(data.result==1)
+            {
+              location.reload();
+            }
+          }
+          });
+      }
+      else
+      {
+        return false;
+      }
+
       
 
+       
     });
 
 });

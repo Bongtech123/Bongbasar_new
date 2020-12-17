@@ -436,7 +436,7 @@ class UserController extends CI_Controller
         $review=$this->input->post('review');
         $order_uniqcode=$this->input->post('order_uniqcode');
         $image=array();
-      
+        
         for($i=1;$i<=5;$i++)
         {   $count=0;
             if(!empty($_FILES['file'.$i.'']['name']))
@@ -503,12 +503,37 @@ class UserController extends CI_Controller
                   <p class="product-title" id="rating_product_name_update"></p>
         
                   <div class="star">
-                    <div class="star__item" onclick="order_rating(1)"><i class="fa fa-star emoji--happy" aria-hidden="true"></i></div>
-                    <div class="star__item" onclick="order_rating(2)"><i class="fa fa-star emoji--sad" aria-hidden="true"></i></div>
-                    <div class="star__item" onclick="order_rating(3)"><i class="fa fa-star emoji--crying" aria-hidden="true"></i></div>
-                    <div class="star__item" onclick="order_rating(4)"><i class="fa fa-star emoji--grimacing" aria-hidden="true"></i></div>
-                    <div class="star__item" onclick="order_rating(5)"><i class="fa fa-star emoji--love" aria-hidden="true"></i></div>
-                    <input type="hidden" id="order_rating" value="">
+                    <div class="star__item1';
+                    if($rating_row->rating>=1 )
+                    {
+                        echo " star__item_select";
+                    }
+                    echo'" onclick="order_rating(1)"><i class="fa fa-star emoji--happy" aria-hidden="true"></i></div>
+                    <div class="star__item1';
+                    if($rating_row->rating>=2)
+                    {
+                        echo " star__item_select";
+                    }
+                    echo'" onclick="order_rating(2)"><i class="fa fa-star emoji--sad" aria-hidden="true"></i></div>
+                    <div class="star__item1';
+                    if($rating_row->rating>=3)
+                    {
+                        echo " star__item_select";
+                    }
+                    echo'" onclick="order_rating(3)"><i class="fa fa-star emoji--crying" aria-hidden="true"></i></div>
+                    <div class="star__item1';
+                    if($rating_row->rating>=4)
+                    {
+                        echo " star__item_select";
+                    }
+                    echo'" onclick="order_rating(4)"><i class="fa fa-star emoji--grimacing" aria-hidden="true"></i></div>
+                    <div class="star__item1';
+                    if($rating_row->rating==5)
+                    {
+                        echo " star__item_select";
+                    }
+                    echo'" onclick="order_rating(5)"><i class="fa fa-star emoji--love" aria-hidden="true"></i></div>
+                    <input type="hidden" id="order_rating" value="'.$rating_row->rating.'">
                     <input type="hidden" id="order_uniqcode_update" value="">
                     
                   </div>
@@ -543,6 +568,7 @@ class UserController extends CI_Controller
                         
                         <img src="'.base_url('webroot/user/images/Add-Photo-Button.png').'" id="upload_photo_'.($x+6).'" onclick="get_upload_photo1('.($x+6).')" style="cursor: pointer; object-fit: contain; width="60px" height="60px" class="add_img_button">
                         <input type="file" name="item_image_upload_'.($x+6).'" class="showTableImage image-upload selected_img" id="input_upload_'.($x+6).'" style="display: none" accept=".jpg,.jpeg,.png" onchange="show_photo1(this,'.($x+6).')">
+                        <input type="hidden" name="old_item_image_upload_'.($x+6).'" id="old_item_image_upload_'.($x+6).'" value="">  
                         
                     
                         </div>
@@ -561,9 +587,139 @@ class UserController extends CI_Controller
           </button>
         </div>
         </form>
+        <style>
+            .star__item1 {
+            color: rgb(255, 202, 117);
+            margin: 2px;
+            cursor: pointer;
+            font-size: 30px;
+            transform: scale(.5);
+            text-shadow: 0 2px 4px rgba(0,0,0,.3);
+            transition: 
+              text-shadow .2s ease-in-out,
+              transform .2s ease-in-out;
+              font-size: 6rem;
+            }
+            .star__item1:hover {
+                transform: scale(1) translatey(-20px);
+                  text-shadow: 0 20px 20px rgba(0,0,0,.3);
+            }
+            .star__item1:hover .emoji--happy:before {
+                content: "😡";
+              }
+              .star__item1:hover .emoji--sad:before {
+                content: "😭";
+              }
+              .star__item1:hover .emoji--crying:before {
+                content: "☹️";
+              }
+              .star__item1:hover .emoji--grimacing:before {
+                content: "😁";
+              }
+              .star__item1:hover .emoji--love:before {
+                content: "😍";
+              }
+          .star__item_select {
+            color: rgb(255, 134, 0);
+          }
+      
+          .star__item_active {
+            /*color: rgb(255, 195, 48);*/
+            color: rgb(255, 134, 0);
+          }
+        </style>
+        <script>
+            var stars = $(".star__item1");
+            var starsActive;
+            var starsSelect;
+            
+            stars.hover(function(el) {
+            starsActive = stars.slice(0, $(this).index()+1);
+            starsActive.addClass("star__item_active");
+            },
+            function(){
+            stars.removeClass("star__item_active");
+            });
+        
+            stars.on("click", function() {
+            stars.removeClass("star__item_select");
+            starsActive.addClass("star__item_select");
+            starsSelect = starsActive;
+            });
+        </script>
    
       
         ';
+    }
+    public function review_update()
+    {
+        $rating=$this->input->post('rating');
+        $review=$this->input->post('review');
+      //  echo $rating;
+        $image=array();
+        $order_uniqcode=$this->input->post('order_uniqcode');
+        $old_image[6]=$this->input->post('old_item_image_upload_6');
+        $old_image[7]=$this->input->post('old_item_image_upload_7');
+        $old_image[8]=$this->input->post('old_item_image_upload_8');
+        $old_image[9]=$this->input->post('old_item_image_upload_9');
+        $old_image[10]=$this->input->post('old_item_image_upload_10');
+        //echo  $old_image_6." ".$old_image_7." ".$old_image_8." ".$old_image_9." ".$old_image_10." ".$rating." ".$review." ".$order_uniqcode;
+        $count=0;
+        $d="$";
+        for($i=6;$i<=10;$i++)
+        {
+            if($_FILES['input_upload_'.$i])
+            {
+                $config['upload_path']          = FCPATH.'/webroot/user/review_images/';
+                $config['allowed_types']        = '*';
+                $config['encrypt_name']         = TRUE;
+                $config['file_name']            = $_FILES['file'.$i]['name'];
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('input_upload_'.$i.''))
+                {
+                    $image_data = $this->upload->data();
+                    $image[$count]=$image_data['file_name'];
+                    $count++;
+
+
+                }
+                if($old_image[$i])
+                {
+                    $file = FCPATH.'/webroot/user/review_images/'.$old_image[$i];
+                    if(file_exists($file))
+                    {
+                        unlink($file);
+                    }
+                }
+            }
+            else
+            {
+                if($old_image[$i])
+                {
+                    $image[$count]=$old_image[$i];
+                    $count++;
+                }
+
+            }
+        }
+        $post=array(
+            'image'=>serialize($image),
+            'rating'=>$rating,
+            'review'=>$review,
+            'datetime'=>date('Y-m-d H:i:s')
+        );  
+      
+        $where=array(
+            'order_id'=>$order_uniqcode,
+        );
+        if($this->User_Model->update('tbl_review',$where,$post))
+        {
+            $this->session->set_flashdata('success', 'Thank you so much. Your review has been saved.');
+            echo json_encode(['result'=>1]);
+            return false;
+        }
+
     }
 }
     
