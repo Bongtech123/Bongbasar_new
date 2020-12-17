@@ -232,10 +232,30 @@
                             <p>Delivery By:<?php echo date("D M d", strtotime($user_order_item_row->delivery_date));  ?></p>
                            
                             <div class="button-part">
-                               <button type="button" class="btn card-button-inner hvr-icon-pop rate-btn" data-toggle="modal" data-target="#rateReview" onclick="rateAndreview('<?=$user_order_item_row->uniqcode?>')">
-                                Rate & Review
-                                <i class="fa fa-star hvr-icon" aria-hidden="true"></i>
-                              </button>
+                              <?php 
+                                $this->db->select('*');
+                                $this->db->from('tbl_review');
+                                $this->db->where('order_id',$user_order_item_row->uniqcode);
+                                $rating_row=$this->db->get()->row();
+                                if(empty($rating_row))
+                                {
+                                ?>
+                                <button type="button" class="btn card-button-inner hvr-icon-pop rate-btn" data-toggle="modal" data-target="#rateReview" onclick="rateAndreview('<?=$user_order_item_row->uniqcode?>','<?=$product_img[0]?>','<?=$user_order_item_row->product_name?>')">
+                                  Rate & Review
+                                  <i class="fa fa-star hvr-icon" aria-hidden="true"></i>
+                                </button>
+                                <?php
+                                }
+                                else
+                                {
+                                ?>
+                                <button type="button" class="btn card-button-inner hvr-icon-pop rate-btn" data-toggle="modal" data-target="#rateReviewUpdate" onclick="rateAndreviewUpdate('<?=$user_order_item_row->uniqcode?>','<?=$product_img[0]?>','<?=$user_order_item_row->product_name?>')">
+                                  Rate & Review1
+                                  <i class="fa fa-star hvr-icon" aria-hidden="true"></i>
+                                </button>
+                                <?php  
+                                }
+                                ?>
                               <?php
                                 if($status=='Pending')
                                 {
@@ -279,3 +299,140 @@
         </div>
       </section>
     <!-- Delivery details section end -->
+     <!-- --Rate & Review modal start-- -->
+     <div class="modal inmodal" id="rateReview" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight rateReview-modal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title middle-heading">Rating & Reviews<span></span></h4>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="product-img" id="rating_img_show">
+                          
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <div class="product-details">
+                          <p class="product-title" id="rating_product_name"></p>
+                          <div class="star">
+                            <div class="star__item" onclick="rating(1)"><i class="fa fa-star emoji--happy" aria-hidden="true"></i></div>
+                            <div class="star__item" onclick="rating(2)"><i class="fa fa-star emoji--sad" aria-hidden="true"></i></div>
+                            <div class="star__item" onclick="rating(3)"><i class="fa fa-star emoji--crying" aria-hidden="true"></i></div>
+                            <div class="star__item" onclick="rating(4)"><i class="fa fa-star emoji--grimacing" aria-hidden="true"></i></div>
+                            <div class="star__item" onclick="rating(5)"><i class="fa fa-star emoji--love" aria-hidden="true"></i></div>
+                            <input type="hidden" id="rating" value="">
+                            <input type="hidden" id="order_uniqcode" value="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="review-heading">Review this product</p>
+                    <div class="form-group">
+                      <textarea id="review" name="review" rows="4" placeholder="Please write product review here"></textarea>
+                    </div>
+                    <form enctype="multipart/form-data" id='imageform' name='imageform'>
+                    <div class="review-img-contaner">
+                    <?php  
+                      for($x=1;$x<=5;$x++)
+                      {
+                    ?>
+                      <span class="writeReview-gallery">
+                        <div tabindex="0" style="outline: none;">
+                        
+                        <img src="<?=base_url('webroot/user/images/Add-Photo-Button.png')?>" id="upload_photo_<?=$x?>" onclick="get_upload_photo1('<?=$x?>')" style="cursor: pointer; object-fit: contain;" class="add_img_button">
+                        <input type="file" name="item_image_upload_<?=$x?>" class="showTableImage image-upload selected_img" id="input_upload_<?=$x?>" style="display: none" accept=".jpg,.jpeg,.png" onchange="show_photo1(this, '<?=$x?>')">
+                          
+                    
+                        </div>
+                      </span>
+                    <?php 
+                      }
+                    ?> 
+                    
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn card-button-inner buy-btn save-btn" id='upload_img'>
+                    <span>Submit</span>
+                  </button>
+                </div>
+                </form>
+            </div>
+        </div>
+      </div>
+   
+    <div class="modal inmodal" id="rateReviewUpdate" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content animated bounceInRight rateReview-modal">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title middle-heading">Rating & Reviews<span></span></h4>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="product-img" id="rating_img_show_update">
+                       
+                      </div>
+                    </div>
+                    <div class="col-md-10">
+                      <div class="product-details">
+                        <p class="product-title" id="rating_product_name_update"></p>
+              
+                        <div class="star">
+                          <div class="star__item" onclick="rating(1)"><i class="fa fa-star emoji--happy" aria-hidden="true"></i></div>
+                          <div class="star__item" onclick="rating(2)"><i class="fa fa-star emoji--sad" aria-hidden="true"></i></div>
+                          <div class="star__item" onclick="rating(3)"><i class="fa fa-star emoji--crying" aria-hidden="true"></i></div>
+                          <div class="star__item" onclick="rating(4)"><i class="fa fa-star emoji--grimacing" aria-hidden="true"></i></div>
+                          <div class="star__item" onclick="rating(5)"><i class="fa fa-star emoji--love" aria-hidden="true"></i></div>
+                          <input type="hidden" id="rating" value="">
+                          <input type="hidden" id="order_uniqcode_update" value="">
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="review-heading">Review this product</p>
+                  <div class="form-group">
+                    <textarea id="review" name="review" rows="4" placeholder="Please write product review here"></textarea>
+                  </div>
+                  <form enctype="multipart/form-data" id='imageform' name='imageform'>
+                  <div class="review-img-contaner">
+                  <?php  
+                    for($x=1;$x<=5;$x++)
+                    {
+                  ?>
+                    <span class="writeReview-gallery">
+                      <div tabindex="0" style="outline: none;">
+                      
+                      <img src="<?=base_url('webroot/user/images/Add-Photo-Button.png')?>" id="upload_photo_<?=$x?>" onclick="get_upload_photo1('<?=$x?>')" style="cursor: pointer; object-fit: contain;" class="add_img_button">
+                      <input type="file" name="item_image_upload_<?=$x?>" class="showTableImage image-upload selected_img" id="input_upload_<?=$x?>" style="display: none" accept=".jpg,.jpeg,.png" onchange="show_photo1(this, '<?=$x?>')">
+                        
+                  
+                      </div>
+                    </span>
+                  <?php 
+                    }
+                  ?> 
+                  
+                  </div>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn card-button-inner buy-btn save-btn" id='upload_img'>
+                  <span>Submit</span>
+                </button>
+              </div>
+              </form>
+          </div>
+      </div>
+    </div>
+  <!-- Rate & Review modal end -->

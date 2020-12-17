@@ -2300,11 +2300,40 @@ function show_photo1(input, x) {
   }
 }
 
-function rateAndreview(uniqcode,)
+function rateAndreview(uniqcode,image,name)
 {
-
-    $('#order_uniqcode').val(uniqcode);
+  var base_url=$('#base_url').val();
+  img_url=base_url+'/webroot/admin/product/web/'+image;
+  $('#rating_img_show').html('<img src="'+img_url+'" />');
+  $('#rating_product_name').html(name);
+  $('#order_uniqcode').val(uniqcode);
    
+}
+
+function rateAndreviewUpdate(uniqcode,image,name,rating_row)
+{
+  console.log(rating_row)
+  //alert(rating_row);
+  var base_url=$('#base_url').val();
+ 
+
+  $.ajax({
+    type: 'post',
+    url:base_url+'review-edit',
+    dataType: 'json',
+    data:{uniqcode},
+    contentType: false,
+    cache: false,
+    processData: false,
+    success: function (data) 
+    {
+      console.log(data)
+      img_url=base_url+'/webroot/admin/product/web/'+image;
+      $('#rating_img_show_update').html('<img src="'+img_url+'" />');
+      $('#rating_product_name_update').html(name);
+      $('#order_uniqcode_update').val(uniqcode);
+    }
+    });
 }
 
   

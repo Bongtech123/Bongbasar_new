@@ -163,4 +163,13 @@ class User_Model extends CI_Model
         $this->db->query("UPDATE ".$table."  SET `password`='".$password."' WHERE `mobile_no`='".$user_id."' or `email`='".$user_id."'");  
         return 1;  
     }
+
+    public function review_check($order_id)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_review');
+        $this->db->where('order_id',$order_id);
+        $result=$this->db->get();
+        return $result->row();
+    }
 }
