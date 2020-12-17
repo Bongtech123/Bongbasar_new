@@ -2214,6 +2214,10 @@ $(document).ready(function()
    //alert(rating);
    $("#rating").val(rating);
  }
+ function order_rating(rating)
+ {
+  $("#order_rating").val(rating);
+ }
  $(document).ready(function() 
  {
     $(document).on('click', '#upload_img', function() 
@@ -2264,6 +2268,15 @@ $(document).ready(function()
       
 
     });
+
+    $(document).on('click', '#update_upload_img', function() 
+    {
+      
+      alert("hi");
+      
+
+    });
+
 });
 
 function get_upload_photo1(x) 
@@ -2310,30 +2323,23 @@ function rateAndreview(uniqcode,image,name)
    
 }
 
-function rateAndreviewUpdate(uniqcode,image,name,rating_row)
+function rateAndreviewUpdate(uniqcode,image,name)
 {
-  console.log(rating_row)
-  //alert(rating_row);
   var base_url=$('#base_url').val();
- 
-
+  img_url=base_url+'/webroot/admin/product/web/'+image;
   $.ajax({
     type: 'post',
     url:base_url+'review-edit',
-    dataType: 'json',
-    data:{uniqcode},
-    contentType: false,
-    cache: false,
-    processData: false,
+    data:{uniqcode:uniqcode},
     success: function (data) 
     {
       console.log(data)
-      img_url=base_url+'/webroot/admin/product/web/'+image;
+      $('#rating_modal').html(data);
       $('#rating_img_show_update').html('<img src="'+img_url+'" />');
       $('#rating_product_name_update').html(name);
       $('#order_uniqcode_update').val(uniqcode);
     }
-    });
+  });
 }
 
   

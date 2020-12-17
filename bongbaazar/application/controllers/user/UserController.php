@@ -480,9 +480,90 @@ class UserController extends CI_Controller
 
     public function review_edit()
     {
+        $order_uniqcode=$this->input->post('uniqcode');
+        $this->db->select('uniqcode,image,rating,review');
+        $this->db->from('tbl_review');
+        $this->db->where('order_id',$order_uniqcode);
+        $rating_row=$this->db->get()->row();
+        $rating_image=unserialize($rating_row->image);
+        $image_count=count($rating_image);
+        // pr($rating_image);
+        echo '
+       
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-2">
+                <div class="product-img" id="rating_img_show_update">
+                
+                </div>
+              </div>
+              <div class="col-md-10">
+                <div class="product-details">
+                  <p class="product-title" id="rating_product_name_update"></p>
+        
+                  <div class="star">
+                    <div class="star__item" onclick="order_rating(1)"><i class="fa fa-star emoji--happy" aria-hidden="true"></i></div>
+                    <div class="star__item" onclick="order_rating(2)"><i class="fa fa-star emoji--sad" aria-hidden="true"></i></div>
+                    <div class="star__item" onclick="order_rating(3)"><i class="fa fa-star emoji--crying" aria-hidden="true"></i></div>
+                    <div class="star__item" onclick="order_rating(4)"><i class="fa fa-star emoji--grimacing" aria-hidden="true"></i></div>
+                    <div class="star__item" onclick="order_rating(5)"><i class="fa fa-star emoji--love" aria-hidden="true"></i></div>
+                    <input type="hidden" id="order_rating" value="">
+                    <input type="hidden" id="order_uniqcode_update" value="">
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="review-heading">Review this product</p>
+            <div class="form-group">
+              <textarea id="update_review" name="update_review" rows="4">'.$rating_row->review.'</textarea>
+            </div>
+            <form enctype="multipart/form-data" id="update_imageform" name="update_imageform">
+            <div class="review-img-contaner">';
+            
+              for($x=0; $x<5; $x++)
+              {
+                if($x<$image_count)
+                {
+                echo '<span class="writeReview-gallery">
+                <div tabindex="0" style="outline: none;">
+                
+                <img src="'.base_url('webroot/user/review_images/'.$rating_image[$x]).'" id="upload_photo_'.($x+6).'" onclick="get_upload_photo1('.($x+6).')" style="cursor: pointer; object-fit: contain; width="60px" height="60px" class="add_img_button">
+                <input type="file" name="item_image_upload_'.($x+6).'" class="showTableImage image-upload selected_img" id="input_upload_'.($x+6).'" style="display: none" accept=".jpg,.jpeg,.png" onchange="show_photo1(this,'.($x+6).')">
+                <input type="hidden" name="old_item_image_upload_'.($x+6).'" id="old_item_image_upload_'.($x+6).'" value="'.$rating_image[$x].'">  
+            
+                </div>
+              </span>';
+                }
+                else
+                {
+                    echo '<span class="writeReview-gallery">
+                        <div tabindex="0" style="outline: none;">
+                        
+                        <img src="'.base_url('webroot/user/images/Add-Photo-Button.png').'" id="upload_photo_'.($x+6).'" onclick="get_upload_photo1('.($x+6).')" style="cursor: pointer; object-fit: contain; width="60px" height="60px" class="add_img_button">
+                        <input type="file" name="item_image_upload_'.($x+6).'" class="showTableImage image-upload selected_img" id="input_upload_'.($x+6).'" style="display: none" accept=".jpg,.jpeg,.png" onchange="show_photo1(this,'.($x+6).')">
+                        
+                    
+                        </div>
+                    </span>';
+                }
+              }
+              echo '
+            
+            </div>
+          </div>
 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn card-button-inner buy-btn save-btn" id="update_upload_img">
+            <span>Submit</span>
+          </button>
+        </div>
+        </form>
+   
+      
+        ';
     }
-
-
 }
     
