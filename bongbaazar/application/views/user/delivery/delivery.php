@@ -375,64 +375,7 @@
                   <h4 class="modal-title middle-heading">Rating & Reviews<span></span></h4>
               </div>
               <div id="rating_modal">
-                <div class="modal-body">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-md-2">
-                        <div class="product-img" id="rating_img_show_update">
-                        
-                        </div>
-                      </div>
-                      <div class="col-md-10">
-                        <div class="product-details">
-                          <p class="product-title" id="rating_product_name_update"></p>
-                
-                          <div class="star">
-                            <div class="star__item" onclick="rating(1)"><i class="fa fa-star emoji--happy" aria-hidden="true"></i></div>
-                            <div class="star__item" onclick="rating(2)"><i class="fa fa-star emoji--sad" aria-hidden="true"></i></div>
-                            <div class="star__item" onclick="rating(3)"><i class="fa fa-star emoji--crying" aria-hidden="true"></i></div>
-                            <div class="star__item" onclick="rating(4)"><i class="fa fa-star emoji--grimacing" aria-hidden="true"></i></div>
-                            <div class="star__item" onclick="rating(5)"><i class="fa fa-star emoji--love" aria-hidden="true"></i></div>
-                            <input type="hidden" id="rating" value="">
-                            <input type="hidden" id="order_uniqcode_update" value="">
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="review-heading">Review this product</p>
-                    <div class="form-group">
-                      <textarea id="review" name="review" rows="4" placeholder="Please write product review here"></textarea>
-                    </div>
-                    <form enctype="multipart/form-data" id='imageform' name='imageform'>
-                    <div class="review-img-contaner">
-                    <?php  
-                      for($x=1;$x<=5;$x++)
-                      {
-                    ?>
-                      <span class="writeReview-gallery">
-                        <div tabindex="0" style="outline: none;">
-                        
-                        <img src="<?=base_url('webroot/user/images/Add-Photo-Button.png')?>" id="upload_photo_<?=$x?>" onclick="get_upload_photo1('<?=$x?>')" style="cursor: pointer; object-fit: contain;" class="add_img_button">
-                        <input type="file" name="item_image_upload_<?=$x?>" class="showTableImage image-upload selected_img" id="input_upload_<?=$x?>" style="display: none" accept=".jpg,.jpeg,.png" onchange="show_photo1(this, '<?=$x?>')">
-                          
-                    
-                        </div>
-                      </span>
-                    <?php 
-                      }
-                    ?> 
-                    
-                    </div>
-                  </div>
-
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn card-button-inner buy-btn save-btn" id='upload_img'>
-                    <span>Submit</span>
-                  </button>
-                </div>
-                </form>
+              
               </div>
           </div>
       </div>
