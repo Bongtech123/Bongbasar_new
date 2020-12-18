@@ -64,7 +64,7 @@ class ProductController extends CI_Controller
               $this->data['product_view_price_image']=$this->Product_Model->productViewPriceImage($product_features_id);
               $this->data['rate_review']=$this->Product_Model->rateReview($product_id);  
               $this->data['rating_total']=$this->Product_Model->ratingTotal($product_id); 
-              pr($this->data);
+              //pr($this->data);
 
 
               if(!empty($this->data['product_view']) && !empty($this->data['product_view_color']) && !empty($this->data['product_view_price_image']))

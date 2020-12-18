@@ -125,7 +125,7 @@
                           <h2 style="margin-top: 11px;color: red;
                             ">Sold Out</h2>
                           <h5>This item is currently out of stock</h5>
-                      <div>
+                        </div>
                       <?php
                           }
                       ?>
@@ -146,7 +146,7 @@
                     <ul class="nav nav-tabs">
                       <li class="active"><a data-toggle="tab" href="#description">Description</a></li>
                       <li><a data-toggle="tab" href="#additionalInformation">Additional Information</a></li>
-                      <!-- <li><a data-toggle="tab" href="#ratingReviews">Rating & Reviews</a></li> -->
+                      <li><a data-toggle="tab" href="#ratingReviews">Rating & Reviews</a></li>
                     </ul>
                     <!-- TAb content -->
                     <div class="tab-content">
@@ -174,73 +174,88 @@
                       </table>
 
                       </div>
-                      <!-- <div id="ratingReviews" class="tab-pane fade">
+                      <div id="ratingReviews" class="tab-pane fade">
+                        <?php
+                          if(!empty($rate_review))
+                          {
+                        ?>
                         <h4>Rating & Reviews</h4>
                         <div class="rating-part">
                           <span class="heading">User Rating</span>
-                          <span class="fa fa-star checked"></span>
-                          <span class="fa fa-star checked"></span>
-                          <span class="fa fa-star checked"></span>
-                          <span class="fa fa-star checked"></span>
-                          <span class="fa fa-star"></span>
-                          <p>4.1 average based on 254 reviews.</p>
+                          <span class="fa fa-star <?=(round($rating_total->avg)>=1)?'checked':''?>"></span>
+                          <span class="fa fa-star <?=(round($rating_total->avg)>=2)?'checked':''?>"></span>
+                          <span class="fa fa-star <?=(round($rating_total->avg)>=3)?'checked':''?>"></span>
+                          <span class="fa fa-star <?=(round($rating_total->avg)>=4)?'checked':''?>"></span>
+                          <span class="fa fa-star <?=(round($rating_total->avg)>=5)?'checked':''?>"></span>
+                          <?php $reviews_total= $rating_total->five+$rating_total->four+$rating_total->there+$rating_total->two+$rating_total->one?>
+                          <p><?=round($rating_total->avg,1)?> average based on <?=$reviews_total?> reviews.</p>
                           <hr style="border:3px solid #f1f1f1">
 
                           <div class="row">
-                            <div class="side">
+                            <?php 
+                              $max=max($rating_total->five,$rating_total->four,$rating_total->there,$rating_total->two,$rating_total->one);
+                              $per5=(($rating_total->five*100)/$max);
+                              $per4=(($rating_total->four*100)/$max);
+                              $per3=(($rating_total->there*100)/$max);
+                              $per2=(($rating_total->two*100)/$max);
+                              $per1=(($rating_total->one*100)/$max);
+
+                             
+                            ?>
+                            <div class="side" >
                               <div>5 star</div>
                             </div>
                             <div class="middle">
                               <div class="bar-container">
-                                <div class="bar-5"></div>
+                                <div class="bar-5" <?= "style='width:".$per5."%'"?>></div>
                               </div>
                             </div>
                             <div class="side right">
-                              <div>150</div>
+                              <div><?=$rating_total->five?></div>
                             </div>
                             <div class="side">
                               <div>4 star</div>
                             </div>
                             <div class="middle">
                               <div class="bar-container">
-                                <div class="bar-4"></div>
+                                <div class="bar-4" <?= "style='width:".$per4."%'"?>></div>
                               </div>
                             </div>
                             <div class="side right">
-                              <div>63</div>
+                              <div><?=$rating_total->four?></div>
                             </div>
                             <div class="side">
                               <div>3 star</div>
                             </div>
                             <div class="middle">
                               <div class="bar-container">
-                                <div class="bar-3"></div>
+                                <div class="bar-3" <?= "style='width:".$per3."%'"?>></div>
                               </div>
                             </div>
                             <div class="side right">
-                              <div>15</div>
+                              <div><?=$rating_total->there?></div>
                             </div>
                             <div class="side">
                               <div>2 star</div>
                             </div>
                             <div class="middle">
                               <div class="bar-container">
-                                <div class="bar-2"></div>
+                                <div class="bar-2" <?= "style='width:".$per2."%'"?>></div>
                               </div>
                             </div>
                             <div class="side right">
-                              <div>6</div>
+                              <div><?=$rating_total->two?></div>
                             </div>
                             <div class="side">
                               <div>1 star</div>
                             </div>
                             <div class="middle">
                               <div class="bar-container">
-                                <div class="bar-1"></div>
+                                <div class="bar-1" <?= "style='width:".$per1."%'"?>></div>
                               </div>
                             </div>
                             <div class="side right">
-                              <div>20</div>
+                              <div><?=$rating_total->one?></div>
                             </div>
                           </div>
                           <div class="row">
@@ -249,13 +264,16 @@
                                 <tbody>
                                   <tr>
                                     <td>
+                                      <?php foreach($rate_review as $rate_review_row)
+                                      {
+                                      ?>
                                       <div class="comment-table">
                                         <div class="user-prof-pic">
-                                          <img src="<?base_url('webroot/admin/product/web/')?>https://pbs.twimg.com/media/DhPVk9eWsAAhTqm.jpg">
+                                          <img src="https://pbs.twimg.com/media/DhPVk9eWsAAhTqm.jpg">
                                         </div>
                                         <div class="comment-msg">
                                           <p class="comment-user-name">Subhajit</p>
-                                          <p class="comment-date">7th January, 2020</p>
+                                          <p class="comment-date"><?php echo date("d M, yy", strtotime($rate_review_row->datetime));  ?></p>
                                           <div class="star-rating">
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star checked"></span>
@@ -263,8 +281,20 @@
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
                                           </div>
-                                          <p class="customer-comment">Excilent</p>
-                                          <div class="like-dislike">
+                                          <p class="customer-comment"><?=$rate_review_row->review;?></p>
+                                          <div>
+                                              <?php 
+                                                  $rating_img=unserialize($rate_review_row->image);
+                                                  //print_r($rating_img);
+                                                  for($i=0; $i<count($rating_img); $i++)
+                                                  {
+                                              ?>
+                                                    <img src="<?=base_url('webroot/user/review_images/'.$rating_img[$i])?>" style="height: 70px;width: 70px;    object-fit: contain;">
+                                                  <?php 
+                                                  } 
+                                                  ?>
+                                          </div>
+                                          <!-- <div class="like-dislike">
                                             <button class="btn likes" id="green">
                                               <i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i>
                                             </button>
@@ -273,9 +303,10 @@
                                               <i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>
                                             </button>
                                             <div id="d-counter">0</div>
-                                          </div>
+                                          </div> -->
                                         </div>
                                       </div>
+                                      <?php } ?>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -283,7 +314,15 @@
                             </div>
                           </div>
                         </div>
-                      </div> -->
+                        <?php
+                          }
+                          else
+                          {
+                            echo "<h4 style='
+                            text-align: center;'>No Rating & Reviews</h4>";
+                          }
+                      ?>
+                    </div>
                     </div>
                   </div>
                 </div>
