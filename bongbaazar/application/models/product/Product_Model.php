@@ -110,7 +110,7 @@ class Product_Model extends CI_Model
     {
        
 
-        $this->db->select('tbl_review.image,tbl_review.rating,tbl_review.review,tbl_users.name,tbl_users.image as user_image');
+        $this->db->select('tbl_review.image,tbl_review.rating,tbl_review.review,tbl_users.name,tbl_users.image as user_image,tbl_review.datetime');
 		$this->db->from('tbl_review');
 		$this->db->join('tbl_order', 'tbl_order.uniqcode = tbl_review.order_id');
 		$this->db->join('tbl_users', 'tbl_users.uniqcode = tbl_order.user_id','left');

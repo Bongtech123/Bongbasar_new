@@ -3218,7 +3218,7 @@ section {
 	/* The bar container */
 	.product-view .details-tab .tab-content .rating-part .bar-container {
 	  width: 100%;
-	  background-color: #f1f1f1;
+	  background-color: #babec5b3;
 	  text-align: center;
 	  color: white;
 	}
