@@ -114,8 +114,8 @@ class Product_Model extends CI_Model
 		$this->db->from('tbl_review');
 		$this->db->join('tbl_order', 'tbl_order.uniqcode = tbl_review.order_id');
 		$this->db->join('tbl_users', 'tbl_users.uniqcode = tbl_order.user_id','left');
-		//$this->db->where('tbl_product_features.uniqcode',$product_features_id);
-        
+        $this->db->where('tbl_order.product_id',$product_id);
+        $this->db->limit(1);
         $data=$this->db->get()->result();
         return $data;
     }
