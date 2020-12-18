@@ -212,10 +212,10 @@
                       </div>
                      
                       <div id="ratingReviews" class="tab-pane fade">
-                      <?php
-                        if(!empty($rate_review))
-                        {
-                      ?>
+                        <?php
+                          if(!empty($rate_review))
+                          {
+                        ?>
                         <h4>Rating & Reviews</h4>
                         <div class="rating-part">
                           <span class="heading">User Rating</span>
@@ -359,7 +359,7 @@
                             text-align: center;'>No Rating & Reviews</h4>";
                           }
                       ?>
-                      </div>
+                    </div>
                     </div>
                   </div>
                 </div>

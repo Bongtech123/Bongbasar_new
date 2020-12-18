@@ -8,9 +8,9 @@
     <div id="regForm" class="shopping-cart">
         <div class="container">
             <?php
-if(!empty($cart_details))
-{
-?>
+            if(!empty($cart_details))
+            {
+            ?>
             <div class="row">
                 <div class="delivery-grap">
                     <div class="grap-step step">
@@ -37,14 +37,14 @@ if(!empty($cart_details))
                         <div class="product-header">
                             <div class="count-bag-item">
                                 My Shopping Bag (<?php if(!empty($cart_details))
-{
-echo count($cart_details);
-}
-else
-{
-echo "0";
-}
-?>
+                                {
+                                echo count($cart_details);
+                                }
+                                else
+                                {
+                                echo "0";
+                                }
+                                ?>
                                 Items)
                             </div>
                             <div class="base-value">
@@ -259,3 +259,6 @@ else
     // echo $product_available;
 ?>
 <!-- Cart section end -->
+
+
+  
