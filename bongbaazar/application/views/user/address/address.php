@@ -103,7 +103,7 @@
                 </div>
 
                 <div class="card-button">
-                  <button id="nextBtn" type="button" class="btn card-button-inner bag-button buy-btn btn-block place-order" onclick="placeOrder1()">
+                  <button id="nextBtn" type="button" class="btn card-button-inner bag-button buy-btn btn-block place-order" onclick="placeOrder1('<?=$this->session->userdata('loginDetail')->email?>')">
                     <span >Place Order</span>
                   </button>
                 </div>
@@ -232,5 +232,46 @@
       </div>
     </div>
   </div>
+
+<!-- email section start -->
+<div class="modal inmodal" id="chackEmail" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight rateReview-modal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title middle-heading">Verify Email<span></span></h4>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid">
+                  <div class="row">
+                   <form id="email_check" method="post">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                        <label>email:</label>
+                        <input type="text" name="email" id="email" class="form-control validate[required,custom[email]]" data-errormessage-value-missing="Email is required" data-prompt-position="bottomLeft" placeholder="Type email" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="col-lg-6" style="display:none">
+                        <div class="form-group">
+                        <label>OTP:</label>
+                        <input type="text" name="otp" id="otp" class="form-control validate[required]" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" placeholder="Type OTP">
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn card-button-inner buy-btn save-btn" id='email_check_verify'>
+                    <span>Verify</span>
+                  </button>
+                  <button type="submit" class="btn card-button-inner buy-btn save-btn" id='email_check_submit' style="display:none">
+                    <span>Submit</span>
+                  </button>
+                </div>
+                </form>
+            </div>
+        </div>
+      </div>
+ </div>   
 
 
