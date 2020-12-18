@@ -995,7 +995,7 @@ function quentityUpdate(id)
         }
     });
 }
-function quentityDecrement(id)
+function quentityDecrement(id,business_type)
 {
   var cart_id=$("#uniqcode"+id).val();
   var sell_price=parseInt($("#sell_price"+id).val());
@@ -1006,7 +1006,7 @@ function quentityDecrement(id)
       type: 'post',
       url:base_url+'update-bag-decrement',
       dataType: 'json',
-      data:{uniqcode:cart_id,quantity:quantity},
+      data:{uniqcode:cart_id,quantity:quantity,business_type:business_type},
         success: function (data) 
         {
           console.log(data);

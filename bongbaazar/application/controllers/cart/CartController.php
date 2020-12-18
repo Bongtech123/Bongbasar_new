@@ -273,10 +273,27 @@ class CartController extends CI_Controller
 		{
 			$uniqcode=$this->input->post('uniqcode');
 			$quantity=$this->input->post('quantity');
+			$business_type=$this->input->post('business_type');
 			if(!empty($uniqcode) && !empty($quantity))
 			{
 				
-					if($quantity>0)
+					if($quantity>0 && $business_type=='Retailer')
+					{
+						
+						$where=array(
+							'uniqcode'=>$uniqcode
+						);
+						$data=array(
+							'quantity'=>$quantity
+						);
+						$cart_row=$this->Cart_Model->update('tbl_cart',$where,$data);
+						if($cart_row)
+						{
+							echo json_encode(['result'=>1]);
+							return false;
+						}
+					}
+					else if($quantity>49 && $business_type=='Wholesaler' || $business_type=="Manufacture" )
 					{
 						$where=array(
 							'uniqcode'=>$uniqcode
@@ -291,12 +308,7 @@ class CartController extends CI_Controller
 							return false;
 						}
 					}
-					else
-					{
-						$this->session->set_flashdata('error', 'Minimum one quantity required...');
-						echo json_encode(['result'=>2]);
-						return false;
-					}
+					
 				
 			}
 		}
