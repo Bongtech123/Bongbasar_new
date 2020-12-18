@@ -160,7 +160,7 @@
                           <h2 style="margin-top: 11px;color: red;
                             ">Sold Out</h2>
                           <h5>This item is currently out of stock</h5>
-                      <div>
+                      </div>
                       <?php
                           }
                       ?>
@@ -210,7 +210,12 @@
                       </table>
 
                       </div>
+                     
                       <div id="ratingReviews" class="tab-pane fade">
+                      <?php
+                        if(!empty($rate_review))
+                        {
+                      ?>
                         <h4>Rating & Reviews</h4>
                         <div class="rating-part">
                           <span class="heading">User Rating</span>
@@ -346,6 +351,14 @@
                             </div>
                           </div>
                         </div>
+                        <?php
+                          }
+                          else
+                          {
+                            echo "<h4 style='
+                            text-align: center;'>No Rating & Reviews</h4>";
+                          }
+                      ?>
                       </div>
                     </div>
                   </div>
