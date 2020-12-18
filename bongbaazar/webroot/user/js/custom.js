@@ -449,6 +449,7 @@ $(function () {
     $("#searchEngine").validationEngine();
     $("#forget").validationEngine();
     $("#submit_forget").validationEngine();
+    $("#email_check").validationEngine();
    
 });
 $(".only_character").keypress(function (e) {
@@ -1058,40 +1059,49 @@ function quentityadd(id)
     });
 }
 
-function placeOrder(product_available,outofstock)
+function placeOrder(product_available,outofstock,email)
 {
   
-  if(outofstock==1)
-  {
-    alert('Remove Out of Stock Product');
-  }
-  else if(product_available==1)
-  {
-    
-    alert('Change Product Quantity');
-  }
-  else
-  {
-    var base_url=$('#base_url').val();
-    var url=base_url+'address';
-    location.assign(url);
-  }
+    if(outofstock==1)
+    {
+      alert('Remove Out of Stock Product');
+    }
+    else if(product_available==1)
+    {
+      
+      alert('Change Product Quantity');
+    }
+    else
+    {
+      var base_url=$('#base_url').val();
+      var url=base_url+'address';
+      location.assign(url);
+    }
+ 
   
 }
-function placeOrder1()
+function placeOrder1(email)
 {
   var address_id=$("input[name='order_address']:checked").val();
   var base_url=$('#base_url').val();
   var current_url=$('#current_url').val();
-  if(address_id != null)
+  if(email !='')
   {
-    var url=base_url+'order/'+address_id;
-    location.assign(url); 
+    if(address_id != null)
+    {
+      var url=base_url+'order/'+address_id;
+      location.assign(url); 
+    }
+    else
+    {
+      alert('You Do Not Select Any Address!');
+      location.assign(current_url);
+    }
   }
   else
   {
-    alert('You Do Not Select Any Address!');
-    location.assign(current_url);
+    $('#chackEmail').modal('show'); 
+    return false;
   }
  
 }
@@ -2392,9 +2402,17 @@ function rateAndreviewUpdate(uniqcode,image,name)
   });
 }
 
-  
-  
-  
+
+ $(document).ready(function()
+ {
+ 
+  $('#email_check_verify').on('submit', function (e) 
+  { 
+      e.preventDefault();
+      let email=$('#email').val();
+      return false;
+   });
+});
   
   
   
