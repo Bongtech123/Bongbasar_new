@@ -725,43 +725,59 @@ class UserController extends CI_Controller
     public function add_email()
     {
         $email=$this->input->post('email');
+        $password=$this->input->post('password');
         $user_data=$this->session->userdata('loginDetail');
         $uniqcode=$this->session->userdata('loginDetail')->uniqcode;
         $where=array(
-            'uniqcode'=>$uniqcode 
+            'uniqcode'=>$uniqcode,
+            'mobile_no'=>$this->session->userdata('loginDetail')->mobile_no,
+            'password'=>md5($password)
         );
-        $data=array(
-            'email'=>$email
-        );
-        $update=$this->User_Model->update('tbl_users',$where,$data);
-       
-        if($update)
+        $chack_password=$this->User_Model->entty_check($where,'tbl_users');
+        if($chack_password)
         {
-            $new_user_data=array();
-            foreach ($user_data as $key => $value) {
-            if($key!='email')
+            $where=array(
+                'uniqcode'=>$uniqcode 
+            );
+            $data=array(
+                'email'=>$email
+            );
+            $update=$this->User_Model->update('tbl_users',$where,$data);
+           
+            if($update)
             {
-                $new_user_data[$key]=$value;
-            }
+                $new_user_data=array();
+                foreach ($user_data as $key => $value) {
+                if($key!='email')
+                {
+                    $new_user_data[$key]=$value;
+                }
+                else
+                {
+                    $new_user_data[$key]=$email;
+                }
+                
+                }
+                $this->session->unset_userdata('loginDetail');
+                $this->session->set_userdata('loginDetail', (object)$new_user_data);
+                $this->session->set_flashdata('success', 'Email Added successful');
+                echo json_encode(['result'=>1]);
+    
+            }   
             else
             {
-                $new_user_data[$key]=$email;
+                $this->session->set_flashdata('error', 'Email Added Unsuccessful');
+                echo json_encode(['result'=>0]);
             }
-            
-            }
-            $this->session->unset_userdata('loginDetail');
-            $this->session->set_userdata('loginDetail', (object)$new_user_data);
-            $this->session->set_flashdata('success', 'Email Added successful');
-            echo json_encode(['result'=>1]);
-
-        }   
+        }
         else
         {
-            $this->session->set_flashdata('error', 'Email Added Unsuccessful');
-            echo json_encode(['result'=>0]);
+            echo json_encode(['result'=>2]);
         }
         
         
+        
     }
+    
 }
     

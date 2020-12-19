@@ -2405,7 +2405,55 @@ function rateAndreviewUpdate(uniqcode,image,name)
   });
 }
 
+function timer_set3()
+{
+  var minit=2;
+  var sec=60;
 
+  var x = setInterval(function() 
+  {
+
+    sec--;
+    if(sec==0)
+    {
+      minit=minit-1;
+      sec=59;
+    }
+    if(sec<10)
+    {
+      fsec="0"+sec;
+    }
+    else{
+      fsec=sec;
+    }
+    document.getElementById("timer3").innerHTML=minit+":"+fsec;
+    if (minit < 0) 
+    {
+      clearInterval(x);
+      document.getElementById("timer3").innerHTML = "";
+      $("#resend3").attr("onclick","resend_otp3()");
+      $("#resend3").css('color', '#006ae4');
+      $("#resend3").css('cursor', 'pointer');
+    }
+  }, 1000);
+}
+function resend_otp3()
+{
+  $("#resend").removeAttr('onclick');
+  let email=$('#email').val();
+  var base_url=$('#base_url').val();    
+  $.ajax({
+  type: 'post',
+  url:base_url+'verify-email',
+  dataType: 'json',
+  data:{email:email},
+      success: function (data) 
+      {
+          timer_set3();
+      }
+  });
+  
+}
 $(document).ready(function()
 {
   $('#email_check').on('submit', function (e) 
@@ -2429,7 +2477,14 @@ $(document).ready(function()
             $("#email_verify_submit").css('display', 'none');
             $("#email_submit").css('display', 'block');
             $("#email_submit").css('float', 'right');
+            timer_set3();
           } 
+          else if(data.message=='email')
+          {
+            
+            $('.error2').show();
+            $('.error2').html('Email ID already Exist').delay(1200).fadeOut('show');
+          }
         }  
       });
     }
@@ -2462,6 +2517,7 @@ $(document).ready(function()
               else
               {
                 $("#otp").attr("readonly","true");
+                $("#email_passwod1").css('display', 'block');
                 $("#parmission").val("1");
                 $('.msg').show();
                 $('.msg').html('OTP verify Successful.').delay(1200).fadeOut('show');
@@ -2485,10 +2541,11 @@ $(document).ready(function()
   
       let email=$('#email').val();
       let otp=$('#otp').val();
+      let password=$('#email_passwod').val();
       
     var base_url=$('#base_url').val();
 
-      if(otp)
+      if(otp && password)
       { 
        
         let parmission=$('#parmission').val();
@@ -2498,16 +2555,17 @@ $(document).ready(function()
                   type: 'post',
                   url:base_url+'add-email',
                   dataType: 'json',
-                  data:{email:email},
+                  data:{email:email,password:password},
                   success: function (data) 
                   {
                     if(data.result==1)
                     {
                       location.reload();
                     }
-                    else
+                    else if(data.result==2)
                     {
-                      location.reload();
+                      $('.error2').show();
+                      $('.error2').html("Password doesn't match!").delay(1200).fadeOut('show');
                     }
                   }  
               });

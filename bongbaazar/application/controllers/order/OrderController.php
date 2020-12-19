@@ -27,15 +27,22 @@ class OrderController extends CI_Controller
 	{
 	 	if(($this->session->userdata('loginDetail')!=NULL))
 		{	
-			$this->data['page_title']='Bongbazaar | Order';
-			$this->data['subview']='order/order';
-			$this->data['address_id']=$address_id;
-			$this->data['capcha_value']=random_string('numeric',4);
-			//$this->data['menu_lebel'] = $this->Home_Model->get_categories();
+            if(($this->session->userdata('loginDetail')->email!=""))
+            {
+                $this->data['page_title']='Bongbazaar | Order';
+                $this->data['subview']='order/order';
+                $this->data['address_id']=$address_id;
+                $this->data['capcha_value']=random_string('numeric',4);
+                //$this->data['menu_lebel'] = $this->Home_Model->get_categories();
 
-			$this->data['cart_details']=$this->Cart_Model->get_cartItem($this->session->userdata('loginDetail')->uniqcode);
-			//pr($this->data);
-			$this->load->view('user/layout/default', $this->data);
+                $this->data['cart_details']=$this->Cart_Model->get_cartItem($this->session->userdata('loginDetail')->uniqcode);
+                //pr($this->data);
+                $this->load->view('user/layout/default', $this->data);
+            }
+            else
+            {
+                redirect('address');
+            }
 		}
 		else
 		{
