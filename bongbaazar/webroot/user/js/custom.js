@@ -498,7 +498,7 @@ $('#login').on('submit', function (e)
       $.ajax({
       type: 'post',
       dataType: 'json',
-      url:base_url+'/verify',
+      url:base_url+'verify',
       data: $('#login').serialize(),
           success: function (data) 
           {
@@ -2162,6 +2162,7 @@ $(document).ready(function()
               {
                 $('.error2').show();
                 $('.error2').html('OTP is Incorrect!').delay(1200).fadeOut('show');
+                $("#fotp").val('');
               }
               else
               {
@@ -2201,6 +2202,8 @@ $(document).ready(function()
               {
                 $('.reg-step-error').show();
                 $('.reg-step-error').html('OTP is Incorrect!').delay(1200).fadeOut('show');
+                $("#rotp").val("");
+
               }
               else
               {
