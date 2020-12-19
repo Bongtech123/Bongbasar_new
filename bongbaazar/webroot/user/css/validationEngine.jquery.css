@@ -161,7 +161,8 @@ width: 15px;
 
 .error_cls{
 	/*border:1px solid red !important;*/
-	border:1px solid #a94442 !important;
+	border:1px solid #ff0500 !important;
+	/*border:1px solid #a94442 !important;*/
 }
 .success_cls{border:1px solid green !important;}
 .big-searchForm .formErrorArrow{
