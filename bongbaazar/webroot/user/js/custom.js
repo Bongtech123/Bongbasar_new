@@ -2403,19 +2403,124 @@ function rateAndreviewUpdate(uniqcode,image,name)
 }
 
 
- $(document).ready(function()
- {
- 
-  $('#email_check_verify').on('submit', function (e) 
-  { 
-      e.preventDefault();
-      let email=$('#email').val();
-      return false;
-   });
+$(document).ready(function()
+{
+  $('#email_check').on('submit', function (e) 
+  {
+
+    let email=$('#email').val();
+    var base_url=$('#base_url').val();
+    e.preventDefault();
+    if(email)
+    {
+      $.ajax({
+        type: 'post',
+        url:base_url+'verify-email',
+        dataType: 'json',
+        data:{email:email},
+        success: function (data) 
+        {
+          if(data.message=='success')
+          {
+            $("#email_otp").css('display', 'block');
+            $("#email_verify_submit").css('display', 'none');
+            $("#email_submit").css('display', 'block');
+            $("#email_submit").css('float', 'right');
+          } 
+        }  
+      });
+    }
+    
+  });
+  
 });
+ function email_otpcheck(otp)
+ {
+  var base_url=$('#base_url').val();
+    let userid="";
+    if(otp)
+    {
+      $.ajax({
+        type: 'post',
+        url:base_url+'otp-check',
+        dataType: 'json',
+        data:{
+              userid:userid,
+              otp:otp,
+            },
+            success: function (data) 
+            {
+            
+              if(data=='0')
+              {
+                $('.error2').show();
+                $('.error2').html('OTP is Incorrect!').delay(1200).fadeOut('show');
+              }
+              else
+              {
+                $("#otp").attr("readonly","true");
+                $("#parmission").val("1");
+                $('.msg').show();
+                $('.msg').html('OTP verify Successful.').delay(1200).fadeOut('show');
+               
+              }
+            }
+        });
+        return false;
+    }
+    else
+    {
+        return 0;
+    }
+    
+ }
+
+ $('#email_submit').on('click', function (e) 
+ {
   
+    
   
-  
+      let email=$('#email').val();
+      let otp=$('#otp').val();
+      
+    var base_url=$('#base_url').val();
+
+      if(otp)
+      { 
+       
+        let parmission=$('#parmission').val();
+          if(parmission==1)
+          {
+            $.ajax({
+                  type: 'post',
+                  url:base_url+'add-email',
+                  dataType: 'json',
+                  data:{email:email},
+                  success: function (data) 
+                  {
+                    if(data.result==1)
+                    {
+                      location.reload();
+                    }
+                    else
+                    {
+                      location.reload();
+                    }
+                  }  
+              });
+          }
+          else
+          {
+            return false;
+          }
+      }
+      else
+      {
+        return false;
+      }
+   
+   
+ });
   
   
   

@@ -380,7 +380,7 @@
                                       </div>
                                       <div class="form-group">
                                       <label for="userId">OTP:</label>
-                                      <input type="text" class="form-control only_integer validate[required,maxSize[4],minSize[4]" id="fotp" name="fotp" placeholder="Enter your otp" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" maxlength="200" onblur="otpcheck(this.value,'change_mobile_no')">
+                                      <input type="text" class="form-control only_integer validate[required,maxSize[4],minSize[4]" id="fotp" name="fotp" placeholder="Enter your otp" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" maxlength="200" >
                                       <label><p id='resend'style="margin-top: 8px;">Resend OTP<span style="
                                           float:right;" id='timer'></span></p></label>
                                       </div>

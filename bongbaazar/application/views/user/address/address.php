@@ -234,7 +234,7 @@
   </div>
 
 <!-- email section start -->
-<div class="modal inmodal" id="chackEmail" tabindex="-1" role="dialog" aria-hidden="true">
+ <div class="modal inmodal" id="chackEmail" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated bounceInRight rateReview-modal">
                 <div class="modal-header">
@@ -244,27 +244,33 @@
                 <div class="modal-body">
                   <div class="container-fluid">
                   <div class="row">
-                   <form id="email_check" method="post">
+                   <form id="email_check" method="post" class="email_check1">
                     <div class="col-lg-6">
                         <div class="form-group">
                         <label>email:</label>
                         <input type="text" name="email" id="email" class="form-control validate[required,custom[email]]" data-errormessage-value-missing="Email is required" data-prompt-position="bottomLeft" placeholder="Type email" maxlength="200">
                         </div>
                     </div>
-                    <div class="col-lg-6" style="display:none">
+                    <div class="col-lg-6" style="display:none" id="email_otp">
                         <div class="form-group">
                         <label>OTP:</label>
-                        <input type="text" name="otp" id="otp" class="form-control validate[required]" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" placeholder="Type OTP">
+                        <input type="text" name="otp" id="otp" class="form-control validate[required]" data-errormessage-value-missing="OTP is required" data-prompt-position="bottomLeft" placeholder="Type OTP" onblur="email_otpcheck(this.value)">
+                        <input type='hidden' id="parmission" value="0">
                         </div>
+                    </div>
+                    <div class="col-lg-6">
+                    <span class="error2" style="color: red"></span>
+                    <span class="msg" style="color: green"></span>
                     </div>
                 </div>
 
                 </div>
+                </div>
                 <div class="modal-footer">
-                  <button type="submit" class="btn card-button-inner buy-btn save-btn" id='email_check_verify'>
+                  <button type="submit" class="btn card-button-inner buy-btn save-btn" id='email_verify_submit' >
                     <span>Verify</span>
                   </button>
-                  <button type="submit" class="btn card-button-inner buy-btn save-btn" id='email_check_submit' style="display:none">
+                  <button type="button" class="btn card-button-inner buy-btn save-btn" id="email_submit" style="display:none">
                     <span>Submit</span>
                   </button>
                 </div>

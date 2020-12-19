@@ -420,6 +420,7 @@ class UserController extends CI_Controller
         $user_id=$this->input->post('userid');
         $otp=$this->input->post('otp');
         $chack_otp=$this->session->userdata('otp');
+       
         if($otp==$chack_otp)
         {
             echo 1;
@@ -720,6 +721,47 @@ class UserController extends CI_Controller
             return false;
         }
 
+    }
+    public function add_email()
+    {
+        $email=$this->input->post('email');
+        $user_data=$this->session->userdata('loginDetail');
+        $uniqcode=$this->session->userdata('loginDetail')->uniqcode;
+        $where=array(
+            'uniqcode'=>$uniqcode 
+        );
+        $data=array(
+            'email'=>$email
+        );
+        $update=$this->User_Model->update('tbl_users',$where,$data);
+       
+        if($update)
+        {
+            $new_user_data=array();
+            foreach ($user_data as $key => $value) {
+            if($key!='email')
+            {
+                $new_user_data[$key]=$value;
+            }
+            else
+            {
+                $new_user_data[$key]=$email;
+            }
+            
+            }
+            $this->session->unset_userdata('loginDetail');
+            $this->session->set_userdata('loginDetail', (object)$new_user_data);
+            $this->session->set_flashdata('success', 'Email Added successful');
+            echo json_encode(['result'=>1]);
+
+        }   
+        else
+        {
+            $this->session->set_flashdata('error', 'Email Added Unsuccessful');
+            echo json_encode(['result'=>0]);
+        }
+        
+        
     }
 }
     

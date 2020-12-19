@@ -48,6 +48,7 @@ $route['notifications'] = 'user/UserController/notifications';
 $route['review-add'] = 'user/UserController/review_add';
 $route['review-edit'] = 'user/UserController/review_edit';
 $route['review-update'] = 'user/UserController/review_update';
+$route['add-email'] = 'user/UserController/add_email';
 
 $route['profile-update'] = 'user/UserController/ProfileUpdate';
 $route['profile-picture-update'] = 'user/UserController/ProfilePictureUpdate';
@@ -120,6 +121,9 @@ $route['report-infirngement'] = 'policy/PolicyController/reportInfirngement';
 $route['filter-low-high'] = 'search/SearchController/lowToHigh';
 $route['filter-low-high/([a-zA-Z0-9]+)'] = 'search/SearchController/lowToHigh';
 /*Filter search end*/	
+/*Email start*/
+$route['verify-email'] = 'email/EmailController/verify_email';
+/*Email end*/	
 /*web router end*/
 //=========CUSTOM ERROR PAGE=======//
 $route['403_override'] = 'ErrorController/error';
