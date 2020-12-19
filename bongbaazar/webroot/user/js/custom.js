@@ -2405,7 +2405,55 @@ function rateAndreviewUpdate(uniqcode,image,name)
   });
 }
 
+function timer_set3()
+{
+  var minit=2;
+  var sec=60;
 
+  var x = setInterval(function() 
+  {
+
+    sec--;
+    if(sec==0)
+    {
+      minit=minit-1;
+      sec=59;
+    }
+    if(sec<10)
+    {
+      fsec="0"+sec;
+    }
+    else{
+      fsec=sec;
+    }
+    document.getElementById("timer3").innerHTML=minit+":"+fsec;
+    if (minit < 0) 
+    {
+      clearInterval(x);
+      document.getElementById("timer3").innerHTML = "";
+      $("#resend3").attr("onclick","resend_otp3()");
+      $("#resend3").css('color', '#006ae4');
+      $("#resend3").css('cursor', 'pointer');
+    }
+  }, 1000);
+}
+function resend_otp3()
+{
+  $("#resend").removeAttr('onclick');
+  let email=$('#email').val();
+  var base_url=$('#base_url').val();    
+  $.ajax({
+  type: 'post',
+  url:base_url+'verify-email',
+  dataType: 'json',
+  data:{email:email},
+      success: function (data) 
+      {
+          timer_set3();
+      }
+  });
+  
+}
 $(document).ready(function()
 {
   $('#email_check').on('submit', function (e) 
@@ -2429,6 +2477,7 @@ $(document).ready(function()
             $("#email_verify_submit").css('display', 'none');
             $("#email_submit").css('display', 'block');
             $("#email_submit").css('float', 'right');
+            timer_set3();
           } 
           else if(data.message=='email')
           {
