@@ -2430,6 +2430,12 @@ $(document).ready(function()
             $("#email_submit").css('display', 'block');
             $("#email_submit").css('float', 'right');
           } 
+          else if(data.message=='email')
+          {
+            
+            $('.error2').show();
+            $('.error2').html('Email ID already Exist').delay(1200).fadeOut('show');
+          }
         }  
       });
     }
@@ -2462,6 +2468,7 @@ $(document).ready(function()
               else
               {
                 $("#otp").attr("readonly","true");
+                $("#email_passwod1").css('display', 'block');
                 $("#parmission").val("1");
                 $('.msg').show();
                 $('.msg').html('OTP verify Successful.').delay(1200).fadeOut('show');
@@ -2485,10 +2492,11 @@ $(document).ready(function()
   
       let email=$('#email').val();
       let otp=$('#otp').val();
+      let password=$('#email_passwod').val();
       
     var base_url=$('#base_url').val();
 
-      if(otp)
+      if(otp && password)
       { 
        
         let parmission=$('#parmission').val();
@@ -2498,16 +2506,17 @@ $(document).ready(function()
                   type: 'post',
                   url:base_url+'add-email',
                   dataType: 'json',
-                  data:{email:email},
+                  data:{email:email,password:password},
                   success: function (data) 
                   {
                     if(data.result==1)
                     {
                       location.reload();
                     }
-                    else
+                    else if(data.result==2)
                     {
-                      location.reload();
+                      $('.error2').show();
+                      $('.error2').html("Password doesn't match!").delay(1200).fadeOut('show');
                     }
                   }  
               });
