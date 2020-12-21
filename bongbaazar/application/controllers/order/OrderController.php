@@ -555,8 +555,26 @@ class OrderController extends CI_Controller
 	}
     public function order_place_email($data)
     {
+        $actual_link = "http://$_SERVER[HTTP_HOST]".base_url('order-details/'.$data['user_order_details']->order_code.'');
+      
         $address=unserialize($data['user_order_details']->address);
-        pr($address);
+        $where=array(
+            'id'=>$address->state
+        );
+        $state_name=$this->Order_Model->selectrow($where,'tbl_state_mast');
+       // pr($data);
+        $total=0;
+        $total_shipping=0;
+        $userdata=$this->session->userdata('loginDetail');
+        if($userdata->name=="")
+        {
+            $name="Customer";
+        }
+        else
+        {
+            $user_name=explode("##",$userdata->name);
+            $name=$user_name[0].' '.$user_name[1];
+        }
         $message='<!DOCTYPE html>
         <html >
             <head>
@@ -1175,7 +1193,7 @@ class OrderController extends CI_Controller
                                                                                         <img
                                                                                             align="center"
                                                                                             alt=""
-                                                                                            src="'.base_url('webroot/user/email/giphy.gif').'"
+                                                                                            src="'.base_url('webroot/user/email/d-01.png').'"
                                                                                             width="177.6"
                                                                                             style="max-width: 480px; padding-bottom: 0; display: inline !important; vertical-align: bottom;"
                                                                                             class="mcnImage"
@@ -1196,14 +1214,16 @@ class OrderController extends CI_Controller
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align: center;">
+                                                                                    <a href="'.$actual_link.'" target="_blank">
                                                                                         <img
                                                                                             align="center"
                                                                                             alt=""
-                                                                                            src="tracking.png"
+                                                                                            src="'.base_url('webroot/user/email/place.png').'"
                                                                                             width="282"
-                                                                                            style="max-width: 1513px; padding-bottom: 0; display: inline !important; vertical-align: bottom;"
+                                                                                            style="max-width: 1513px; padding-bottom: 0; display: inline !important; vertical-align: bottom;width: 100%;"
                                                                                             class="mcnImage"
                                                                                         />
+                                                                                    </a>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -1224,32 +1244,44 @@ class OrderController extends CI_Controller
                                                                                         <table style="width: 100%; max-width: 100%; margin: 0px; padding: 0px;" border="0" cellspacing="0" cellpadding="0">
                                                                                             <tbody>
                                                                                                 <tr>
+                                                                                                    <td colspan="2" height="26"> 
+                                                                                                        <p style="padding: 0px 0 5px 0; margin: 0px; color: #7e7e7e; font-family: arial; font-size: 12px;">&nbsp; Hi '.$name.',</p>
+                                                                                                        <p style="padding: 0px; margin: 0px; color: #00c174; font-family: arial; font-size: 12px; font-weight: bold;">Your order has been successfully placed.</p>
+                                                                                                    </td>
+                                                                                                    <td style="float: right; width:190px">
+                                                                                                    <p style="padding: 0px 0 5px 0; margin: 0px; color: #7e7e7e; font-family: arial; font-size: 12px;"> Order placed on '.date("D M d", strtotime($data['user_order_details']->order_date)).'</p>
+                                                                                                    <p style="padding: 0px 0 5px 0; margin: 0px; color: #7e7e7e; font-family: arial; font-size: 12px;"> Order ID: '.$data['user_order_details']->order_code.'</p>
+                                                                                                   
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
                                                                                                     <td colspan="2" height="26">&nbsp;</td>
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td style="text-align: center; padding: 0px 25px;" valign="top">
-                                                                                                        <img src="calendar.png" alt="" width="17" height="19" class="CToWUd" />
+                                                                                                        <img src="'.base_url('webroot/user/email/calendar.png').'" alt="" width="17" height="19" class="CToWUd" />
                                                                                                     </td>
                                                                                                     <td style="float: left;">
                                                                                                         <p style="padding: 0px 0 5px 0; margin: 0px; color: #7e7e7e; font-family: arial; font-size: 12px;">We will deliver your order by</p>
                                                                                                         <p style="padding: 0px; margin: 0px; color: #00c174; font-family: arial; font-size: 12px; font-weight: bold;">'.date("D M d", strtotime($data['user_order_details']->user_order_details)).'</p>
                                                                                                     </td>
+                                                                                                    
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td colspan="2" height="29">&nbsp;</td>
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td style="text-align: center; padding: 0px 3px;" valign="top" width="17" height="19">
-                                                                                                        <img src="farm-house.png" alt="" width="17" height="19" class="CToWUd" />
+                                                                                                        <img src="'.base_url('webroot/user/email/farm-house.png').'" alt="" width="17" height="19" class="CToWUd" />
                                                                                                     </td>
                                                                                                     <td style="float: left;">
                                                                                                         <p style="padding: 0px 0 5px 0; margin: 0px; color: #7e7e7e; font-family: arial; font-size: 12px;">Your order will be sent to</p>
                                                                                                         <p style="padding: 0px 10px 0px 0; margin: 0px; color: #000000; font-family: arial; font-size: 12px; font-weight: bold; line-height: 18px;">
-                                                                                                         
+                                                                                                            '.$address->name.','.$address->address_details.','.$address->locality.','.$address->city_dist_town.','.$state_name->name.','.$address->pin_code.','.$address->landmark.'
                                                                                                         </p>
                                                                                                         <p style="padding: 0px; margin: 0px;">
                                                                                                             <span style="font-family: arial; font-size: 12px; color: #7e7e7e;">
-                                                                                                                Mobile No: <strong style="color: #000000; font-weight: bold;">+91 90******70</strong>
+                                                                                                                Mobile No: <strong style="color: #000000; font-weight: bold;">'.$address->mobile_no.'</strong>
                                                                                                             </span>
                                                                                                         </p>
                                                                                                     </td>
@@ -1259,11 +1291,11 @@ class OrderController extends CI_Controller
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td style="text-align: center; padding: 0px 25px;" valign="top" width="17" height="19">
-                                                                                                        <img src="rupee.png" alt="" width="17" height="19" class="CToWUd" />
+                                                                                                        <img src="'.base_url('webroot/user/email/rupee.png').'" alt="" width="17" height="19" class="CToWUd" />
                                                                                                     </td>
                                                                                                     <td style="float: left;">
                                                                                                         <p style="padding: 0px 0px 5px 0; margin: 0px; font-family: arial; font-size: 12px; color: #7e7e7e;">
-                                                                                                            Payment Mode: <span style="color: #000000;">Prepaid</span>.
+                                                                                                            Payment Mode: <span style="color: #000000;">'.$data['user_order_item'][0]->payment_mode.'</span>.
                                                                                                         </p>
                                                                                                     </td>
                                                                                                 </tr>
@@ -1287,14 +1319,19 @@ class OrderController extends CI_Controller
                                                                                                 <tr>
                                                                                                     <td>
                                                                                                         <table width="100%" border="0" cellspacing="10" cellpadding="0">
-                                                                                                            <tbody>
+                                                                                                            <tbody>';
+                                                                                                            foreach ($data['user_order_item'] as $key => $value) {
+                                                                                                                $product_img=unserialize($value->image);
+                                                                                                                $total=Intval(($total+$value->sell_price)*$value->quantity);
+                                                                                                                $total_shipping=Intval(($total_shipping+$value->shipping_price)*$value->quantity);
+                                                                                                            $message=$message.'
                                                                                                                 <tr>
                                                                                                                     <td valign="top" style="padding: 20px;">
                                                                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                                             <tbody>
                                                                                                                                 <tr>
                                                                                                                                     <td width="10%" valign="top">
-                                                                                                                                        <img width="63" height="63" src="product.jpg" style="border: 1px solid #e0e0e0;" alt="product" class="CToWUd" />
+                                                                                                                                        <img width="63" height="63" src="'.base_url('webroot/admin/product/web/').$product_img[0].'" style="border: 1px solid #e0e0e0;" alt="product" class="CToWUd" />
                                                                                                                                     </td>
                                                                                                                                     <td width="3%" valign="top">&nbsp;</td>
                                                                                                                                     <td width="87%" valign="top">
@@ -1302,17 +1339,16 @@ class OrderController extends CI_Controller
                                                                                                                                             <tbody style="line-height: 2;">
                                                                                                                                                 <tr>
                                                                                                                                                     <td align="left" valign="middle" style="font-family: arial; font-size: 12px;">
-                                                                                                                                                        Rice Lights Serial Bulbs Ladi Diwali Decoration Lighting (Set of 1) Multicolour for Indoor,
-                                                                                                                                                        Outdoor
+                                                                                                                                                       '.$value->product_name.'
                                                                                                                                                     </td>
                                                                                                                                                 </tr>
                                                                                                                                                 <tr>
                                                                                                                                                     <td align="left" style="font-family: arial; font-size: 12px;" valign="middle">
                                                                                                                                                         <span style="color: #7e7e7e;">Quantity:</span>
-                                                                                                                                                        <span style="display: inline-block; padding-right: 15px;">1</span>
+                                                                                                                                                        <span style="display: inline-block; padding-right: 15px;">'.$value->quantity.'</span>
                                                                                                                                                         <span style="display: inline-block;">
                                                                                                                                                             <span style="color: #7e7e7e;">Unit price:</span>
-                                                                                                                                                            Rs.149
+                                                                                                                                                            Rs.'.Intval($value->mrp_price*$value->quantity).'
                                                                                                                                                         </span>
                                                                                                                                                     </td>
                                                                                                                                                 </tr>
@@ -1320,10 +1356,10 @@ class OrderController extends CI_Controller
                                                                                                                                                     <td align="left" style="font-family: arial; font-size: 12px;" valign="middle">
                                                                                                                                                         <span style="display: inline-block; padding-right: 15px;">
                                                                                                                                                             <span style="color: #7e7e7e;">Discount:</span>
-                                                                                                                                                            Rs.50
+                                                                                                                                                            Rs.'.Intval($value->discount*$value->quantity).'
                                                                                                                                                         </span>
                                                                                                                                                         <span style="color: #7e7e7e;">Subtotal:</span>
-                                                                                                                                                        <strong> Rs.99 </strong>
+                                                                                                                                                        <strong> Rs.'.Intval($value->sell_price*$value->quantity).' </strong>
                                                                                                                                                     </td>
                                                                                                                                                 </tr>
                                                                                                                                             </tbody>
@@ -1333,7 +1369,9 @@ class OrderController extends CI_Controller
                                                                                                                             </tbody>
                                                                                                                         </table>
                                                                                                                     </td>
-                                                                                                                </tr>
+                                                                                                                </tr>';
+                                                                                                            }
+                                                                                                            $message=$message.'
                                                                                                             </tbody>
                                                                                                         </table>
                                                                                                     </td>
@@ -1361,34 +1399,19 @@ class OrderController extends CI_Controller
                                                                                                                                                         Subtotal:
                                                                                                                                                     </td>
                                                                                                                                                     <td width="40%" align="right" valign="top" style="font-family: arial; font-size: 12px;">
-                                                                                                                                                        Rs.99
+                                                                                                                                                       Rs.'.$total.'
                                                                                                                                                     </td>
                                                                                                                                                 </tr>
         
-                                                                                                                                                <tr>
-                                                                                                                                                    <td align="left" valign="top" style="font-family: arial; font-size: 12px;">
-                                                                                                                                                        (-)Order Discount:
-                                                                                                                                                    </td>
-                                                                                                                                                    <td align="right" valign="top" style="font-family: arial; font-size: 12px;">
-                                                                                                                                                        Rs.88
-                                                                                                                                                    </td>
-                                                                                                                                                </tr>
+                                                                                                                                                
         
-                                                                                                                                                <tr>
-                                                                                                                                                    <td align="left" valign="top" style="font-family: arial; font-size: 12px;">
-                                                                                                                                                        Price after Discount:
-                                                                                                                                                    </td>
-                                                                                                                                                    <td align="right" valign="top" style="font-family: arial; font-size: 12px;">
-                                                                                                                                                        Rs.11
-                                                                                                                                                    </td>
-                                                                                                                                                </tr>
-        
+                                                                                                                                               
                                                                                                                                                 <tr>
                                                                                                                                                     <td align="left" valign="top" style="font-family: arial; font-size: 12px;">
                                                                                                                                                         Shipping Cost:
                                                                                                                                                     </td>
                                                                                                                                                     <td align="right" valign="top" style="font-family: arial; font-size: 12px;">
-                                                                                                                                                        Rs.0
+                                                                                                                                                        Rs.'.$total_shipping.'
                                                                                                                                                     </td>
                                                                                                                                                 </tr>
         
@@ -1397,7 +1420,7 @@ class OrderController extends CI_Controller
                                                                                                                                                         <strong>Total</strong>
                                                                                                                                                     </td>
                                                                                                                                                     <td align="right" valign="top" style="font-family: arial; font-size: 12px;">
-                                                                                                                                                        <strong>Rs.11</strong>
+                                                                                                                                                        <strong>Rs.'.Intval($total+$total_shipping).'</strong>
                                                                                                                                                     </td>
                                                                                                                                                 </tr>
                                                                                                                                             </tbody>
@@ -1452,9 +1475,9 @@ class OrderController extends CI_Controller
                                                                                                                             <tbody>
                                                                                                                                 <tr>
                                                                                                                                     <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right: 10px; padding-bottom: 9px;">
-                                                                                                                                        <a href="http://www.facebook.com" target="_blank">
+                                                                                                                                        <a href="https://www.facebook.com/Bongbasar/" target="_blank">
                                                                                                                                             <img
-                                                                                                                                                src="facebook.png"
+                                                                                                                                                src="'.base_url('webroot/user/email/facebook.png').'"
                                                                                                                                                 alt="Facebook"
                                                                                                                                                 class="mcnFollowBlockIcon"
                                                                                                                                                 width="48"
@@ -1469,9 +1492,9 @@ class OrderController extends CI_Controller
                                                                                                                             <tbody>
                                                                                                                                 <tr>
                                                                                                                                     <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right: 10px; padding-bottom: 9px;">
-                                                                                                                                        <a href="http://www.twitter.com/" target="_blank">
+                                                                                                                                        <a href="https://twitter.com/bongbasar" target="_blank">
                                                                                                                                             <img
-                                                                                                                                                src="twitter.png"
+                                                                                                                                                src="'.base_url('webroot/user/email/twitter.png').'"
                                                                                                                                                 alt="Twitter"
                                                                                                                                                 class="mcnFollowBlockIcon"
                                                                                                                                                 width="48"
@@ -1482,47 +1505,15 @@ class OrderController extends CI_Controller
                                                                                                                                 </tr>
                                                                                                                             </tbody>
                                                                                                                         </table>
+                                                                                                                        
+                                                                    
                                                                                                                         <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnFollowStacked" style="display: inline;">
                                                                                                                             <tbody>
                                                                                                                                 <tr>
                                                                                                                                     <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right: 10px; padding-bottom: 9px;">
-                                                                                                                                        <a href="http://www.yourwebsite.com" target="_blank">
+                                                                                                                                        <a href="https://www.linkedin.com/company/bongbasar/?viewAsMember=true" target="_blank">
                                                                                                                                             <img
-                                                                                                                                                src="link.png"
-                                                                                                                                                alt="Website"
-                                                                                                                                                class="mcnFollowBlockIcon"
-                                                                                                                                                width="48"
-                                                                                                                                                style="width: 48px; max-width: 48px; display: block;"
-                                                                                                                                            />
-                                                                                                                                        </a>
-                                                                                                                                    </td>
-                                                                                                                                </tr>
-                                                                                                                            </tbody>
-                                                                                                                        </table>
-                                                                                                                        <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnFollowStacked" style="display: inline;">
-                                                                                                                            <tbody>
-                                                                                                                                <tr>
-                                                                                                                                    <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right: 10px; padding-bottom: 9px;">
-                                                                                                                                        <a href="mailto:your@email.com" target="_blank">
-                                                                                                                                            <img
-                                                                                                                                                src="letter.png"
-                                                                                                                                                alt="Email"
-                                                                                                                                                class="mcnFollowBlockIcon"
-                                                                                                                                                width="48"
-                                                                                                                                                style="width: 48px; max-width: 48px; display: block;"
-                                                                                                                                            />
-                                                                                                                                        </a>
-                                                                                                                                    </td>
-                                                                                                                                </tr>
-                                                                                                                            </tbody>
-                                                                                                                        </table>
-                                                                                                                        <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnFollowStacked" style="display: inline;">
-                                                                                                                            <tbody>
-                                                                                                                                <tr>
-                                                                                                                                    <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right: 10px; padding-bottom: 9px;">
-                                                                                                                                        <a href="http://www.linkedin.com" target="_blank">
-                                                                                                                                            <img
-                                                                                                                                                src="linkedin.png"
+                                                                                                                                                src="'.base_url('webroot/user/email/linkedin.png').'"
                                                                                                                                                 alt="LinkedIn"
                                                                                                                                                 class="mcnFollowBlockIcon"
                                                                                                                                                 width="48"
@@ -1537,9 +1528,9 @@ class OrderController extends CI_Controller
                                                                                                                             <tbody>
                                                                                                                                 <tr>
                                                                                                                                     <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right: 10px; padding-bottom: 9px;">
-                                                                                                                                        <a href="http://instagram.com" target="_blank">
+                                                                                                                                        <a href="https://www.instagram.com/bongbasar/?hl=en" target="_blank">
                                                                                                                                             <img
-                                                                                                                                                src="instagram.png"
+                                                                                                                                                src="'.base_url('webroot/user/email/instagram.png').'"
                                                                                                                                                 alt="Instagram"
                                                                                                                                                 class="mcnFollowBlockIcon"
                                                                                                                                                 width="48"
@@ -1554,9 +1545,9 @@ class OrderController extends CI_Controller
                                                                                                                             <tbody>
                                                                                                                                 <tr>
                                                                                                                                     <td align="center" valign="top" class="mcnFollowIconContent" style="padding-right: 0; padding-bottom: 9px;">
-                                                                                                                                        <a href="http://www.youtube.com" target="_blank">
+                                                                                                                                        <a href="https://www.youtube.com/channel/UCbFi94tAbxUafAfUtfY43rg" target="_blank">
                                                                                                                                             <img
-                                                                                                                                                src="youtube.png"
+                                                                                                                                                src="'.base_url('webroot/user/email/youtube.png').'"
                                                                                                                                                 alt="YouTube"
                                                                                                                                                 class="mcnFollowBlockIcon"
                                                                                                                                                 width="48"
@@ -1597,24 +1588,23 @@ class OrderController extends CI_Controller
             </body>
         </html>
         ';
-        echo $message;
-        // $config = Array(
-        //     'protocol' => 'smtp',
-        //     'mailtype' => 'html',
-        //     'charset' => 'utf-8',
-        //     'wordwrap' => TRUE
-        // );
-        // $this->load->library('email', $config);
-        // $from='developer.bongtechsolution@gmail.com';
-        // $from_name='Bongbasar';
-        // $to_email= $email1;
-        // $subject='Verify Email From Bongbasar';
-        // email_send();
-        // $this->email->from($from, $from_name);
-        // $this->email->to($to_email);
-        // $this->email->subject($subject);
-        // $this->email->message($message);
-        // $send=$this->email->send();
+        $config = Array(
+            'protocol' => 'smtp',
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'wordwrap' => TRUE
+        );
+        $this->load->library('email', $config);
+        $from='developer.bongtechsolution@gmail.com';
+        $from_name='Bongbasar';
+        $to_email= $this->session->userdata('loginDetail')->email;
+        $subject='Your Order has been successfully placed ';
+        email_send();
+        $this->email->from($from, $from_name);
+        $this->email->to($to_email);
+        $this->email->subject($subject);
+        $this->email->message($message);
+        $send=$this->email->send();
     }
 
 
