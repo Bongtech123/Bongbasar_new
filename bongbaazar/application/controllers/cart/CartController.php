@@ -21,7 +21,7 @@ class CartController extends CI_Controller
 			$product_quantity=array();
 			$this->BuyNowUpdate();
 			$this->data['page_title']='Bongbazaar | Cart';
-			//$this->data['menu_lebel'] = $this->Home_Model->get_categories();
+			$this->data['menu_lebel'] = $this->Home_Model->get_categories();
 			$this->data['subview']='cart/cart';
 			$this->data['cart_details']=$this->Cart_Model->get_cartItem($this->session->userdata('loginDetail')->uniqcode);
 			foreach ($this->data['cart_details'] as $key => $cart_details) {

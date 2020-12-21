@@ -18,10 +18,12 @@ class LoginController extends CI_Controller {
 	{
 		
 			
-		if(($this->session->userdata('loginDetail')!==NULL)){
+		if(($this->session->userdata('loginDetail')!==NULL))
+		{
 		   redirect('');
 		}
-		else {
+		else 
+		{
 			$this->load->view('login');
 		}
 	}

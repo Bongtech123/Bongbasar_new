@@ -200,26 +200,20 @@ class UserController extends CI_Controller
     public function profile()
     {
         $this->data['page_title']='Bongbazaar | profile';
-        //$this->data['menu_lebel'] = $this->Home_Model->get_categories();
+        $this->data['menu_lebel'] = $this->Home_Model->get_categories();
         $this->data['user_profile'] = $this->User_Model->selectrow(['uniqcode'=>$this->session->userdata('loginDetail')->uniqcode],'tbl_users');
         $this->data['user_address'] = $this->Address_Model->user_address($this->session->userdata('loginDetail')->uniqcode,'tbl_users_delivery_address');
         $this->data['user_order'] = $this->Order_Model->user_orders($this->session->userdata('loginDetail')->uniqcode);
         $this->data['user_wallet'] = $this->User_Model->user_wallet($this->session->userdata('loginDetail')->uniqcode);
-      
-        //pr($this->data['user_order']);
         $this->data['user_wishlist'] = $this->User_Model->user_wishlist($this->session->userdata('loginDetail')->uniqcode);
-         //pr($this->data['user_wishlist']);
         $this->data['all_state'] = $this->User_Model->all_state(['is_active'=>'Active','country_id'=>'101'],'tbl_state_mast');
         //pr($this->data);
-
-   
         $this->data['subview']='profile/profile';
         $this->load->view('user/layout/default', $this->data);
     }
 
     public function ProfileUpdate()
     {
-        //pr($this->input->post());
         $uniqcode=$this->input->post('uniqcode');
         $first_name=$this->input->post('first_name');
         $last_name=$this->input->post('last_name');
@@ -381,7 +375,6 @@ class UserController extends CI_Controller
                     'notification'=>'',
                     'datetime'=>date('Y-m-d H:i:s')
                 );
-                //pr($post);
                 if($this->User_Model->insert($post,'tbl_wishlist'))
                 {
                     $this->session->set_flashdata('success', 'Add to your wishlist.'); 
@@ -488,7 +481,6 @@ class UserController extends CI_Controller
         $rating_row=$this->db->get()->row();
         $rating_image=unserialize($rating_row->image);
         $image_count=count($rating_image);
-        // pr($rating_image);
         echo '
        
         <div class="modal-body">
@@ -656,7 +648,7 @@ class UserController extends CI_Controller
     {
         $rating=$this->input->post('rating');
         $review=$this->input->post('review');
-      //  echo $rating;
+   
         $image=array();
         $order_uniqcode=$this->input->post('order_uniqcode');
         $old_image[6]=$this->input->post('old_item_image_upload_6');
@@ -664,7 +656,7 @@ class UserController extends CI_Controller
         $old_image[8]=$this->input->post('old_item_image_upload_8');
         $old_image[9]=$this->input->post('old_item_image_upload_9');
         $old_image[10]=$this->input->post('old_item_image_upload_10');
-        //echo  $old_image_6." ".$old_image_7." ".$old_image_8." ".$old_image_9." ".$old_image_10." ".$rating." ".$review." ".$order_uniqcode;
+        
         $count=0;
         $d="$";
         for($i=6;$i<=10;$i++)

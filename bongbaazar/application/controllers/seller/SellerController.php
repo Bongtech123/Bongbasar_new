@@ -18,22 +18,17 @@ class SellerController extends CI_Controller
 	public function SellerAll()
 	{
 		$this->data['page_title']='Bongbazaar | seller';
-		//$this->data['menu_lebel'] = $this->Home_Model->get_categories();
+		$this->data['menu_lebel'] = $this->Home_Model->get_categories();
 		$this->data['all_shop']=$this->Seller_Model->get_all_shop();
 		$this->data['all_admin_city']=$this->Seller_Model->allAdminCity_getRows();
-
-
-		//pr($this->data);
-
 		$this->data['subview']='seller/all_seller';
 		$this->load->view('user/layout/default', $this->data);
 	}
 
 	public function Seller($admin_id)
 	{
-		    $where           = '';
+		$where           = '';
         $where_clause    = '';
-        //$data            = array();
         $shortBy = $this->input->get("shortBy");
         $color = $this->input->get("color");
         $size = $this->input->get("size");
@@ -122,9 +117,6 @@ class SellerController extends CI_Controller
         $query= $this->db->select('*')->where($where_clause)->get('view_products'); 
 
         $total_rows = $query->num_rows();
-
-        //echo $total_rows;
-
         $this->load->library('pagination');
 		
     	$config=[
@@ -161,10 +153,9 @@ class SellerController extends CI_Controller
     	
 		
 		$this->data['page_title']='Bongbazaar | seller';
-		//$this->data['menu_lebel'] = $this->Home_Model->get_categories();
+		$this->data['menu_lebel'] = $this->Home_Model->get_categories();
 		$this->data['seller_all_product'] = $this->Seller_Model->admin_all_product($where_clause,$limit,$offset);
 		$this->data['shop_details']=$this->Seller_Model->shop_image($admin_id);
-		//$this->data['shop_filter_data']=$this->Seller_Model->seller_filter_data($id);
 		$this->data['find_by_color']=$this->Seller_Model->find_by_color($admin_id);
 		$this->data['find_by_size']=$this->Seller_Model->find_by_size($admin_id);
 		$this->data['find_by_brand']=$this->Seller_Model->find_by_brand($admin_id);
@@ -195,8 +186,6 @@ class SellerController extends CI_Controller
 	{
 		$city=$this->input->post('city');
 		$data = $this->Seller_Model->get_shop_for_location($city);
-		// pr($data);
-		
 		if(!empty($data))
 		{
 			foreach($data as $shop_row)
@@ -369,7 +358,6 @@ class SellerController extends CI_Controller
       $admin_id=$this->input->post('admin_id');
       $color=$this->input->post('color');
       $find_by_color=$this->Seller_Model->find_by_admin_id_color($admin_id,$color);
-      //pr($find_by_color);
 
       foreach ($find_by_color as $key => $find_by_color_row) 
       {
@@ -387,7 +375,6 @@ class SellerController extends CI_Controller
       $admin_id=$this->input->post('admin_id');
       $size=$this->input->post('size');
       $find_by_size=$this->Seller_Model->find_by_admin_id_size($admin_id,$size);
-      //pr($find_by_size);
 
       foreach ($find_by_size as $key => $find_by_size_row) 
       {
@@ -404,7 +391,6 @@ class SellerController extends CI_Controller
       $admin_id=$this->input->post('admin_id');
       $brand=$this->input->post('brand');
       $find_by_brand=$this->Seller_Model->find_by_admin_id_brand($admin_id,$brand);
-      // pr($find_by_brand);
 
       foreach ($find_by_brand as $key => $find_by_brand_row) 
       {
@@ -422,7 +408,6 @@ class SellerController extends CI_Controller
 
       $admin_id=$this->input->post('admin_id');
       $find_by_min_max=$this->Seller_Model->find_by_admin_id_min_max($admin_id);
-      //pr($find_by_min_max);
       echo intval($find_by_min_max->min_price).'##'.intval($find_by_min_max->max_price);
   }
 	

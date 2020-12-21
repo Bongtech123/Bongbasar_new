@@ -14,13 +14,7 @@ class OrderController extends CI_Controller
 		$this->load->model('cart/Cart_Model');	
 		$this->load->model('home/Home_Model');
 		$this->load->model('address/Address_Model');
-
 		date_default_timezone_set('Asia/Kolkata');
-
-		// if(($this->session->userdata('loginDetail')==NULL))
-		// {
-		//    redirect('');
-		// }
 	} 
 
 	public function index($address_id)
@@ -33,7 +27,7 @@ class OrderController extends CI_Controller
                 $this->data['subview']='order/order';
                 $this->data['address_id']=$address_id;
                 $this->data['capcha_value']=random_string('numeric',4);
-                //$this->data['menu_lebel'] = $this->Home_Model->get_categories();
+                $this->data['menu_lebel'] = $this->Home_Model->get_categories();
 
                 $this->data['cart_details']=$this->Cart_Model->get_cartItem($this->session->userdata('loginDetail')->uniqcode);
                 //pr($this->data);
@@ -59,7 +53,7 @@ class OrderController extends CI_Controller
 			$this->data['subview']='order/buy_order';
 			$this->data['address_id']=$address_id;
 			$this->data['capcha_value']=random_string('numeric',4);
-			//$this->data['menu_lebel'] = $this->Home_Model->get_categories();
+			$this->data['menu_lebel'] = $this->Home_Model->get_categories();
 
 			$this->data['cart_details']=$this->Cart_Model->get_buyCartItem($this->session->userdata('loginDetail')->uniqcode);
 			//pr($this->data);

@@ -12,12 +12,7 @@ class HomeController extends CI_Controller
 		$this->load->library(array('form_validation', 'email'));
 		$this->load->model('home/Home_Model');
 		$this->load->model('banner/banner_Model');
-		// $this->load->model('clothing/Clothing_Model');
-		// $this->load->model('accessories/Accessories_Model');
-		// $this->load->model('shoes/Soues_Model');
-		// $this->load->model('product/Product_Model');
 		$this->load->model('seller/Seller_Model');
-		// $this->load->model('special_care/SpecialCare_Model');
 		$this->load->model('user/User_Model');			
 	} 
 	
