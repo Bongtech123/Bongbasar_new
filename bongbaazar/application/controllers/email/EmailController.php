@@ -46,6 +46,10 @@ class EmailController extends CI_Controller
 		{
 			echo json_encode(['message'=>"email"]);
 		}
-    }
+	}
+	public function order_place_email()
+	{
+		
+	}
     
 }
