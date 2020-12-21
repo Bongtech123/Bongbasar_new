@@ -103,7 +103,7 @@
                 </div>
 
                 <div class="card-button">
-                  <button id="nextBtn" type="button" class="btn card-button-inner bag-button buy-btn btn-block place-order" onclick="buyPlaceOrder1()">
+                  <button id="nextBtn" type="button" class="btn card-button-inner bag-button buy-btn btn-block place-order" onclick="buyPlaceOrder1('<?=$this->session->userdata('loginDetail')->email?>')">
                     <span >Place Order</span>
                   </button>
                 </div>

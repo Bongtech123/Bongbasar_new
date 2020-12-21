@@ -145,12 +145,12 @@
                         <?php }?>
                       </div>
                       <div class="form-group">
-                        <label>Mobile: </label>
+                        <label>Mobile:  </label>
                         <input type="text" name="mobile_no" id="mobile_no1" class="form-control" placeholder="Enter Mobile" value="<?php if(!empty($user_profile->mobile_no)){echo $user_profile->mobile_no;}?>" disabled>
                       </div>
                       <div class="form-group">
                         <label>Email: <span class="change" onclick="changeemail()">Change</span></label>
-                        <input type="email" name="email" id="email" class="form-control validate[required,custom[email]]" data-errormessage-value-missing="Email is required" data-prompt-position="bottomLeft" placeholder="Enter email" maxlength="200"  disabled value="<?php if(!empty($user_profile->email)){echo $user_profile->email;}?>">
+                        <input type="email" name="email" id="email" class="form-control validate[required,custom[email]]" data-errormessage-value-missing="Email is required" data-prompt-position="bottomLeft" placeholder="" maxlength="200"  disabled value="<?php if(!empty($user_profile->email)){echo $user_profile->email;}?>">
                       </div>
                        <input type="submit" id="submit" class="form-control" value="Save" disabled>
                       </form>

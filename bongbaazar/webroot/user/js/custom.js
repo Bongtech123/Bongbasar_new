@@ -793,8 +793,13 @@ function changelname()
 
 function changeemail()
 {
-  $("#email").prop( "disabled",false);
-  $("#submit").prop( "disabled",false);
+  $('#chackEmail').modal('show'); 
+    return false;
+}
+function changemobile()
+{
+  $('#chackmobile').modal('show'); 
+    return false;
 }
 function changegender()
 {
@@ -1106,21 +1111,29 @@ function placeOrder1(email)
  
 }
 
-function buyPlaceOrder1()
+function buyPlaceOrder1(email)
 {
   var address_id=$("input[name='order_address']:checked").val();
   var base_url=$('#base_url').val();
   var current_url=$('#current_url').val();
-  if(address_id != null)
+  if(email !='')
   {
-    
-    var url=base_url+'buy-order/'+address_id;
-    location.assign(url); 
+    if(address_id != null)
+    {
+      
+      var url=base_url+'buy-order/'+address_id;
+      location.assign(url); 
+    }
+    else
+    {
+      alert('You Do Not Select Any Address!');
+      location.assign(current_url);
+    }
   }
   else
   {
-    alert('You Do Not Select Any Address!');
-    location.assign(current_url);
+    $('#chackEmail').modal('show'); 
+    return false;
   }
 }
 
@@ -2583,7 +2596,43 @@ $(document).ready(function()
    
  });
   
-  
+ /***********************update Mobile*********************** */
+  // $('#mobile_check').on('submit', function (e) 
+  //   {
+
+  //     let mobile=$('#update_mobile').val();
+  //     var base_url=$('#base_url').val();
+  //     e.preventDefault();
+  //     if(mobile)
+  //     {
+  //       alert('hi');
+  //       // $.ajax({
+  //       //   type: 'post',
+  //       //   url:base_url+'verify-mobile',
+  //       //   dataType: 'json',
+  //       //   data:{mobile:mobile},
+  //       //   success: function (data) 
+  //       //   {
+  //       //     if(data.message=='success')
+  //       //     {
+  //       //       $("#email_otp").css('display', 'block');
+  //       //       $("#email_verify_submit").css('display', 'none');
+  //       //       $("#email_submit").css('display', 'block');
+  //       //       $("#email_submit").css('float', 'right');
+  //       //       timer_set3();
+  //       //     } 
+  //       //     else if(data.message=='email')
+  //       //     {
+              
+  //       //       $('.error2').show();
+  //       //       $('.error2').html('Email ID already Exist').delay(1200).fadeOut('show');
+  //       //     }
+  //       //   }  
+  //       // });
+  //     }
+      
+  //   });
+ /***********************end update Mobile*********************** */
   
   
   

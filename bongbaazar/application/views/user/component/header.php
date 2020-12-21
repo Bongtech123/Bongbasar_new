@@ -549,7 +549,7 @@
                                 <div class="form-group">
                                     <label>Password:</label>
                                     <input
-                                        type="text"
+                                        type="password"
                                         name="email_passwod"
                                         id="email_passwod"
                                         class="form-control validate[required]"
@@ -582,6 +582,88 @@
 </div>
 
 <!-- add email modal end -->
+ <!-- add mobile modal end -->
+ <div class="modal inmodal" id="chackmobile" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight rateReview-modal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title middle-heading">Verify Mobile<span></span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <form id="mobile_check" method="post" class="email_check1">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Mobile Number:</label>
+                                    <input
+                                        type="text"
+                                        name="update_mobile"
+                                        id="update_mobile"
+                                        class="form-control validate[required,custom[phone]]"
+                                        data-errormessage-value-missing="Mobile is required"
+                                        data-prompt-position="bottomLeft"
+                                        placeholder="Type New Mobile Number"
+                                        maxlength="200"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-lg-6" style="display: none;" id="email_otp">
+                                <div class="form-group">
+                                    <label>OTP:</label>
+                                    <input
+                                        type="text"
+                                        name="otp"
+                                        id="otp"
+                                        class="form-control validate[required]"
+                                        data-errormessage-value-missing="OTP is required"
+                                        data-prompt-position="bottomLeft"
+                                        placeholder="Type OTP"
+                                        onblur="email_otpcheck(this.value)"
+                                    />
+                                    <label><p id="resend3" style="margin-top: 8px;">Resend OTP<span style="
+                                                        float:right;" id="timer3"></span></p></label>
+                                    <input type="hidden" id="parmission" value="0" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6" style="display: none;" id="email_passwod1">
+                                <div class="form-group">
+                                    <label>Password:</label>
+                                    <input
+                                        type="password"
+                                        name="email_passwod"
+                                        id="email_passwod"
+                                        class="form-control validate[required]"
+                                        data-errormessage-value-missing="Password is required"
+                                        data-prompt-position="bottomLeft"
+                                        placeholder="Type Password"
+                                    />
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-6">
+                                <span class="error2" style="color: red;"></span>
+                                <span class="msg" style="color: green;"></span>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn card-button-inner buy-btn save-btn" id="email_verify_submit">
+                                    <span>Verify</span>
+                                </button>
+                                <button type="button" class="btn card-button-inner buy-btn save-btn" id="email_submit" style="display: none;">
+                                    <span>Submit</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add mobile modal end -->
 
     <input type="hidden" name="base_url" id="base_url" value="<?=base_url()?>">
     <input type="hidden" name="current_url" id="current_url" value="<?=current_url();?>">
