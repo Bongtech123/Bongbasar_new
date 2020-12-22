@@ -48,18 +48,20 @@
                         <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInLeft;">
                             <h3 class="f-title f_600 t_color f_size_18">Team Solutions</h3>
                             <div class="f_social_icon">
-                                <a href="https://www.facebook.com/Bongbasar/"target="_blank">
+                                <a href="https://www.facebook.com/Bongbasar/" target="_blank">
                                   <i class="fa fa-facebook-square" aria-hidden="true"></i>
                                 </a>
-                                <a href="https://www.instagram.com/bongbasar/?hl=en"target="_blank">
+                                <a href="https://www.instagram.com/bongbasar/?hl=en" target="_blank">
                                   <i class="fa fa-instagram " aria-hidden="true"></i>
                                 </a>
-                                <a href="https://www.linkedin.com/company/bongbasar/?viewAsMember=true"target="_blank">
+                                <a href="https://www.linkedin.com/company/bongbasar/?viewAsMember=true" target="_blank">
                                   <i class="fa fa-linkedin" aria-hidden="true"></i>
                                 </a>
-                                <a href="https://twitter.com/bongbasar"target="_blank">
+                                <a href="https://twitter.com/bongbasar" target="_blank">
                                   <i class="fa fa-twitter" aria-hidden="true"></i>
-                        
+                                </a>
+                                <a href="https://www.youtube.com/channel/UCbFi94tAbxUafAfUtfY43rg" target="_blank">
+                                <i class="fa fa-youtube-play" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
