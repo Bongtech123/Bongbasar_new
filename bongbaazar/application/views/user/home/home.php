@@ -75,12 +75,12 @@
                         <?php }?>
                       </div>
                       <div class="dress-card-body">
-                          <h4 class="dress-card-title"><a href="<?=base_url('product-discount-all')?>"><?php
+                          <h4 class="dress-card-title"><?php
                               $name = strlen($low_to_high_row->product_name) > 13 ? substr($low_to_high_row->product_name,0,13)."..." : $low_to_high_row->product_name;
                                 echo $name ;
-                              ?></a>
+                              ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_rowadmin_id)?>">By:<?=$low_to_high_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$low_to_high_row->admin_id)?>">By:<?=$low_to_high_row->admin_name?></a></p>
                         
 
                         <p class="">
@@ -157,12 +157,12 @@
                         <?php }?>
                       </div>
                       <div class="dress-card-body">
-                          <h4 class="dress-card-title"><a href="<?=base_url('product-discount-all')?>"><?php
+                          <h4 class="dress-card-title"><?php
                               $name = strlen($clothing_discount_row->product_name) > 13 ? substr($clothing_discount_row->product_name,0,13)."..." : $clothing_discount_row->product_name;
                               echo $name ;
-                              ?></a>
+                              ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_rowadmin_id)?>">By:<?=$clothing_discount_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_discount_row->admin_id)?>">By:<?=$clothing_discount_row->admin_name?></a></p>
                         
 
                         <p class="">
@@ -236,12 +236,12 @@
                         <?php }?>
                       </div>
                       <div class="dress-card-body">
-                          <h4 class="dress-card-title"><a href="<?=base_url('product-discount-all')?>"><?php
+                          <h4 class="dress-card-title"><?php
                               $name = strlen($clothing_row->product_name) > 13 ? substr($clothing_row->product_name,0,13)."..." : $clothing_row->product_name;
                               echo $name ;
-                              ?></a>
+                              ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_rowadmin_id)?>">By:<?=$clothing_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_row->admin_id)?>">By:<?=$clothing_row->admin_name?></a></p>
                         
 
                         <p class="">
@@ -351,12 +351,12 @@
                         <?php }?>
                       </div>
                       <div class="dress-card-body">
-                          <h4 class="dress-card-title"><a href="<?=base_url('product-discount-all')?>"><?php
+                          <h4 class="dress-card-title"><?php
                               $name = strlen($accessories_discount_row->product_name) > 13 ? substr($accessories_discount_row->product_name,0,13)."..." : $accessories_discount_row->product_name;
                               echo $name ;
-                              ?></a>
+                              ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_rowadmin_id)?>">By:<?=$accessories_discount_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$accessories_discount_row->admin_id)?>">By:<?=$accessories_discount_row->admin_name?></a></p>
                         
 
                         <p class="">
@@ -430,12 +430,12 @@
                         <?php }?>
                       </div>
                       <div class="dress-card-body">
-                          <h4 class="dress-card-title"><a href="<?=base_url('product-discount-all')?>"><?php
+                          <h4 class="dress-card-title"><?php
                               $name = strlen($accessories_row->product_name) > 13 ? substr($accessories_row->product_name,0,13)."..." : $accessories_row->product_name;
                               echo $name ;
-                              ?></a>
+                              ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_rowadmin_id)?>">By:<?=$accessories_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$accessories_row->admin_id)?>">By:<?=$accessories_row->admin_name?></a></p>
                         
 
                         <p class="">
@@ -547,12 +547,12 @@
                         <?php }?>
                       </div>
                       <div class="dress-card-body">
-                          <h4 class="dress-card-title"><a href="<?=base_url('product-discount-all')?>"><?php
+                          <h4 class="dress-card-title"><?php
                               $name = strlen($shoes_discount_row->product_name) > 13 ? substr($shoes_discount_row->product_name,0,13)."..." : $shoes_discount_row->product_name;
                               echo $name ;
-                              ?></a>
+                              ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_rowadmin_id)?>">By:<?=$shoes_discount_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$shoes_discount_row->admin_id)?>">By:<?=$shoes_discount_row->admin_name?></a></p>
                         
 
                         <p class="">
@@ -626,12 +626,12 @@
                         <?php }?>
                       </div>
                       <div class="dress-card-body">
-                          <h4 class="dress-card-title"><a href="<?=base_url('product-discount-all')?>"><?php
+                          <h4 class="dress-card-title"><?php
                               $name = strlen($shoes_row->product_name) > 13 ? substr($shoes_row->product_name,0,13)."..." : $shoes_row->product_name;
                               echo $name ;
-                              ?></a>
+                              ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_rowadmin_id)?>">By:<?=$shoes_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$shoes_row->admin_id)?>">By:<?=$shoes_row->admin_name?></a></p>
                         
 
                         <p class="">
