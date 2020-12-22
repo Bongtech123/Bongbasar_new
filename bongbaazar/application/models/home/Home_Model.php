@@ -73,7 +73,7 @@ class Home_Model extends CI_Model
 
 
 
-        $this->db->select('view_products.admin_id,view_products.admin_name,view_products.product_uniqcode,view_products.product_name,view_products.image,view_products.mrp_price,view_products.sell_price,view_products.discount,view_products.uniqcode,view_products.product_type,view_products.slug,view_products.color');
+        $this->db->select('view_products.admin_id,view_products.admin_name,view_products.shop_name,view_products.product_uniqcode,view_products.product_name,view_products.image,view_products.mrp_price,view_products.sell_price,view_products.discount,view_products.uniqcode,view_products.product_type,view_products.slug,view_products.color');
         $this->db->from('view_products');
         $this->db->join('tbl_category', 'tbl_category.uniqcode= view_products.category_id', 'inner');
         $this->db->join('tbl_sub_category', 'tbl_sub_category.uniqcode = view_products.sub_category_id', 'inner');
@@ -107,7 +107,7 @@ class Home_Model extends CI_Model
 
 
 
-        $this->db->select('view_products.admin_id,view_products.admin_name,view_products.product_uniqcode,view_products.product_name,view_products.image,view_products.mrp_price,view_products.sell_price,view_products.discount,view_products.uniqcode,view_products.product_type,view_products.slug,view_products.color');
+        $this->db->select('view_products.admin_id,view_products.admin_name,view_products.shop_name,view_products.product_uniqcode,view_products.product_name,view_products.image,view_products.mrp_price,view_products.sell_price,view_products.discount,view_products.uniqcode,view_products.product_type,view_products.slug,view_products.color');
         $this->db->from('view_products');
         $this->db->join('tbl_category', 'tbl_category.uniqcode= view_products.category_id', 'inner');
         $this->db->join('tbl_sub_category', 'tbl_sub_category.uniqcode = view_products.sub_category_id', 'inner');
@@ -140,7 +140,7 @@ class Home_Model extends CI_Model
         $subquery=$this->db->get_compiled_select();
 
 
-        $this->db->select('view_products.admin_id,view_products.admin_name,view_products.product_uniqcode,view_products.product_name,view_products.image,view_products.mrp_price,view_products.sell_price,view_products.discount,view_products.uniqcode,view_products.product_type,view_products.slug,view_products.color');
+        $this->db->select('view_products.admin_id,view_products.admin_name,view_products.shop_name,view_products.product_uniqcode,view_products.product_name,view_products.image,view_products.mrp_price,view_products.sell_price,view_products.discount,view_products.uniqcode,view_products.product_type,view_products.slug,view_products.color');
         $this->db->from('view_products');
         $this->db->join('tbl_category', 'tbl_category.uniqcode= view_products.category_id', 'inner');
         $this->db->join('tbl_sub_category', 'tbl_sub_category.uniqcode = view_products.sub_category_id', 'inner');
@@ -189,7 +189,7 @@ class Home_Model extends CI_Model
     //Child Category 
     public function ChildAllProduct_getRows($where_clause,$limit, $start)
     {
-        $this->db->select('view_products.admin_id,view_products.admin_name,view_products.product_uniqcode,view_products.category_id,view_products.sub_category_id,view_products.product_name,view_products.image,view_products.mrp_price,view_products.sell_price,view_products.discount,view_products.uniqcode,view_products.color,view_products.slug,view_products.product_type');
+        $this->db->select('view_products.admin_id,view_products.admin_name,view_products.shop_name,view_products.product_uniqcode,view_products.category_id,view_products.sub_category_id,view_products.product_name,view_products.image,view_products.mrp_price,view_products.sell_price,view_products.discount,view_products.uniqcode,view_products.color,view_products.slug,view_products.product_type');
 
         $this->db->from('view_products');
         $this->db->where($where_clause);

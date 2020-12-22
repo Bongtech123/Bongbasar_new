@@ -80,7 +80,7 @@
                                 echo $name ;
                               ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$low_to_high_row->admin_id)?>">By:<?=$low_to_high_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$low_to_high_row->admin_id)?>">By:<?=$low_to_high_row->shop_name?></a></p>
                         
 
                         <p class="">
@@ -162,7 +162,7 @@
                               echo $name ;
                               ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_discount_row->admin_id)?>">By:<?=$clothing_discount_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_discount_row->admin_id)?>">By:<?=$clothing_discount_row->shop_name?></a></p>
                         
 
                         <p class="">
@@ -241,7 +241,7 @@
                               echo $name ;
                               ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_row->admin_id)?>">By:<?=$clothing_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$clothing_row->admin_id)?>">By:<?=$clothing_row->shop_name?></a></p>
                         
 
                         <p class="">
@@ -356,7 +356,7 @@
                               echo $name ;
                               ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$accessories_discount_row->admin_id)?>">By:<?=$accessories_discount_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$accessories_discount_row->admin_id)?>">By:<?=$accessories_discount_row->shop_name?></a></p>
                         
 
                         <p class="">
@@ -435,7 +435,7 @@
                               echo $name ;
                               ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$accessories_row->admin_id)?>">By:<?=$accessories_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$accessories_row->admin_id)?>">By:<?=$accessories_row->shop_name?></a></p>
                         
 
                         <p class="">
@@ -552,7 +552,7 @@
                               echo $name ;
                               ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$shoes_discount_row->admin_id)?>">By:<?=$shoes_discount_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$shoes_discount_row->admin_id)?>">By:<?=$shoes_discount_row->shop_name?></a></p>
                         
 
                         <p class="">
@@ -631,7 +631,7 @@
                               echo $name ;
                               ?>
                             </h4>
-                          <p class="seller-name"><a href="<?=base_url('shop/'.$shoes_row->admin_id)?>">By:<?=$shoes_row->admin_name?></a></p>
+                          <p class="seller-name"><a href="<?=base_url('shop/'.$shoes_row->admin_id)?>">By:<?=$shoes_row->shop_name?></a></p>
                         
 
                         <p class="">
