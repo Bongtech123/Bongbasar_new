@@ -46,7 +46,7 @@
                       echo $name ;
                       ?>
               </h4>
-              <p class="seller-name"><a href="<?=base_url('shop/'.$prodct_all_row->admin_id)?>">By:<?=$prodct_all_row->admin_name?></a></p>
+              <p class="seller-name"><a href="<?=base_url('shop/'.$prodct_all_row->admin_id)?>">By:<?=$prodct_all_row->shop_name?></a></p>
               <p>
                 <span class="dress-card-price">Rs.<?=intval($prodct_all_row->sell_price)?> &ensp;</span>
                 <span class="dress-card-crossed">Rs.<?=intval($prodct_all_row->mrp_price)?></span>
