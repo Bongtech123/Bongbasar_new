@@ -570,18 +570,21 @@ $('#limenu').on('click', function (e)
 
 $("#register-step").on("submit", function (e) 
 {
-    if($("#password1").val() != "" && $("#otp").val() != "")
-    {  
-        $(".reg-step-error").hide();
+ 
+       $(".reg-step-error").hide();
         var base_url=$("#base_url").val();
         var mobile_no=$("#reg_mobile_no").val();
+        var password=$("#password1").val();
         var otp=$("#rotp").val();
         e.preventDefault();
+    if( password!= "" &&  otp!= "")
+    {  
+        
         $.ajax({
         type: "post",
         dataType: "json",
         url:base_url+"register-step",
-        data: {reg_mobile_no:mobile_no,rotp:otp},
+        data: {reg_mobile_no:mobile_no,rotp:otp,password1:password},
             success: function (data) 
             {
                 console.log(data.result)
@@ -602,6 +605,10 @@ $("#register-step").on("submit", function (e)
                 
             }
             });
+    }
+    else
+    {
+      return false;
     }
 
 });

@@ -401,7 +401,7 @@
                         </div>
                         <?php
                           foreach ($user_wallet['wallet_transaction'] as $key => $wallet_transaction) {
-                            if($wallet_transaction->credit_amount!='')
+                            if($wallet_transaction->status=='Credit')
                             {
                         ?>
                         <div class="wallet-content plus">
@@ -413,12 +413,12 @@
                               <p class="text-light"><?php echo date("d M Y h:i a", strtotime($wallet_transaction->datetime));  ?></p>
                             </div>
                             <div class="content-money">
-                                <p>₹<?=$wallet_transaction->credit_amount?></p>
+                                <p>₹<?=$wallet_transaction->amount?></p>
                             </div>
                         </div>
                         <?php
                             }
-                            else if($wallet_transaction->debit_amount!='')
+                            else if($wallet_transaction->status=='Debit')
                             {
                         ?>
                         <div class="wallet-content minus">
@@ -430,7 +430,7 @@
                               <p class="text-light"><?php echo date("d M Y h:i a", strtotime($wallet_transaction->datetime));  ?></p>
                             </div>
                             <div class="content-money">
-                                <p>₹<?=$wallet_transaction->debit_amount                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ?></p>
+                                <p>₹<?=$wallet_transaction->amount?></p>
                             </div>
                         </div>
                         <?php

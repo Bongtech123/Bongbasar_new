@@ -64,6 +64,7 @@ class UserController extends CI_Controller
         {
             if($this->session->userdata('otp')==$otp)
             {
+
                 $count=$this->User_Model->entty_check(['mobile_no'=>$mobile_no,'status'=>'Active'],'tbl_users');
                 if(!$count)
                 {
@@ -74,6 +75,7 @@ class UserController extends CI_Controller
                         'status'=>'Active',
                         'datetime'=>date('Y-m-d H:i:s')
                     );
+                    
                     if($this->User_Model->insert($data,'tbl_users'))
                     {
                         $wallet_data=array(
@@ -87,8 +89,9 @@ class UserController extends CI_Controller
                         $wallet_transaction=array(
                             'user_id'=>$data['uniqcode'],
                             'transaction_id'=>$tid,
-                            'description'=>'Added to wallet from Bongbasar. Transaction ID: '.$tid.'',
-                            'credit_amount'=>'200',
+                            'description'=>'Added to wallet from Bongbasar.',
+                            'amount'=>'200',
+                            'status'=>'Credit',
                             'datetime'=>date('Y-m-d H:i:s')
                         );
                         $this->User_Model->insert($wallet_data,'tbl_wallet_details');
