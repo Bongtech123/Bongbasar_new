@@ -74,8 +74,16 @@ class OrderController extends CI_Controller
 			$user_id=$this->session->userdata('loginDetail')->uniqcode;
 
 			$cart_details=array();
-			$cart_details=$this->Cart_Model->get_cartItem($user_id);
-			//pr($cart_details);
+            $cart_details=$this->Cart_Model->get_cartItem($user_id);
+            foreach ($cart_details as $key => $value) {
+                $product_quantity[$key]=$this->Cart_Model->product_quantity( $value->product_features_id);
+                if($product_quantity[$key]->stock_quentity < $value->quantity)
+                {
+                    $this->session->set_flashdata('error', 'product out of stock');
+                    redirect('bag');
+                }
+            }
+           
 			$order_code='OR'.random_string('numeric',10);
 			$payment_id='cod_'.random_string('alnum',14);
 			$address1=$this->Address_Model->address_order($address_id);
@@ -195,7 +203,14 @@ class OrderController extends CI_Controller
 			$user_id=$this->session->userdata('loginDetail')->uniqcode;
 
 			$cart_details=array();
-			$cart_details=$this->Cart_Model->get_buyCartItem($user_id);
+            $cart_details=$this->Cart_Model->get_buyCartItem($user_id);
+            foreach ($cart_details as $key => $value) {
+                $product_quantity[$key]=$this->Cart_Model->product_quantity( $value->product_features_id);
+                if($product_quantity[$key]->stock_quentity < $value->quantity)
+                {
+                    redirect('bag');
+                }
+            }
 			//pr($cart_details);
 			$order_code='OR'.random_string('numeric',10);
 			$payment_id='cod_'.random_string('alnum',14);
@@ -1719,6 +1734,28 @@ class OrderController extends CI_Controller
 	{
 		$rst=random_string('numeric',4);
 		echo $rst;
-	}
+    }
+    public function Order_time_Quantity_check()
+    {
+        $temp=0;
+        if(($this->session->userdata('loginDetail')!=NULL))
+		{
+			$user_id=$this->session->userdata('loginDetail')->uniqcode;
+            $cart_details=$this->Cart_Model->get_cartItem($user_id);
+            foreach ($cart_details as $key => $value) {
+                $product_quantity[$key]=$this->Cart_Model->product_quantity( $value->product_features_id);
+                if($product_quantity[$key]->stock_quentity >$value->quantity)
+                {
+                    $temp=1;
+                    $this->session->set_flashdata('error', 'product out of stock');
+                    
+                }
+            }
+            if($temp==1)
+            {
+                echo json_encode(['result'=>1]);
+            }
+        }
+    }
 }
     

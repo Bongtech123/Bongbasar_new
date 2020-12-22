@@ -109,6 +109,7 @@ $route['pay-on-delivery']='order/OrderController/cashOnDelivery';
 $route['pay-on-delivery-buy']='order/OrderController/cashOnDeliveryBuy';
 $route['order-success/([a-zA-Z0-9]+)']='order/OrderController/success/$1';
 $route['order-error']='order/OrderController/error';
+$route['Order-time-Quantity-check']='order/OrderController/Order_time_Quantity_check';
 
 $route['privacy-policy'] = 'policy/PolicyController/privacyPolicy';
 $route['payment-policy'] = 'policy/PolicyController/paymentPolicy';

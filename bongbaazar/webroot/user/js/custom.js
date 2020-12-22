@@ -2641,8 +2641,22 @@ $(document).ready(function()
       
   //   });
  /***********************end update Mobile*********************** */
-  
-  
+ $('#payonline').on('click', function (e) 
+ {
+    var base_url=$('#base_url').val();
+    $.ajax({
+      type: 'post',
+      url:base_url+'Order-time-Quantity-check',
+      dataType: 'json',
+      success: function (data) 
+      {
+        if(data.result==1)
+        {
+          window.location=base_url+'bag';
+        }
+      }
+    });
+});
   
   
   

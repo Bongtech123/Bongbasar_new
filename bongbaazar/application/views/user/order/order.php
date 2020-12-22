@@ -48,8 +48,8 @@
                     <div class="payment-category-innerpart">
                       <div class="col-md-4 col-xs-12 col-sm-12">
                         <ul class="nav">
-                          <li class="active"><a data-toggle="tab" href="#pay-on-delivery">PAY ON DELIVERY</a></li>
-                          <li><a data-toggle="tab" href="#pay-on-online" onclick="">PAY ON ONLINE</a></li>
+                          <li class="active" ><a data-toggle="tab" href="#pay-on-delivery">PAY ON DELIVERY</a></li>
+                          <li id="payonline" ><a data-toggle="tab" href="#pay-on-online" onclick="">PAY ON ONLINE</a></li>
                          <!--  <li><a data-toggle="tab" href="#card-payment">CREDIT/DEBIT CARD</a></li>
                           <li><a data-toggle="tab" href="#upi-payment">PHONEPE/GOOGLE PAY/BHIM UPI</a></li> -->
                         </ul>
@@ -57,7 +57,7 @@
                       <div class="col-md-8 col-xs-12 col-sm-12">
                         <div class="tab-content">
                           <div id="pay-on-delivery" class="tab-pane fade in active">
-                            <p class="payment-heading">PAY ON DELIVERY</p>
+                            <p class="payment-heading" >PAY ON DELIVERY</p>
                             <p>Pay when your order is deliverd</p>
                             <p>Enter the text as shown in the image *</p>
                             <div class="captcha-box">
@@ -73,7 +73,7 @@
                             </button>
                           </div>
                           <div id="pay-on-online" class="tab-pane fade">
-                            <p class="payment-heading">PAY ON ONLINE</p>
+                            <p class="payment-heading" >PAY ON ONLINE</p>
                             <p>Pay your order is online</p>
                             <a href="javascript:void(0)" class="btn card-button-inner bag-button buy-btn btn-block buy_now" data-amount="<?=$total+$delivery_price?>" data-address="<?=$address_id;?>">
                             <span>Pay On Online</span>

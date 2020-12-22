@@ -98,6 +98,8 @@ class UserController extends CI_Controller
                         $this->User_Model->insert($wallet_transaction,'tbl_wallet_transaction');
                         $message="Congrats! You have successfully registered with Bongbasar from your mobile no. ".$mobile_no.". SHOPPING KI SOCH BADLO BONGBASAR KE SATH -Bongbasar";
                         send_sms($mobile_no,$message);
+                        $this->session->set_flashdata('success', 'Registered successfully');
+
                         echo json_encode(['result'=>1]); 
                         return false;
                     }
