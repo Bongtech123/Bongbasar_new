@@ -35,8 +35,7 @@ class SearchController extends CI_Controller
 			$this->session->set_flashdata('error', 'Provide complete search information to serch item.');
 			redirect('/');
 		}
-
-		 
+		//s
 	}
 
 
