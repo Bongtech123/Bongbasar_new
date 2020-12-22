@@ -68,6 +68,7 @@ class OrderController extends CI_Controller
 
 	public function cashOnDelivery()
 	{	
+        $temp=0;
 		if(($this->session->userdata('loginDetail')!=NULL))
 		{
 			$address_id=$this->input->post('address_id');
@@ -80,113 +81,120 @@ class OrderController extends CI_Controller
                 if($product_quantity[$key]->stock_quentity < $value->quantity)
                 {
                     $this->session->set_flashdata('error', 'product out of stock');
-                    redirect('bag');
+                    $temp=1;
                 }
             }
-           
-			$order_code='OR'.random_string('numeric',10);
-			$payment_id='cod_'.random_string('alnum',14);
-			$address1=$this->Address_Model->address_order($address_id);
-			foreach($cart_details as $cart_row)
-			{
-				$gst=$this->Order_Model->productViewOrder($cart_row->product_id,$cart_row->product_features_id);
-                $address=$this->Order_Model->UserDeliveryOrder($address_id);   
-                $igst=0;
-                $sgst=0;
-                $cgst=0;
-                $product_igst=0;
-                $product_sgst=0;
-                $product_cgst=0;
-
-                $gst_rate=intval($gst->gst_rate);
-                $sell_price=intval($gst->sell_price);
-                $mrp_price=intval($gst->mrp_price);
-                $discount=intval($gst->discount);
-                $business_type=$gst->business_type;
-                $size=$gst->size;
-                if(empty($size))
+           if($temp==1)
+           {
+                echo json_encode(['result'=>5]);
+           }
+           else
+           {
+                $order_code='OR'.random_string('numeric',10);
+                $payment_id='cod_'.random_string('alnum',14);
+                $address1=$this->Address_Model->address_order($address_id);
+                foreach($cart_details as $cart_row)
                 {
-                	$size='null';
-                }
-
-                $fees=$this->Order_Model->fees($business_type);
-
-                $taxable_value=(
-                    $sell_price*100)/(100+$gst_rate);
-                $service_fee=($sell_price*$fees->service_fee)/100;
-                if($gst->state==$address->name)
-                {
-                    $product_igst=0;
-                    $product_sgst=$sell_price*(18/100)/2;
-                    $product_cgst=$sell_price*(18/100)/2;
-                    $sgst=$service_fee*(18/100)/2;
-                    $cgst=$service_fee*(18/100)/2;
+                    $gst=$this->Order_Model->productViewOrder($cart_row->product_id,$cart_row->product_features_id);
+                    $address=$this->Order_Model->UserDeliveryOrder($address_id);   
                     $igst=0;
-                }
-                else
-                {
-                    $igst=$service_fee*(18/100);
                     $sgst=0;
                     $cgst=0;
-                    $product_igst=$sell_price*(18/100);
+                    $product_igst=0;
                     $product_sgst=0;
                     $product_cgst=0;
+
+                    $gst_rate=intval($gst->gst_rate);
+                    $sell_price=intval($gst->sell_price);
+                    $mrp_price=intval($gst->mrp_price);
+                    $discount=intval($gst->discount);
+                    $business_type=$gst->business_type;
+                    $size=$gst->size;
+                    if(empty($size))
+                    {
+                        $size='null';
+                    }
+
+                    $fees=$this->Order_Model->fees($business_type);
+
+                    $taxable_value=(
+                        $sell_price*100)/(100+$gst_rate);
+                    $service_fee=($sell_price*$fees->service_fee)/100;
+                    if($gst->state==$address->name)
+                    {
+                        $product_igst=0;
+                        $product_sgst=$sell_price*(18/100)/2;
+                        $product_cgst=$sell_price*(18/100)/2;
+                        $sgst=$service_fee*(18/100)/2;
+                        $cgst=$service_fee*(18/100)/2;
+                        $igst=0;
+                    }
+                    else
+                    {
+                        $igst=$service_fee*(18/100);
+                        $sgst=0;
+                        $cgst=0;
+                        $product_igst=$sell_price*(18/100);
+                        $product_sgst=0;
+                        $product_cgst=0;
+                    }
+
+                    $tds=$service_fee*intval($fees->tds_fee)/100;
+
+                    $tcs=$taxable_value*intval($fees->tcs_fee)/100;
+                    $shipping_gst=18;
+                    $shipping_discount=0;
+
+                    $data1=array(
+                        'status'=>'Delete'
+                    );
+
+                    $where1=array(
+                        'uniqcode'=>$cart_row->uniqcode
+                    );
+                
+                    $data=array(
+                        'uniqcode'=>"or".random_string('alnum',28),
+                        'order_code'=>$order_code,
+                        'user_id'=>$user_id,
+                        'address'=>serialize($address1),
+                        'product_id'=>$cart_row->product_id,
+                        'product_features_id'=>$cart_row->product_features_id,
+                        'mrp_price'=>$mrp_price,
+                        'sell_price'=>$sell_price,
+                        'discount'=>$discount,
+                        'size'=>$size,
+                        'color'=>$cart_row->color,
+                        'quantity'=>$cart_row->quantity,
+                        'fees_id'=>$fees->uniqcode,
+                        'delivery_date'=>'',
+                        'user_received_date'=>'',
+                        'shipping_price'=>'',
+                        'shipping_discount'=>$shipping_discount,
+                        'shipping_gst'=>$shipping_gst,
+                        'taxable_value'=>number_format($taxable_value,2),
+                        'product_cgst'=>number_format($product_cgst,2),
+                        'product_sgst'=>number_format($product_sgst,2),
+                        'product_igst'=>number_format($product_igst,2),
+                        'gst_rate'=>$gst->gst_rate,
+                        'service_fee'=>number_format($service_fee,2),
+                        'igst'=>number_format($igst,2),
+                        'cgst'=>number_format($cgst,2),
+                        'sgst'=>number_format($sgst,2),
+                        'tds'=>number_format($tds,2),
+                        'tcs'=>number_format($tcs,2),
+                        'payment_mode'=>'PayOnDelivery',
+                        'payment_id'=>$payment_id,
+                        'datetime'=>date('Y-m-d H:i:s')
+                    );            
+                    $this->db->insert('tbl_order',$data);
+                    $this->Order_Model->update('tbl_cart',$where1,$data1);
                 }
-
-                $tds=$service_fee*intval($fees->tds_fee)/100;
-
-                $tcs=$taxable_value*intval($fees->tcs_fee)/100;
-                $shipping_gst=18;
-                $shipping_discount=0;
-
-                $data1=array(
-                    'status'=>'Delete'
-                );
-
-                $where1=array(
-                    'uniqcode'=>$cart_row->uniqcode
-                );
-            
-                $data=array(
-                    'uniqcode'=>"or".random_string('alnum',28),
-                    'order_code'=>$order_code,
-                    'user_id'=>$user_id,
-                    'address'=>serialize($address1),
-                    'product_id'=>$cart_row->product_id,
-                    'product_features_id'=>$cart_row->product_features_id,
-                    'mrp_price'=>$mrp_price,
-                    'sell_price'=>$sell_price,
-                    'discount'=>$discount,
-                    'size'=>$size,
-                    'color'=>$cart_row->color,
-                    'quantity'=>$cart_row->quantity,
-                    'fees_id'=>$fees->uniqcode,
-                    'delivery_date'=>'',
-                    'user_received_date'=>'',
-                    'shipping_price'=>'',
-                    'shipping_discount'=>$shipping_discount,
-                    'shipping_gst'=>$shipping_gst,
-                    'taxable_value'=>number_format($taxable_value,2),
-                    'product_cgst'=>number_format($product_cgst,2),
-                    'product_sgst'=>number_format($product_sgst,2),
-                    'product_igst'=>number_format($product_igst,2),
-                    'gst_rate'=>$gst->gst_rate,
-                    'service_fee'=>number_format($service_fee,2),
-                    'igst'=>number_format($igst,2),
-                    'cgst'=>number_format($cgst,2),
-                    'sgst'=>number_format($sgst,2),
-                    'tds'=>number_format($tds,2),
-                    'tcs'=>number_format($tcs,2),
-                    'payment_mode'=>'PayOnDelivery',
-                    'payment_id'=>$payment_id,
-                    'datetime'=>date('Y-m-d H:i:s')
-                );            
-                $this->db->insert('tbl_order',$data);
-                $this->Order_Model->update('tbl_cart',$where1,$data1);
-		  	}
-		  	echo json_encode(['result'=>1,'order_code'=>$order_code]);
-		  	return false;
-			
+                echo json_encode(['result'=>1,'order_code'=>$order_code]);
+                return false;
+           }
+           
+                
 		}
 		else
 		{
@@ -203,117 +211,125 @@ class OrderController extends CI_Controller
 			$user_id=$this->session->userdata('loginDetail')->uniqcode;
 
 			$cart_details=array();
-            $cart_details=$this->Cart_Model->get_buyCartItem($user_id);
+            $cart_details=$this->Cart_Model->get_cartItem($user_id);
             foreach ($cart_details as $key => $value) {
                 $product_quantity[$key]=$this->Cart_Model->product_quantity( $value->product_features_id);
                 if($product_quantity[$key]->stock_quentity < $value->quantity)
                 {
-                    redirect('bag');
+                    $this->session->set_flashdata('error', 'product out of stock');
+                    $temp=1;
                 }
             }
-			//pr($cart_details);
-			$order_code='OR'.random_string('numeric',10);
-			$payment_id='cod_'.random_string('alnum',14);
-			$address1=$this->Address_Model->address_order($address_id);
-			foreach($cart_details as $cart_row)
-			{
-				$gst=$this->Order_Model->productViewOrder($cart_row->product_id,$cart_row->product_features_id);
-                $address=$this->Order_Model->UserDeliveryOrder($address_id);   
-                $igst=0;
-                $sgst=0;
-                $cgst=0;
-                $product_igst=0;
-                $product_sgst=0;
-                $product_cgst=0;
-
-                $gst_rate=intval($gst->gst_rate);
-                $sell_price=intval($gst->sell_price);
-                $mrp_price=intval($gst->mrp_price);
-                $discount=intval($gst->discount);
-                $business_type=$gst->business_type;
-                $size=$gst->size;
-                if(empty($size))
+           if($temp==1)
+           {
+                echo json_encode(['result'=>5]);
+           }
+           else
+           {
+                //pr($cart_details);
+                $order_code='OR'.random_string('numeric',10);
+                $payment_id='cod_'.random_string('alnum',14);
+                $address1=$this->Address_Model->address_order($address_id);
+                foreach($cart_details as $cart_row)
                 {
-                	$size='null';
-                }
-
-                $fees=$this->Order_Model->fees($business_type);
-
-                $taxable_value=(
-                    $sell_price*100)/(100+$gst_rate);
-                $service_fee=($sell_price*$fees->service_fee)/100;
-                if($gst->state==$address->name)
-                {
-                    $product_igst=0;
-                    $product_sgst=$sell_price*(18/100)/2;
-                    $product_cgst=$sell_price*(18/100)/2;
-                    $sgst=$service_fee*(18/100)/2;
-                    $cgst=$service_fee*(18/100)/2;
+                    $gst=$this->Order_Model->productViewOrder($cart_row->product_id,$cart_row->product_features_id);
+                    $address=$this->Order_Model->UserDeliveryOrder($address_id);   
                     $igst=0;
-                }
-                else
-                {
-                    $igst=$service_fee*(18/100);
                     $sgst=0;
                     $cgst=0;
-                    $product_igst=$sell_price*(18/100);
+                    $product_igst=0;
                     $product_sgst=0;
                     $product_cgst=0;
+
+                    $gst_rate=intval($gst->gst_rate);
+                    $sell_price=intval($gst->sell_price);
+                    $mrp_price=intval($gst->mrp_price);
+                    $discount=intval($gst->discount);
+                    $business_type=$gst->business_type;
+                    $size=$gst->size;
+                    if(empty($size))
+                    {
+                        $size='null';
+                    }
+
+                    $fees=$this->Order_Model->fees($business_type);
+
+                    $taxable_value=(
+                        $sell_price*100)/(100+$gst_rate);
+                    $service_fee=($sell_price*$fees->service_fee)/100;
+                    if($gst->state==$address->name)
+                    {
+                        $product_igst=0;
+                        $product_sgst=$sell_price*(18/100)/2;
+                        $product_cgst=$sell_price*(18/100)/2;
+                        $sgst=$service_fee*(18/100)/2;
+                        $cgst=$service_fee*(18/100)/2;
+                        $igst=0;
+                    }
+                    else
+                    {
+                        $igst=$service_fee*(18/100);
+                        $sgst=0;
+                        $cgst=0;
+                        $product_igst=$sell_price*(18/100);
+                        $product_sgst=0;
+                        $product_cgst=0;
+                    }
+
+                    $tds=$service_fee*intval($fees->tds_fee)/100;
+
+                    $tcs=$taxable_value*intval($fees->tcs_fee)/100;
+                    $shipping_gst=18;
+                    $shipping_discount=0;
+
+                    $data1=array(
+                        'status'=>'Delete'
+                    );
+
+                    $where1=array(
+                        'uniqcode'=>$cart_row->uniqcode
+                    );
+                
+                    $data=array(
+                        'uniqcode'=>"or".random_string('alnum',28),
+                        'order_code'=>$order_code,
+                        'user_id'=>$user_id,
+                        'address'=>serialize($address1),
+                        'product_id'=>$cart_row->product_id,
+                        'product_features_id'=>$cart_row->product_features_id,
+                        'mrp_price'=>$mrp_price,
+                        'sell_price'=>$sell_price,
+                        'discount'=>$discount,
+                        'size'=>$size,
+                        'color'=>$cart_row->color,
+                        'quantity'=>$cart_row->quantity,
+                        'fees_id'=>$fees->uniqcode,
+                        'delivery_date'=>'',
+                        'user_received_date'=>'',
+                        'shipping_price'=>'',
+                        'shipping_discount'=>$shipping_discount,
+                        'shipping_gst'=>$shipping_gst,
+                        'taxable_value'=>number_format($taxable_value,2),
+                        'product_cgst'=>number_format($product_cgst,2),
+                        'product_sgst'=>number_format($product_sgst,2),
+                        'product_igst'=>number_format($product_igst,2),
+                        'gst_rate'=>$gst->gst_rate,
+                        'service_fee'=>number_format($service_fee,2),
+                        'igst'=>number_format($igst,2),
+                        'cgst'=>number_format($cgst,2),
+                        'sgst'=>number_format($sgst,2),
+                        'tds'=>number_format($tds,2),
+                        'tcs'=>number_format($tcs,2),
+                        'payment_mode'=>'PayOnDelivery',
+                        'payment_id'=>$payment_id,
+                        'datetime'=>date('Y-m-d H:i:s')
+                    );         
+                    $this->db->insert('tbl_order',$data);
+                    $this->Order_Model->update('tbl_cart',$where1,$data1);
                 }
-
-                $tds=$service_fee*intval($fees->tds_fee)/100;
-
-                $tcs=$taxable_value*intval($fees->tcs_fee)/100;
-                $shipping_gst=18;
-                $shipping_discount=0;
-
-                $data1=array(
-                    'status'=>'Delete'
-                );
-
-                $where1=array(
-                    'uniqcode'=>$cart_row->uniqcode
-                );
-            
-                $data=array(
-                    'uniqcode'=>"or".random_string('alnum',28),
-                    'order_code'=>$order_code,
-                    'user_id'=>$user_id,
-                    'address'=>serialize($address1),
-                    'product_id'=>$cart_row->product_id,
-                    'product_features_id'=>$cart_row->product_features_id,
-                    'mrp_price'=>$mrp_price,
-                    'sell_price'=>$sell_price,
-                    'discount'=>$discount,
-                    'size'=>$size,
-                    'color'=>$cart_row->color,
-                    'quantity'=>$cart_row->quantity,
-                    'fees_id'=>$fees->uniqcode,
-                    'delivery_date'=>'',
-                    'user_received_date'=>'',
-                    'shipping_price'=>'',
-                    'shipping_discount'=>$shipping_discount,
-                    'shipping_gst'=>$shipping_gst,
-                    'taxable_value'=>number_format($taxable_value,2),
-                    'product_cgst'=>number_format($product_cgst,2),
-                    'product_sgst'=>number_format($product_sgst,2),
-                    'product_igst'=>number_format($product_igst,2),
-                    'gst_rate'=>$gst->gst_rate,
-                    'service_fee'=>number_format($service_fee,2),
-                    'igst'=>number_format($igst,2),
-                    'cgst'=>number_format($cgst,2),
-                    'sgst'=>number_format($sgst,2),
-                    'tds'=>number_format($tds,2),
-                    'tcs'=>number_format($tcs,2),
-                    'payment_mode'=>'PayOnDelivery',
-                    'payment_id'=>$payment_id,
-                    'datetime'=>date('Y-m-d H:i:s')
-                );         
-                $this->db->insert('tbl_order',$data);
-                $this->Order_Model->update('tbl_cart',$where1,$data1);
-		  	}
-		  	echo json_encode(['result'=>1,'order_code'=>$order_code]);
-		  	return false;
+                echo json_encode(['result'=>1,'order_code'=>$order_code]);
+                return false;
+            }
 			
 		}
 		else
@@ -1744,7 +1760,7 @@ class OrderController extends CI_Controller
             $cart_details=$this->Cart_Model->get_cartItem($user_id);
             foreach ($cart_details as $key => $value) {
                 $product_quantity[$key]=$this->Cart_Model->product_quantity( $value->product_features_id);
-                if($product_quantity[$key]->stock_quentity >$value->quantity)
+                if($product_quantity[$key]->stock_quentity < $value->quantity)
                 {
                     $temp=1;
                     $this->session->set_flashdata('error', 'product out of stock');

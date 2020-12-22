@@ -1352,6 +1352,10 @@ function payOnDelivery(address_id)
               var url=base_url+'order-error';
               location.assign(url);   
             }
+            if(data.result==5)
+            {
+              window.location=base_url+'bag';
+            }
           }
       });
     }
@@ -1387,6 +1391,10 @@ function payOnDeliveryBuy(address_id)
             {
               var url=base_url+'order-error';
               location.assign(url);   
+            }
+            if(data.result==5)
+            {
+              window.location=base_url+'bag';
             }
           }
       });
