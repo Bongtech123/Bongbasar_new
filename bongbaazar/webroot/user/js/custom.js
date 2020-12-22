@@ -605,6 +605,7 @@ $("#register-step").on("submit", function (e)
                 
             }
             });
+            //swapna
     }
     else
     {
