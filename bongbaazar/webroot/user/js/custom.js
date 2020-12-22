@@ -579,7 +579,7 @@ $("#register-step").on("submit", function (e)
         e.preventDefault();
     if( password!= "" &&  otp!= "")
     {  
-        alert('hi');
+       
         $.ajax({
         type: "post",
         dataType: "json",
