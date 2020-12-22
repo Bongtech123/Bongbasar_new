@@ -123,6 +123,7 @@ class ProductController extends CI_Controller
         $this->load->view('user/layout/default', $this->data);
 
     }
+     
     public function SpecialCareAll()
     {
         $this->data['menu_lebel'] = $this->Home_Model->get_categories();

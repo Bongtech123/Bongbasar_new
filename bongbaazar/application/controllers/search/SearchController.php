@@ -52,4 +52,5 @@ class SearchController extends CI_Controller
     echo json_encode($fdata);
   }
 }
+
     
